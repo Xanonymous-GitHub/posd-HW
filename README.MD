@@ -2,9 +2,13 @@
 
  ###### Student ID: 108820003
 
- ###### Pattern Oriented Software Design course Home work
+ ###### Pattern-Oriented Software Design course Homework
 
- - Jenkins: http://140.124.181.97:8080/ (You may need to connect to the NTUT VPN service for accessing.)
+ ### Refs:
+ > You may need to connect to the NTUT VPN service for accessing.
+ - Course repo: http://140.124.181.100/yccheng/posd2022f
+ - TA repo: http://140.124.181.100/course/posd2022f_ta
+ - Jenkins: http://140.124.181.97:8080/
 
  ### Get started
 
