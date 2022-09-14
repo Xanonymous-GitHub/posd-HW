@@ -10,7 +10,7 @@
 
  1. `make`
  2. `make test`
- 3. See if there's any error.
+ 3. See if there's any errors.
 
  ### After finishing a HW
 
