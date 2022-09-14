@@ -1,24 +1,24 @@
 #pragma once
 
-#include <string>
-#include <cmath>
-#include "two_dimensional_vector.h"
 #include "shape.h"
+#include "two_dimensional_vector.h"
+#include <cmath>
+#include <string>
 
 class Circle : public Shape {
 private:
-    TwoDimensionalVector *_radiusVec;
+    const TwoDimensionalVector *_radiusVec;
 
 public:
-    Circle(TwoDimensionalVector *radiusVec) {}
+    Circle(const TwoDimensionalVector *radiusVec) : _radiusVec(radiusVec) {}
 
     ~Circle() {}
 
-    double radius() const {}
+    const double radius() const {}
 
-    double area() const override {}
+    const double area() const override {}
 
-    double perimeter() const override {}
+    const double perimeter() const override {}
 
-    std::string info() const override {}
+    const std::string info() const override {}
 };

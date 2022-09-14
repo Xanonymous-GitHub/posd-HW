@@ -1,26 +1,28 @@
 #pragma once
 
-#include <string>
 #include "shape.h"
 #include "two_dimensional_vector.h"
+#include <string>
 
 class Rectangle : public Shape {
 private:
-    TwoDimensionalVector *_lengthVec;
-    TwoDimensionalVector *_widthVec;
+    const TwoDimensionalVector *_lengthVec;
+    const TwoDimensionalVector *_widthVec;
 
 public:
-    Rectangle(TwoDimensionalVector *lengthVec, TwoDimensionalVector *widthVec) {}
+    Rectangle(
+        const TwoDimensionalVector *lengthVec,
+        const TwoDimensionalVector *widthVec) : _lengthVec(lengthVec), _widthVec(widthVec) {}
 
     ~Rectangle() {}
 
-    double length() const {}
+    const double length() const {}
 
-    double width() const {}
+    const double width() const {}
 
-    double area() const override {}
+    const double area() const override {}
 
-    double perimeter() const override {}
+    const double perimeter() const override {}
 
-    std::string info() const override {}
+    const std::string info() const override {}
 };

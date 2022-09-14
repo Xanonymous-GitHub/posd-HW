@@ -8,15 +8,15 @@ private:
     const double _y;
 
 public:
-    Point(double x, double y) {}
+    Point(double x, double y) : _x(x), _y(y) {}
 
     ~Point() {}
 
-    double x() const {}
+    const double x() const {}
 
-    double y() const {}
+    const double y() const {}
 
-    bool operator==(const Point &pt) const {}
+    const bool operator==(const Point &pt) const {}
 
-    std::string info() const {}
+    const std::string info() const {}
 };
