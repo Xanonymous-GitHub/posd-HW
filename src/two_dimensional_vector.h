@@ -8,20 +8,43 @@ private:
     const Point *_a;
     const Point *_b;
 
+    const double _x_offset() const {
+        return _b->x() - _a->x();
+    }
+
+    const double _y_offset() const {
+        return _b->y() - _a->y();
+    }
+
 public:
     TwoDimensionalVector(const Point *a, const Point *b) : _a(a), _b(b) {}
 
-    ~TwoDimensionalVector() {}
+    ~TwoDimensionalVector() {
+        // Ownership of the points is not transferred to the vector.
+        // Therefore, the vector does not delete the points.
+    }
 
-    const Point *a() const {}
+    const Point *a() const {
+        return _a;
+    }
 
-    const Point *b() const {}
+    const Point *b() const {
+        return _b;
+    }
 
-    const double length() const {}
+    const double length() const {
+        return sqrt(_x_offset() * _x_offset() + _y_offset() * _y_offset());
+    }
 
-    const double dot(const TwoDimensionalVector *vec) const {}
+    const double dot(const TwoDimensionalVector *vec) const {
+        return _x_offset() * vec->_x_offset() + _y_offset() * vec->_y_offset();
+    }
 
-    const double cross(const TwoDimensionalVector *vec) const {}
+    const double cross(const TwoDimensionalVector *vec) const {
+        return _x_offset() * vec->_y_offset() - _y_offset() * vec->_x_offset();
+    }
 
-    const std::string info() const {}
+    const std::string info() const {
+        return "Vector (" + _a->info() + ", " + _b->info() + ")";
+    }
 };
