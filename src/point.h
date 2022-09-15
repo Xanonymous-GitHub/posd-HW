@@ -1,6 +1,11 @@
 #pragma once
 
+#define MATH_PRECISION_DIGITS 2
+
 #include <cmath>
+#include <iomanip>
+#include <iostream>
+#include <sstream>
 
 class Point {
 private:
@@ -8,15 +13,25 @@ private:
     const double _y;
 
 public:
-    Point(double x, double y) : _x(x), _y(y) {}
+    Point(const double &x, const double &y) : _x{x}, _y{y} {}
 
-    ~Point() {}
+    const double x() const {
 
-    const double x() const {}
+        return _x;
+    }
 
-    const double y() const {}
+    const double y() const {
+        return _y;
+    }
 
-    const bool operator==(const Point &pt) const {}
+    const bool operator==(const Point &pt) const {
+        return &pt == this || (_x == pt._x && _y == pt._y);
+    }
 
-    const std::string info() const {}
+    const std::string info() const {
+        auto ss = std::stringstream{};
+        const auto precision = std::setprecision(MATH_PRECISION_DIGITS);
+        ss << std::fixed << precision << "(" << _x << ", " << _y << ")";
+        return ss.str();
+    }
 };
