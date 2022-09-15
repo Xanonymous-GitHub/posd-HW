@@ -14,7 +14,11 @@ public:
     Triangle(
         const TwoDimensionalVector *v1,
         const TwoDimensionalVector *v2) : _v1(v1), _v2(v2) {
-        _v3 = new TwoDimensionalVector(v2->b(), v1->b());
+        if (v1->a() == v2->a()) {
+            _v3 = new TwoDimensionalVector(v2->b(), v1->b());
+        } else {
+            _v3 = new TwoDimensionalVector(v2->a(), v1->a());
+        }
     }
 
     ~Triangle() {
@@ -23,7 +27,7 @@ public:
     }
 
     const double area() const override {
-        return 0.5 * _v1->cross(_v2);
+        return abs(0.5 * _v1->cross(_v2));
     }
 
     const double perimeter() const override {

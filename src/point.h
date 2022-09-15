@@ -25,7 +25,7 @@ public:
     }
 
     const bool operator==(const Point &pt) const {
-        return &pt == this || (_x == pt._x && _y == pt._y);
+        return &pt == this || pt.info() == info();
     }
 
     const std::string info() const {
