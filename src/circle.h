@@ -12,13 +12,24 @@ private:
 public:
     Circle(const TwoDimensionalVector *radiusVec) : _radiusVec(radiusVec) {}
 
-    ~Circle() {}
+    ~Circle() {
+        // Ownership of the radius vector is not transferred to the circle.
+        // Therefore, the circle does not delete the radius vector.
+    }
 
-    const double radius() const {}
+    const double radius() const {
+        return _radiusVec->length();
+    }
 
-    const double area() const override {}
+    const double area() const override {
+        return M_PI * radius() * radius();
+    }
 
-    const double perimeter() const override {}
+    const double perimeter() const override {
+        return 2 * M_PI * radius();
+    }
 
-    const std::string info() const override {}
+    const std::string info() const override {
+        return "Circle (" + _radiusVec->info() + ")";
+    }
 };
