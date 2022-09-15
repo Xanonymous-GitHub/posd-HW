@@ -2,7 +2,7 @@
 
 TEST(PointTest, XYShouldCorrectlySet) {
     // Arrange
-    const auto p = Point{1, -2};
+    const Point p{1, -2};
 
     // Act
     EXPECT_EQ(p.x(), 1);
@@ -11,7 +11,7 @@ TEST(PointTest, XYShouldCorrectlySet) {
 
 TEST(PointTest, InfoShouldReturnCorrectString) {
     // Arrange
-    const auto p = Point{1, -2};
+    const Point p{1, -2};
 
     // Act
     EXPECT_EQ(p.info(), "(1.00, -2.00)");
@@ -19,9 +19,35 @@ TEST(PointTest, InfoShouldReturnCorrectString) {
 
 TEST(PointTest, EqualOperatorShouldReturnTrueWhenSame) {
     // Arrange
-    const auto p1 = Point{1, -2};
-    const auto p2 = Point{1, -2};
+    const Point p1{1, -2};
+    const Point p2{1, -2};
 
     // Act
     EXPECT_TRUE(p1 == p2);
+}
+
+TEST(PointTest, EqualOperatorShouldReturnTrueWhenSameReference) {
+    // Arrange
+    const Point p1{1, -2};
+
+    // Act
+    EXPECT_TRUE(p1 == p1);
+}
+
+TEST(PointTest, EqualOperatorShouldReturnFalseWhenDifferent) {
+    // Arrange
+    const Point p1{1, -2};
+    const Point p2{2, -1};
+
+    // Act
+    EXPECT_FALSE(p1 == p2);
+}
+
+TEST(PointTest, EqualOperatorShouldReturnFalseWhenDifferentReference) {
+    // Arrange
+    const Point p1{1, -2};
+    const Point p2{2, -1};
+
+    // Act
+    EXPECT_FALSE(p1 == p2);
 }
