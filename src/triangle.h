@@ -18,13 +18,15 @@ public:
             throw std::invalid_argument("The triangle is degenerate.");
         }
 
-        if (v1->a() == v2->a()) {
-            _v3 = new TwoDimensionalVector(v2->b(), v1->b());
-        } else if (v1->b() == v2->b()) {
-            _v3 = new TwoDimensionalVector(v2->a(), v1->a());
-        } else {
-            throw std::invalid_argument("The two vectors do not share a common point.");
+        const auto common_point = TwoDimensionalVector::common_point(v1, v2);
+        if (common_point == nullptr) {
+            throw std::invalid_argument("no common point");
         }
+
+        const auto non_common_point_a = TwoDimensionalVector::other_point(v1, common_point);
+        const auto non_common_point_b = TwoDimensionalVector::other_point(v2, common_point);
+
+        _v3 = new TwoDimensionalVector(non_common_point_a, non_common_point_b);
     }
 
     ~Triangle() {

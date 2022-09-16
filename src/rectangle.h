@@ -12,7 +12,16 @@ private:
 public:
     Rectangle(
         const TwoDimensionalVector *lengthVec,
-        const TwoDimensionalVector *widthVec) : _lengthVec(lengthVec), _widthVec(widthVec) {}
+        const TwoDimensionalVector *widthVec) : _lengthVec(lengthVec), _widthVec(widthVec) {
+        if (lengthVec->dot(widthVec) != 0) {
+            throw std::invalid_argument("The rectangle is not orthogonal.");
+        }
+
+        const auto common_point = TwoDimensionalVector::common_point(lengthVec, widthVec);
+        if (common_point == nullptr) {
+            throw std::invalid_argument("no common point");
+        }
+    }
 
     ~Rectangle() {
         // Ownership of the length and width vectors is not transferred to the rectangle.

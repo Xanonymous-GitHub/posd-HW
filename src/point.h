@@ -16,7 +16,6 @@ public:
     Point(const double &x, const double &y) : _x{x}, _y{y} {}
 
     const double x() const {
-
         return _x;
     }
 

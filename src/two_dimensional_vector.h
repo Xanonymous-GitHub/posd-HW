@@ -47,4 +47,28 @@ public:
     const std::string info() const {
         return "Vector (" + _a->info() + ", " + _b->info() + ")";
     }
+
+    static const Point *common_point(const TwoDimensionalVector *vec1, const TwoDimensionalVector *vec2) {
+        if (vec1->_a == vec2->_a) {
+            return vec1->_a;
+        } else if (vec1->_a == vec2->_b) {
+            return vec1->_a;
+        } else if (vec1->_b == vec2->_a) {
+            return vec1->_b;
+        } else if (vec1->_b == vec2->_b) {
+            return vec1->_b;
+        } else {
+            return nullptr;
+        }
+    }
+
+    static const Point *other_point(const TwoDimensionalVector *vec, const Point *point) {
+        if (vec->_a == point) {
+            return vec->_b;
+        } else if (vec->_b == point) {
+            return vec->_a;
+        } else {
+            return nullptr;
+        }
+    }
 };
