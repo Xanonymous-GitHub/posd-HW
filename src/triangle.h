@@ -14,10 +14,16 @@ public:
     Triangle(
         const TwoDimensionalVector *v1,
         const TwoDimensionalVector *v2) : _v1(v1), _v2(v2) {
+        if (v1->cross(v2) == 0) {
+            throw std::invalid_argument("The triangle is degenerate.");
+        }
+
         if (v1->a() == v2->a()) {
             _v3 = new TwoDimensionalVector(v2->b(), v1->b());
-        } else {
+        } else if (v1->b() == v2->b()) {
             _v3 = new TwoDimensionalVector(v2->a(), v1->a());
+        } else {
+            throw std::invalid_argument("The two vectors do not share a common point.");
         }
     }
 
