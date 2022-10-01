@@ -35,7 +35,7 @@ public:
     std::string info() const override {
         auto ss = std::stringstream{};
 
-        std::for_each(shapes_.begin(), --shapes_.end(), [&ss](const Shape *const shape) {
+        std::for_each(shapes_.begin(), shapes_.end(), [&ss](const Shape *const shape) {
             ss << shape->info() << ", ";
         });
 
