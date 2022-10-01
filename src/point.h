@@ -15,11 +15,11 @@ private:
 public:
     Point(const double &x, const double &y) : _x{x}, _y{y} {}
 
-    double x() const {
+    constexpr double x() const {
         return _x;
     }
 
-    double y() const {
+    constexpr double y() const {
         return _y;
     }
 

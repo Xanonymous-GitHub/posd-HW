@@ -15,9 +15,15 @@ public:
 
     ~CompoundShape() {}
 
-    double area() const override {}
+    constexpr double area() const override {
+        // TODO: Implement this method.
+        return 0.0;
+    }
 
-    double perimeter() const override {}
+    constexpr double perimeter() const override {
+        // TODO: Implement this method.
+        return 0.0;
+    }
 
     std::string info() const override {}
 

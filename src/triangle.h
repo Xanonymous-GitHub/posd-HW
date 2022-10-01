@@ -35,11 +35,11 @@ public:
         // Therefore, the triangle does not delete the vectors.
     }
 
-    double area() const override {
+    constexpr double area() const override {
         return abs(0.5 * _v1->cross(_v2));
     }
 
-    double perimeter() const override {
+    constexpr double perimeter() const override {
         return _v1->length() + _v2->length() + _v3->length();
     }
 

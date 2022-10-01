@@ -29,19 +29,19 @@ public:
         // Therefore, the rectangle does not delete the length and width vectors.
     }
 
-    double length() const {
+    constexpr double length() const {
         return _lengthVec->length();
     }
 
-    double width() const {
+    constexpr double width() const {
         return _widthVec->length();
     }
 
-    double area() const override {
+    constexpr double area() const override {
         return length() * width();
     }
 
-    double perimeter() const override {
+    constexpr double perimeter() const override {
         return 2 * (length() + width());
     }
 

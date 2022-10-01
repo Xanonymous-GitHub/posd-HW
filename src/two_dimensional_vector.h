@@ -8,11 +8,11 @@ private:
     const Point *const _a;
     const Point *const _b;
 
-    double _x_offset() const {
+    constexpr double _x_offset() const {
         return _b->x() - _a->x();
     }
 
-    double _y_offset() const {
+    constexpr double _y_offset() const {
         return _b->y() - _a->y();
     }
 
@@ -32,15 +32,15 @@ public:
         return _b;
     }
 
-    double length() const {
+    constexpr double length() const {
         return sqrt(_x_offset() * _x_offset() + _y_offset() * _y_offset());
     }
 
-    double dot(const TwoDimensionalVector *const vec) const {
+    constexpr double dot(const TwoDimensionalVector *const vec) const {
         return _x_offset() * vec->_x_offset() + _y_offset() * vec->_y_offset();
     }
 
-    double cross(const TwoDimensionalVector *const vec) const {
+    constexpr double cross(const TwoDimensionalVector *const vec) const {
         return _x_offset() * vec->_y_offset() - _y_offset() * vec->_x_offset();
     }
 
