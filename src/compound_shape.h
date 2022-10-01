@@ -22,24 +22,39 @@ public:
         // Therefore, the compound shape deletes the shapes.
     }
 
-    constexpr double area() const override {
-        // TODO: Implement this method.
-        return 0.0;
+    double area() const override {
+        double area = 0;
+
+        for (const auto &shape : shapes_) {
+            area += shape->area();
+        }
+
+        return area;
     }
 
-    constexpr double perimeter() const override {
-        // TODO: Implement this method.
-        return 0.0;
+    double perimeter() const override {
+        double perimeter = 0;
+
+        for (const auto &shape : shapes_) {
+            perimeter += shape->perimeter();
+        }
+
+        return perimeter;
     }
 
     std::string info() const override {
         auto ss = std::stringstream{};
+        const auto lastIndex = shapes_.size() - 1;
 
-        std::for_each(shapes_.begin(), shapes_.end(), [&ss](const Shape *const shape) {
-            ss << shape->info() << ", ";
+        std::for_each(shapes_.cbegin(), shapes_.cend(), [&ss, &lastIndex, i = 0](const Shape *const shape) mutable {
+            ss << shape->info();
+
+            if (i < lastIndex) {
+                ss << ", ";
+            }
+
+            i++;
         });
-
-        ss.seekp(-2, std::ios_base::end);
 
         return "CompoundShape (" + ss.str() + ")";
     }
