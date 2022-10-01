@@ -6,6 +6,7 @@
 class CompoundShape;
 
 template <class ForwardIterator>
+requires is_base_type_of<Iterator, ForwardIterator>
 class DFSCompoundIterator : public Iterator {
 public:
     DFSCompoundIterator(const ForwardIterator &begin, const ForwardIterator &end) {}
