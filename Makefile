@@ -7,7 +7,7 @@ TEST = $(shell ls ./test/**/*.h ./test/**/*.cpp)
 SRC = $(shell ls ./src/**/*.h ./src/**/*.cpp)
 
 ut_main: test/ut_main.cpp $(TEST) $(SRC)
-	g++ -O2 -std=c++2a test/ut_main.cpp -o bin/ut_all -lgtest -lpthread
+	g++ -O2 -std=gnu++2b test/ut_main.cpp -o bin/ut_all -lgtest -lpthread
 
 directories:
 	mkdir -p bin
