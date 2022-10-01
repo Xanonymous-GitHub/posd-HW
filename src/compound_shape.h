@@ -11,9 +11,16 @@ private:
     const std::list<const Shape *> _shapes;
 
 public:
-    CompoundShape(const Shape *const shapes[], int size) {}
+    template <class... MShape>
+    requires is_base_type_of<Shape, MShape...>
+    CompoundShape(const MShape &...shapes) : _shapes{{&shapes...}} {}
 
-    ~CompoundShape() {}
+    CompoundShape(const Shape *const shapes[], int size) : _shapes{shapes, shapes + size} {}
+
+    ~CompoundShape() {
+        // Ownership of shapes is transferred to the compound shape.
+        // Therefore, the compound shape deletes the shapes.
+    }
 
     constexpr double area() const override {
         // TODO: Implement this method.
@@ -25,7 +32,17 @@ public:
         return 0.0;
     }
 
-    std::string info() const override {}
+    std::string info() const override {
+        auto ss = std::stringstream{};
+
+        std::for_each(_shapes.begin(), --_shapes.end(), [&ss](const Shape *const shape) {
+            ss << shape->info() << ", ";
+        });
+
+        ss.seekp(-2, std::ios_base::end);
+
+        return "CompoundShape (" + ss.str() + ")";
+    }
 
     const Iterator *createDFSIterator() const override {}
 
