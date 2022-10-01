@@ -10,11 +10,13 @@ protected:
 };
 
 TEST_F(TwoDimensionalVectorTest, ShouldCorrectlySetBeginAndEnd) {
+    // Expect
     EXPECT_EQ(vec.a(), &_a);
     EXPECT_EQ(vec.b(), &_b);
 }
 
 TEST_F(TwoDimensionalVectorTest, ShouldCorrectlyCalculateLength) {
+    // Expect
     EXPECT_NEAR(vec.length(), 9.433981132056603, DEVIATION);
 }
 
@@ -24,7 +26,7 @@ TEST_F(TwoDimensionalVectorTest, ShouldCorrectlyCalculateDotProduct) {
     const Point d{1, 1};
     const TwoDimensionalVector vec2{&c, &d};
 
-    // Act
+    // Expect
     EXPECT_NEAR(vec.dot(&vec2), 3, DEVIATION);
 }
 
@@ -34,7 +36,7 @@ TEST_F(TwoDimensionalVectorTest, ShouldCorrectlyCalculateCrossProduct) {
     const Point d{1, 1};
     const TwoDimensionalVector vec2{&c, &d};
 
-    // Act
+    // Expect
     EXPECT_NEAR(vec.cross(&vec2), 13, DEVIATION);
 }
 

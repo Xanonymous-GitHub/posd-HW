@@ -21,7 +21,7 @@ TEST_F(ShapeTest, AreaWithPolymorphismShouldBeCorrect) {
     const Shape *circle = new Circle{&vec1};
     const Shape *triangle = new Triangle{&vec1, &vec2};
 
-    // Act
+    // Expect
     EXPECT_NEAR(circle->area(), 50.26548245743669, DEVIATION);
     EXPECT_NEAR(triangle->area(), 6, DEVIATION);
 }
@@ -31,7 +31,7 @@ TEST_F(ShapeTest, PerimeterWithPolymorphismShouldBeCorrect) {
     const Shape *circle = new Circle{&vec1};
     const Shape *triangle = new Triangle{&vec1, &vec2};
 
-    // Act
+    // Expect
     EXPECT_NEAR(circle->perimeter(), 25.132741228718345, DEVIATION);
     EXPECT_NEAR(triangle->perimeter(), 12, DEVIATION);
 }
@@ -41,7 +41,7 @@ TEST_F(ShapeTest, InfoWithPolymorphismShouldBeCorrect) {
     const Shape *circle = new Circle{&vec1};
     const Shape *triangle = new Triangle{&vec1, &vec2};
 
-    // Act
+    // Expect
     EXPECT_EQ(circle->info(), "Circle (Vector ((0.00, 0.00), (4.00, 0.00)))");
     EXPECT_EQ(triangle->info(), "Triangle (Vector ((0.00, 0.00), (4.00, 0.00)), Vector ((0.00, 0.00), (0.00, 3.00)))");
 }
