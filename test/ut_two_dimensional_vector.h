@@ -10,12 +10,12 @@ protected:
 };
 
 TEST_F(TwoDimensionalVectorTest, ShouldCorrectlySetBeginAndEnd) {
-    ASSERT_EQ(vec.a(), &_a);
-    ASSERT_EQ(vec.b(), &_b);
+    EXPECT_EQ(vec.a(), &_a);
+    EXPECT_EQ(vec.b(), &_b);
 }
 
 TEST_F(TwoDimensionalVectorTest, ShouldCorrectlyCalculateLength) {
-    ASSERT_NEAR(vec.length(), 9.433981132056603, DEVIATION);
+    EXPECT_NEAR(vec.length(), 9.433981132056603, DEVIATION);
 }
 
 TEST_F(TwoDimensionalVectorTest, ShouldCorrectlyCalculateDotProduct) {
@@ -25,7 +25,7 @@ TEST_F(TwoDimensionalVectorTest, ShouldCorrectlyCalculateDotProduct) {
     const TwoDimensionalVector vec2{&c, &d};
 
     // Act
-    ASSERT_NEAR(vec.dot(&vec2), 3, DEVIATION);
+    EXPECT_NEAR(vec.dot(&vec2), 3, DEVIATION);
 }
 
 TEST_F(TwoDimensionalVectorTest, ShouldCorrectlyCalculateCrossProduct) {
@@ -35,9 +35,9 @@ TEST_F(TwoDimensionalVectorTest, ShouldCorrectlyCalculateCrossProduct) {
     const TwoDimensionalVector vec2{&c, &d};
 
     // Act
-    ASSERT_NEAR(vec.cross(&vec2), 13, DEVIATION);
+    EXPECT_NEAR(vec.cross(&vec2), 13, DEVIATION);
 }
 
 TEST_F(TwoDimensionalVectorTest, ShouldCorrectlyPrintInfo) {
-    ASSERT_EQ(vec.info(), "Vector ((-5.00, 9.00), (3.00, 4.00))");
+    EXPECT_EQ(vec.info(), "Vector ((-5.00, 9.00), (3.00, 4.00))");
 }

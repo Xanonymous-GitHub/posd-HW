@@ -16,8 +16,8 @@ TEST_F(RectangleTest, ShouldCorrectlySetLengthAndWidth) {
     const Rectangle rectangle{&vec1, &vec2};
 
     // Act
-    ASSERT_EQ(rectangle.length(), 4);
-    ASSERT_EQ(rectangle.width(), 3);
+    EXPECT_EQ(rectangle.length(), 4);
+    EXPECT_EQ(rectangle.width(), 3);
 }
 
 TEST_F(RectangleTest, ShouldCorrectlyCalculateArea) {
@@ -25,7 +25,7 @@ TEST_F(RectangleTest, ShouldCorrectlyCalculateArea) {
     const Rectangle rectangle{&vec1, &vec2};
 
     // Act
-    ASSERT_NEAR(rectangle.area(), 12, DEVIATION);
+    EXPECT_NEAR(rectangle.area(), 12, DEVIATION);
 }
 
 TEST_F(RectangleTest, ShouldCorrectlyCalculatePerimeter) {
@@ -33,7 +33,7 @@ TEST_F(RectangleTest, ShouldCorrectlyCalculatePerimeter) {
     const Rectangle rectangle{&vec1, &vec2};
 
     // Act
-    ASSERT_NEAR(rectangle.perimeter(), 14, DEVIATION);
+    EXPECT_NEAR(rectangle.perimeter(), 14, DEVIATION);
 }
 
 TEST_F(RectangleTest, ShouldCorrectlyPrintInfo) {
@@ -41,7 +41,7 @@ TEST_F(RectangleTest, ShouldCorrectlyPrintInfo) {
     const Rectangle rectangle{&vec1, &vec2};
 
     // Act
-    ASSERT_EQ(rectangle.info(), "Rectangle (Vector ((0.00, 0.00), (4.00, 0.00)), Vector ((0.00, 0.00), (0.00, 3.00)))");
+    EXPECT_EQ(rectangle.info(), "Rectangle (Vector ((0.00, 0.00), (4.00, 0.00)), Vector ((0.00, 0.00), (0.00, 3.00)))");
 }
 
 TEST_F(RectangleTest, IllegalRectangle) {
@@ -53,7 +53,7 @@ TEST_F(RectangleTest, IllegalRectangle) {
     const TwoDimensionalVector vec1{&o, &o_1}, vec2{&o, &o_2}, vec3{&k, &k_1}, vec4{&k, &k_2}, vec5{&k_1, &k_2}, vec6{&o, &l};
 
     // Act
-    ASSERT_ANY_THROW(Rectangle(&vec1, &vec2));
-    ASSERT_ANY_THROW(Rectangle(&vec3, &vec1));
-    ASSERT_ANY_THROW(Rectangle(&vec5, &vec6));
+    EXPECT_ANY_THROW(Rectangle(&vec1, &vec2));
+    EXPECT_ANY_THROW(Rectangle(&vec3, &vec1));
+    EXPECT_ANY_THROW(Rectangle(&vec5, &vec6));
 }

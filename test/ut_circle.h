@@ -14,7 +14,7 @@ TEST_F(CircleTest, ShouldCorrectlySetRadius) {
     const Circle circle{&vec};
 
     // Act
-    ASSERT_EQ(circle.radius(), 9.433981132056603);
+    EXPECT_EQ(circle.radius(), 9.433981132056603);
 }
 
 TEST_F(CircleTest, ShouldCorrectlyCalculateArea) {
@@ -22,7 +22,7 @@ TEST_F(CircleTest, ShouldCorrectlyCalculateArea) {
     const Circle circle{&vec};
 
     // Act
-    ASSERT_NEAR(circle.area(), 279.60174616949155, DEVIATION);
+    EXPECT_NEAR(circle.area(), 279.60174616949155, DEVIATION);
 }
 
 TEST_F(CircleTest, ShouldCorrectlyCalculatePerimeter) {
@@ -30,7 +30,7 @@ TEST_F(CircleTest, ShouldCorrectlyCalculatePerimeter) {
     const Circle circle{&vec};
 
     // Act
-    ASSERT_NEAR(circle.perimeter(), 59.275451637147491, DEVIATION);
+    EXPECT_NEAR(circle.perimeter(), 59.275451637147491, DEVIATION);
 }
 
 TEST_F(CircleTest, ShouldCorrectlyPrintInfo) {
@@ -38,5 +38,5 @@ TEST_F(CircleTest, ShouldCorrectlyPrintInfo) {
     const Circle circle{&vec};
 
     // Act
-    ASSERT_EQ(circle.info(), "Circle (Vector ((-5.00, 9.00), (3.00, 4.00)))");
+    EXPECT_EQ(circle.info(), "Circle (Vector ((-5.00, 9.00), (3.00, 4.00)))");
 }

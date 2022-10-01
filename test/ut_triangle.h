@@ -16,7 +16,7 @@ TEST_F(TriangleTest, ShouldCorrectlyCalculateArea) {
     const Triangle triangle{&vec1, &vec2};
 
     // Act
-    ASSERT_NEAR(triangle.area(), 6, DEVIATION);
+    EXPECT_NEAR(triangle.area(), 6, DEVIATION);
 }
 
 TEST_F(TriangleTest, ShouldCorrectlyCalculatePerimeter) {
@@ -24,7 +24,7 @@ TEST_F(TriangleTest, ShouldCorrectlyCalculatePerimeter) {
     const Triangle triangle{&vec1, &vec2};
 
     // Act
-    ASSERT_NEAR(triangle.perimeter(), 12, DEVIATION);
+    EXPECT_NEAR(triangle.perimeter(), 12, DEVIATION);
 }
 
 TEST_F(TriangleTest, ShouldCorrectlyPrintInfo) {
@@ -32,7 +32,7 @@ TEST_F(TriangleTest, ShouldCorrectlyPrintInfo) {
     const Triangle triangle{&vec1, &vec2};
 
     // Act
-    ASSERT_EQ(triangle.info(), "Triangle (Vector ((0.00, 0.00), (4.00, 0.00)), Vector ((0.00, 0.00), (0.00, 3.00)))");
+    EXPECT_EQ(triangle.info(), "Triangle (Vector ((0.00, 0.00), (4.00, 0.00)), Vector ((0.00, 0.00), (0.00, 3.00)))");
 }
 
 TEST_F(TriangleTest, IllegalTriangle) {
@@ -44,7 +44,7 @@ TEST_F(TriangleTest, IllegalTriangle) {
     const TwoDimensionalVector vec1{&o, &o_1}, vec2{&o, &o_2}, vec3{&k, &k_1}, vec4{&k, &k_2}, vec5{&k_1, &k_2}, vec6{&o, &l};
 
     // Act
-    ASSERT_ANY_THROW(Triangle(&vec1, &vec2));
-    ASSERT_ANY_THROW(Triangle(&vec3, &vec1));
-    ASSERT_ANY_THROW(Triangle(&vec5, &vec6));
+    EXPECT_ANY_THROW(Triangle(&vec1, &vec2));
+    EXPECT_ANY_THROW(Triangle(&vec3, &vec1));
+    EXPECT_ANY_THROW(Triangle(&vec5, &vec6));
 }
