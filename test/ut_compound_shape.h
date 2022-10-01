@@ -90,3 +90,51 @@ protected:
      */
     const CompoundShape compound_shape_n2_{circle_, rectangle_, triangle_, compound_shape_n1_};
 };
+
+TEST_F(CompoundShapeTestWithoutNesting, AreaShouldBeCorrect) {
+    // Arrange
+    const double expected_area = (4 * 4 * M_PI) + (3 * 5) + (4 * 3 / 2);
+
+    // Act
+    const double actual_area = compound_shape_.area();
+
+    // Expect
+    EXPECT_NEAR(actual_area, expected_area, DEVIATION);
+}
+
+TEST_F(CompoundShapeTestWithoutNesting, PerimeterShouldBeCorrect) {
+    // Arrange
+    const double expected_perimeter = (2 * 4 * M_PI) + (2 * (3 + 5)) + (4 + 3 + 5);
+
+    // Act
+    const double actual_perimeter = compound_shape_.perimeter();
+
+    // Expect
+    EXPECT_NEAR(actual_perimeter, expected_perimeter, DEVIATION);
+}
+
+TEST_F(CompoundShapeTestWithoutNesting, InfoShouldBeCorrect) {
+    // Arrange
+    const std::string expected_info =
+        // clang-format off
+        "CompoundShape ("
+            "Circle ("
+                "Vector ((0.00, 0.00), (4.00, 0.00))"
+            "), "
+            "Rectangle ("
+                "Vector ((0.00, 0.00), (3.00, 0.00)), "
+                "Vector ((0.00, 0.00), (0.00, 5.00))"
+            "), "
+            "Triangle ("
+                "Vector ((0.00, 0.00), (4.00, 0.00)), "
+                "Vector ((0.00, 0.00), (0.00, 3.00))"
+            ")"
+        ")";
+    // clang-format on
+
+    // Act
+    const std::string actual_info = compound_shape_.info();
+
+    // Expect
+    EXPECT_EQ(actual_info, expected_info);
+}
