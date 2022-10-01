@@ -8,7 +8,7 @@
 
 class CompoundShape : public Shape {
 private:
-    const std::list<const Shape *const> _shapes;
+    const std::list<const Shape *> _shapes;
 
 public:
     CompoundShape(const Shape *const shapes[], int size) {}
