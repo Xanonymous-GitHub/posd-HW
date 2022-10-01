@@ -5,7 +5,7 @@
 
 class CompoundShape;
 
-template <typename ForwardIterator>
+template <class ForwardIterator>
 class BFSCompoundIterator : public Iterator {
 public:
     BFSCompoundIterator(const ForwardIterator &begin, const ForwardIterator &end) {}

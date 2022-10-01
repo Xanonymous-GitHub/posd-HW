@@ -5,7 +5,7 @@
 
 class CompoundShape;
 
-template <typename ForwardIterator>
+template <class ForwardIterator>
 class DFSCompoundIterator : public Iterator {
 public:
     DFSCompoundIterator(const ForwardIterator &begin, const ForwardIterator &end) {}
