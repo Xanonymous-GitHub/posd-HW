@@ -8,14 +8,14 @@
 
 class CompoundShape : public Shape {
 private:
-    const std::list<const Shape *> _shapes;
+    std::list<const Shape *> shapes_;
 
 public:
     template <class... MShape>
     requires is_base_type_of<Shape, MShape...>
-    CompoundShape(const MShape &...shapes) : _shapes{&shapes...} {}
+    CompoundShape(const MShape &...shapes) : shapes_{&shapes...} {}
 
-    CompoundShape(const Shape *const shapes[], int size) : _shapes{shapes, shapes + size} {}
+    CompoundShape(const Shape *const shapes[], int size) : shapes_{shapes, shapes + size} {}
 
     ~CompoundShape() {
         // Ownership of shapes is transferred to the compound shape.
@@ -35,7 +35,7 @@ public:
     std::string info() const override {
         auto ss = std::stringstream{};
 
-        std::for_each(_shapes.begin(), --_shapes.end(), [&ss](const Shape *const shape) {
+        std::for_each(shapes_.begin(), --shapes_.end(), [&ss](const Shape *const shape) {
             ss << shape->info() << ", ";
         });
 
@@ -48,7 +48,11 @@ public:
 
     const Iterator *createBFSIterator() const override {}
 
-    void addShape(const Shape *const shape) override {}
+    void addShape(const Shape *const shape) override {
+        shapes_.push_back(shape);
+    }
 
-    void deleteShape(const Shape *const shape) override {}
+    void deleteShape(const Shape *const shape) override {
+        shapes_.remove(shape);
+    }
 };
