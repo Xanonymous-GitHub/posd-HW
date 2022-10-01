@@ -1,12 +1,22 @@
 #pragma once
 
+class Iterator;
+
 class Shape {
 public:
-    virtual const double area() const = 0;
+    virtual double area() const = 0;
 
-    virtual const double perimeter() const = 0;
+    virtual double perimeter() const = 0;
 
-    virtual const std::string info() const = 0;
+    virtual std::string info() const = 0;
+
+    virtual const Iterator *createDFSIterator() const = 0;
+
+    virtual const Iterator *createBFSIterator() const = 0;
+
+    virtual void addShape(const Shape *const shape) = 0;
+
+    virtual void deleteShape(const Shape *const shape) = 0;
 
     virtual ~Shape() {}
 };

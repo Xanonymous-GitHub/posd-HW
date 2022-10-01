@@ -1,5 +1,6 @@
 #pragma once
 
+#include "iterator/null_iterator.h"
 #include "shape.h"
 #include "two_dimensional_vector.h"
 #include <cmath>
@@ -7,10 +8,10 @@
 
 class Circle : public Shape {
 private:
-    const TwoDimensionalVector *_radiusVec;
+    const TwoDimensionalVector *const _radiusVec;
 
 public:
-    Circle(const TwoDimensionalVector *radiusVec) : _radiusVec(radiusVec) {}
+    Circle(const TwoDimensionalVector *const radiusVec) : _radiusVec(radiusVec) {}
 
     ~Circle() {
         // Ownership of the radius vector is not transferred to the circle.
@@ -21,15 +22,23 @@ public:
         return _radiusVec->length();
     }
 
-    const double area() const override {
+    double area() const override {
         return M_PI * radius() * radius();
     }
 
-    const double perimeter() const override {
+    double perimeter() const override {
         return 2 * M_PI * radius();
     }
 
-    const std::string info() const override {
+    std::string info() const override {
         return "Circle (" + _radiusVec->info() + ")";
     }
+
+    const Iterator *createDFSIterator() const override {}
+
+    const Iterator *createBFSIterator() const override {}
+
+    void addShape(const Shape *const shape) override {}
+
+    void deleteShape(const Shape *const shape) override {}
 };

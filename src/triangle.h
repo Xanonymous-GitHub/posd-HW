@@ -1,19 +1,20 @@
 #pragma once
 
+#include "iterator/null_iterator.h"
 #include "shape.h"
 #include "two_dimensional_vector.h"
 #include <string>
 
 class Triangle : public Shape {
 private:
-    const TwoDimensionalVector *_v1;
-    const TwoDimensionalVector *_v2;
+    const TwoDimensionalVector *const _v1;
+    const TwoDimensionalVector *const _v2;
     const TwoDimensionalVector *_v3;
 
 public:
     Triangle(
-        const TwoDimensionalVector *v1,
-        const TwoDimensionalVector *v2) : _v1(v1), _v2(v2) {
+        const TwoDimensionalVector *const v1,
+        const TwoDimensionalVector *const v2) : _v1(v1), _v2(v2) {
         if (v1->cross(v2) == 0) {
             throw std::invalid_argument("The triangle is degenerate.");
         }
@@ -34,15 +35,23 @@ public:
         // Therefore, the triangle does not delete the vectors.
     }
 
-    const double area() const override {
+    double area() const override {
         return abs(0.5 * _v1->cross(_v2));
     }
 
-    const double perimeter() const override {
+    double perimeter() const override {
         return _v1->length() + _v2->length() + _v3->length();
     }
 
-    const std::string info() const override {
+    std::string info() const override {
         return "Triangle (" + _v1->info() + ", " + _v2->info() + ")";
     }
+
+    const Iterator *createDFSIterator() const override {}
+
+    const Iterator *createBFSIterator() const override {}
+
+    void addShape(const Shape *shape) override {}
+
+    void deleteShape(const Shape *shape) override {}
 };
