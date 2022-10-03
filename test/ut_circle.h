@@ -38,6 +38,7 @@ TEST_F(CircleTest, ShouldCreateNullIteratorWhenCallCreateBfsIterator) {
     const auto it = circle_.createBFSIterator();
 
     // Expect
+    EXPECT_THROW({ it->first(); }, Iterator::MethodShouldNotBeRunError);
     EXPECT_TRUE(it->isDone());
 
     delete it;
@@ -48,6 +49,7 @@ TEST_F(CircleTest, ShouldCreateNullIteratorWhenCallCreateDfsIterator) {
     const auto it = circle_.createDFSIterator();
 
     // Expect
+    EXPECT_THROW({ it->first(); }, Iterator::MethodShouldNotBeRunError);
     EXPECT_TRUE(it->isDone());
 
     delete it;
