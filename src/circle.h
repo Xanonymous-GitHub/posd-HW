@@ -34,9 +34,13 @@ public:
         return "Circle (" + _radiusVec->info() + ")";
     }
 
-    Iterator *createDFSIterator() const override {}
+    Iterator *createDFSIterator() const override {
+        return new NullIterator();
+    }
 
-    Iterator *createBFSIterator() const override {}
+    Iterator *createBFSIterator() const override {
+        return new NullIterator();
+    }
 
     void addShape(const Shape *const shape) override {}
 

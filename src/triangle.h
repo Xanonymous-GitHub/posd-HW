@@ -47,9 +47,13 @@ public:
         return "Triangle (" + _v1->info() + ", " + _v2->info() + ")";
     }
 
-    Iterator *createDFSIterator() const override {}
+    Iterator *createDFSIterator() const override {
+        return new NullIterator();
+    }
 
-    Iterator *createBFSIterator() const override {}
+    Iterator *createBFSIterator() const override {
+        return new NullIterator();
+    }
 
     void addShape(const Shape *shape) override {}
 
