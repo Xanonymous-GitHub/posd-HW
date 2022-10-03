@@ -5,11 +5,11 @@ private:
     const Point _a{0, 0};
     const Point _b{4, 0};
     const Point _c{0, 3};
-    const TwoDimensionalVector vec1{&_a, &_b};
-    const TwoDimensionalVector vec2{&_a, &_c};
+    const TwoDimensionalVector vec1_{&_a, &_b};
+    const TwoDimensionalVector vec2_{&_a, &_c};
 
 protected:
-    RectangleTest() : rectangle_{&vec1, &vec2} {}
+    RectangleTest() : rectangle_{&vec1_, &vec2_} {}
     const double DEVIATION = 0.0001;
     const Rectangle rectangle_;
 };
