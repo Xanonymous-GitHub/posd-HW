@@ -1,38 +1,32 @@
 #include "../src/triangle.h"
 
 class TriangleTest : public ::testing::Test {
-protected:
-    TriangleTest() : vec1{TwoDimensionalVector(&_a, &_b)}, vec2{TwoDimensionalVector(&_a, &_c)} {}
-    const double DEVIATION = 0.0001;
-    const TwoDimensionalVector vec1;
-    const TwoDimensionalVector vec2;
+private:
     const Point _a{0, 0};
     const Point _b{4, 0};
     const Point _c{0, 3};
+    const TwoDimensionalVector vec1_{&_a, &_b};
+    const TwoDimensionalVector vec2_{&_a, &_c};
+
+protected:
+    TriangleTest() : triangle_{&vec1_, &vec2_} {}
+    const double DEVIATION = 0.0001;
+    const Triangle triangle_;
 };
 
 TEST_F(TriangleTest, ShouldCorrectlyCalculateArea) {
-    // Arrange
-    const Triangle triangle{&vec1, &vec2};
-
     // Expect
-    EXPECT_NEAR(triangle.area(), 6, DEVIATION);
+    EXPECT_NEAR(triangle_.area(), 6, DEVIATION);
 }
 
 TEST_F(TriangleTest, ShouldCorrectlyCalculatePerimeter) {
-    // Arrange
-    const Triangle triangle{&vec1, &vec2};
-
     // Expect
-    EXPECT_NEAR(triangle.perimeter(), 12, DEVIATION);
+    EXPECT_NEAR(triangle_.perimeter(), 12, DEVIATION);
 }
 
 TEST_F(TriangleTest, ShouldCorrectlyPrintInfo) {
-    // Arrange
-    const Triangle triangle{&vec1, &vec2};
-
     // Expect
-    EXPECT_EQ(triangle.info(), "Triangle (Vector ((0.00, 0.00), (4.00, 0.00)), Vector ((0.00, 0.00), (0.00, 3.00)))");
+    EXPECT_EQ(triangle_.info(), "Triangle (Vector ((0.00, 0.00), (4.00, 0.00)), Vector ((0.00, 0.00), (0.00, 3.00)))");
 }
 
 TEST_F(TriangleTest, IllegalTriangle) {
@@ -47,4 +41,26 @@ TEST_F(TriangleTest, IllegalTriangle) {
     EXPECT_ANY_THROW(Triangle(&vec1, &vec2));
     EXPECT_ANY_THROW(Triangle(&vec3, &vec1));
     EXPECT_ANY_THROW(Triangle(&vec5, &vec6));
+}
+
+TEST_F(TriangleTest, ShouldCreateNullIteratorWhenCallCreateBfsIterator) {
+    // Act
+    const auto it = triangle_.createBFSIterator();
+
+    // Expect
+    EXPECT_THROW({ it->first(); }, Iterator::MethodShouldNotBeRunError);
+    EXPECT_TRUE(it->isDone());
+
+    delete it;
+}
+
+TEST_F(TriangleTest, ShouldCreateNullIteratorWhenCallCreateDfsIterator) {
+    // Act
+    const auto it = triangle_.createDFSIterator();
+
+    // Expect
+    EXPECT_THROW({ it->first(); }, Iterator::MethodShouldNotBeRunError);
+    EXPECT_TRUE(it->isDone());
+
+    delete it;
 }
