@@ -10,9 +10,9 @@ public:
 
     virtual std::string info() const = 0;
 
-    virtual const Iterator *createDFSIterator() const = 0;
+    virtual Iterator *createDFSIterator() const = 0;
 
-    virtual const Iterator *createBFSIterator() const = 0;
+    virtual Iterator *createBFSIterator() const = 0;
 
     virtual void addShape(const Shape *const shape) = 0;
 

@@ -49,9 +49,9 @@ public:
         return "Rectangle (" + _lengthVec->info() + ", " + _widthVec->info() + ")";
     }
 
-    const Iterator *createDFSIterator() const override {}
+    Iterator *createDFSIterator() const override {}
 
-    const Iterator *createBFSIterator() const override {}
+    Iterator *createBFSIterator() const override {}
 
     void addShape(const Shape *const shape) override {}
 
