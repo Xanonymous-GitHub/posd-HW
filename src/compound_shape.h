@@ -68,6 +68,10 @@ public:
     }
 
     void deleteShape(const Shape *const shape) override {
-        shapes_.remove(shape);
+        bool found = false;
+
+        shapes_.remove_if([&shape, &found](const Shape *const s) {
+            return !found && (found = s == shape);
+        });
     }
 };
