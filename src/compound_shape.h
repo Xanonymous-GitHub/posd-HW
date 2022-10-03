@@ -44,15 +44,16 @@ public:
     std::string info() const override {
         auto ss = std::stringstream{};
         const auto lastIndex = shapes_.size() - 1;
+        int index = 0;
 
-        std::for_each(shapes_.cbegin(), shapes_.cend(), [&ss, &lastIndex, i = 0](const Shape *const shape) mutable {
+        std::for_each(shapes_.cbegin(), shapes_.cend(), [&](const Shape *const shape) {
             ss << shape->info();
 
-            if (i < lastIndex) {
+            if (index < lastIndex) {
                 ss << ", ";
             }
 
-            i++;
+            index++;
         });
 
         return "CompoundShape (" + ss.str() + ")";
