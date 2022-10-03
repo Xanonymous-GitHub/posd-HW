@@ -48,3 +48,25 @@ TEST_F(RectangleTest, IllegalRectangle) {
     EXPECT_ANY_THROW(Rectangle(&vec3, &vec1));
     EXPECT_ANY_THROW(Rectangle(&vec5, &vec6));
 }
+
+TEST_F(RectangleTest, ShouldCreateNullIteratorWhenCallCreateBfsIterator) {
+    // Act
+    const auto it = rectangle_.createBFSIterator();
+
+    // Expect
+    EXPECT_THROW({ it->first(); }, Iterator::MethodShouldNotBeRunError);
+    EXPECT_TRUE(it->isDone());
+
+    delete it;
+}
+
+TEST_F(RectangleTest, ShouldCreateNullIteratorWhenCallCreateDfsIterator) {
+    // Act
+    const auto it = rectangle_.createDFSIterator();
+
+    // Expect
+    EXPECT_THROW({ it->first(); }, Iterator::MethodShouldNotBeRunError);
+    EXPECT_TRUE(it->isDone());
+
+    delete it;
+}
