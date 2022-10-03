@@ -6,7 +6,11 @@ set(CMAKE_CXX_STANDARD 20)
 include_directories(src)
 include_directories(test)
 
-set(SOURCE_FILES src/*.h src/*.cpp test/*.h test/*.cpp)
+set(SOURCE_FILES src/**/*.h src/**/*.cpp test/**/*.h test/**/*.cpp)
+
+add_subdirectory(
+        gtest
+)
 
 add_custom_target(
         RUN_ALL_TEST COMMAND make

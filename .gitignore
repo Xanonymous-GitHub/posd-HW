@@ -398,3 +398,4 @@ $RECYCLE.BIN/
 .idea/
 bin/ut_all
 build/
+gtest/
