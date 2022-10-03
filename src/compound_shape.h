@@ -12,7 +12,6 @@ private:
 
 public:
     template <class... MShape>
-    requires is_base_type_of<Shape, MShape...>
     CompoundShape(const MShape &...shapes) : shapes_{&shapes...} {}
 
     CompoundShape(const Shape *const shapes[], int size) : shapes_{shapes, shapes + size} {}

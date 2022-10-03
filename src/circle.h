@@ -18,15 +18,15 @@ public:
         // Therefore, the circle does not delete the radius vector.
     }
 
-    constexpr double radius() const {
+    double radius() const {
         return _radiusVec->length();
     }
 
-    constexpr double area() const override {
+    double area() const override {
         return M_PI * radius() * radius();
     }
 
-    constexpr double perimeter() const override {
+    double perimeter() const override {
         return 2 * M_PI * radius();
     }
 

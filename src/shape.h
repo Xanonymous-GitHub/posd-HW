@@ -2,14 +2,11 @@
 
 class Iterator;
 
-template <typename Base, typename... Derived>
-concept is_base_type_of = (std::is_base_of_v<Base, Derived> && ...);
-
 class Shape {
 public:
-    virtual constexpr double area() const = 0;
+    virtual double area() const = 0;
 
-    virtual constexpr double perimeter() const = 0;
+    virtual double perimeter() const = 0;
 
     virtual std::string info() const = 0;
 

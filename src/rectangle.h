@@ -37,11 +37,11 @@ public:
         return _widthVec->length();
     }
 
-    constexpr double area() const override {
+    double area() const override {
         return length() * width();
     }
 
-    constexpr double perimeter() const override {
+    double perimeter() const override {
         return 2 * (length() + width());
     }
 

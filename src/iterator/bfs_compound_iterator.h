@@ -6,7 +6,6 @@
 class CompoundShape;
 
 template <class ForwardIterator>
-requires is_base_type_of<Iterator, ForwardIterator>
 class BFSCompoundIterator : public Iterator {
 public:
     BFSCompoundIterator(const ForwardIterator &begin, const ForwardIterator &end) {}
