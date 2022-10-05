@@ -54,8 +54,4 @@ public:
     Iterator *createBFSIterator() const override {
         return new NullIterator();
     }
-
-    void addShape(const Shape *shape) override {}
-
-    void deleteShape(const Shape *shape) override {}
 };
