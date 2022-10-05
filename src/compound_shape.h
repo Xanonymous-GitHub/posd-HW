@@ -59,9 +59,13 @@ public:
         return "CompoundShape (" + ss.str() + ")";
     }
 
-    Iterator *createDFSIterator() const override {}
+    Iterator *createDFSIterator() const override {
+        return new DFSCompoundIterator<decltype(shapes_)::const_iterator>{shapes_.cbegin(), shapes_.cend()};
+    }
 
-    Iterator *createBFSIterator() const override {}
+    Iterator *createBFSIterator() const override {
+        return new BFSCompoundIterator<decltype(shapes_)::const_iterator>{shapes_.cbegin(), shapes_.cend()};
+    }
 
     void addShape(const Shape *const shape) override {
         shapes_.push_back(shape);
