@@ -83,19 +83,23 @@ public:
             clearTraversed_();
             makeBfsTraversalHistory_();
             isIterated_ = false;
-        } else {
-            throw MethodShouldNotBeRunError{"This iterator is done"};
         }
     }
 
     const Shape *currentItem() const override {
-        return traversed_.front();
+        if (!isDone()) {
+            return traversed_.front();
+        } else {
+            throw MethodShouldNotBeRunError{"should not call currentItem(), This iterator is done"};
+        }
     }
 
     void next() override {
         if (!isDone()) {
             traversed_.pop();
             isIterated_ = true;
+        } else {
+            throw MethodShouldNotBeRunError{"should not call next(), This iterator is done"};
         }
     }
 

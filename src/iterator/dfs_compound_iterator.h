@@ -79,7 +79,11 @@ public:
     }
 
     const Shape *currentItem() const override {
-        return traversed_.front();
+        if (!isDone()) {
+            return traversed_.front();
+        } else {
+            throw MethodShouldNotBeRunError{"should not call currentItem(), This iterator is done"};
+        }
     }
 
     void next() override {
@@ -87,7 +91,7 @@ public:
             traversed_.pop();
             isIterated_ = true;
         } else {
-            throw MethodShouldNotBeRunError{"This iterator is done"};
+            throw MethodShouldNotBeRunError{"should not call next(), this iterator is done"};
         }
     }
 
