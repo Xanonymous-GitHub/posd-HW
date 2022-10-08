@@ -13,9 +13,10 @@ private:
 
 public:
     template <class... MShape>
+    // WARNING: When the size of `shapes` is 1, this constructor will acts in a wrong way.
     CompoundShape(const MShape &...shapes) : shapes_{&shapes...} {}
-
-    CompoundShape(const Shape *const shapes[], int size) : shapes_{shapes, shapes + size} {}
+    CompoundShape(const Shape **const shapes, int size) : shapes_{shapes, shapes + size} {}
+    CompoundShape(const Shape *const *const shapes, int size) : shapes_{shapes, shapes + size} {}
 
     ~CompoundShape() {
         // Ownership of shapes is transferred to the compound shape.
