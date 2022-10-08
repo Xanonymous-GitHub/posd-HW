@@ -9,6 +9,7 @@
 class CompoundShape : public Shape {
 private:
     std::list<const Shape *> shapes_;
+    const std::string name_ = "CompoundShape";
 
 public:
     template <class... MShape>
@@ -57,6 +58,10 @@ public:
         });
 
         return "CompoundShape (" + ss.str() + ")";
+    }
+
+    std::string name() const override {
+        return name_;
     }
 
     Iterator *createDFSIterator() const override {

@@ -9,6 +9,7 @@ class Rectangle : public Shape {
 private:
     const TwoDimensionalVector *const _lengthVec;
     const TwoDimensionalVector *const _widthVec;
+    const std::string name_ = "Rectangle";
 
 public:
     Rectangle(
@@ -47,6 +48,10 @@ public:
 
     std::string info() const override {
         return "Rectangle (" + _lengthVec->info() + ", " + _widthVec->info() + ")";
+    }
+
+    std::string name() const override {
+        return name_;
     }
 
     Iterator *createDFSIterator() const override {

@@ -10,6 +10,7 @@ private:
     const TwoDimensionalVector *const _v1;
     const TwoDimensionalVector *const _v2;
     const TwoDimensionalVector *_v3;
+    const std::string name_ = "Triangle";
 
 public:
     Triangle(
@@ -45,6 +46,10 @@ public:
 
     std::string info() const override {
         return "Triangle (" + _v1->info() + ", " + _v2->info() + ")";
+    }
+
+    std::string name() const override {
+        return name_;
     }
 
     Iterator *createDFSIterator() const override {

@@ -9,6 +9,7 @@
 class Circle : public Shape {
 private:
     const TwoDimensionalVector *const _radiusVec;
+    const std::string name_ = "Circle";
 
 public:
     Circle(const TwoDimensionalVector *const radiusVec) : _radiusVec(radiusVec) {}
@@ -32,6 +33,10 @@ public:
 
     std::string info() const override {
         return "Circle (" + _radiusVec->info() + ")";
+    }
+
+    std::string name() const override {
+        return name_;
     }
 
     Iterator *createDFSIterator() const override {

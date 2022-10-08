@@ -14,6 +14,8 @@ public:
 
     virtual Iterator *createBFSIterator() const = 0;
 
+    virtual std::string name() const = 0;
+
     virtual ~Shape() {}
 
     class MethodShouldNotBeRunError : public std::runtime_error {
