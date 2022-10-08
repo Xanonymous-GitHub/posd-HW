@@ -86,6 +86,8 @@ public:
         if (!isDone()) {
             traversed_.pop();
             isIterated_ = true;
+        } else {
+            throw MethodShouldNotBeRunError{"This iterator is done"};
         }
     }
 

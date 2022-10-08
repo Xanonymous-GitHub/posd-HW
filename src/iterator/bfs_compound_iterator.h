@@ -83,6 +83,8 @@ public:
             clearTraversed_();
             makeBfsTraversalHistory_();
             isIterated_ = false;
+        } else {
+            throw MethodShouldNotBeRunError{"This iterator is done"};
         }
     }
 
