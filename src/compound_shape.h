@@ -79,10 +79,14 @@ public:
     }
 
     void deleteShape(const Shape *const shape) override {
-        bool found = false;
-
-        shapes_.remove_if([&shape, &found](const Shape *const s) {
-            return !found && (found = s == shape);
-        });
+        shapes_.erase(
+            std::remove_if(
+                shapes_.begin(),
+                shapes_.end(),
+                [&](const Shape *const s) {
+                    return s == shape;
+                }),
+            shapes_.cend() // ^_^
+        );
     }
 };
