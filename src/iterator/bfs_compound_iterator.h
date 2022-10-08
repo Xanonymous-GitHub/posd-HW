@@ -1,20 +1,103 @@
 #pragma once
 
+#include <queue>
+
 #include "../shape.h"
 #include "iterator.h"
 
 class CompoundShape;
 
-template <class ForwardIterator>
+template <class ForwardShapeIterator>
 class BFSCompoundIterator : public Iterator {
+private:
+    bool isIterated_ = false;
+
+    const ForwardShapeIterator begin_, end_;
+
+    std::queue<const Shape *> traversed_;
+    std::vector<const Shape *> debugTraversedVector_;
+
+    void debugPrint_() const {
+        std::cout << "traversed_: ";
+
+        for (const auto &it : debugTraversedVector_) {
+            std::cout << it->name() << " ";
+        }
+
+        std::cout << std::endl;
+    }
+
+    void makeBfsTraversalHistory_() {
+        std::queue<const Shape *> shouldBeTraversed;
+
+        std::for_each(begin_, end_, [&](const Shape *const shape) {
+            traversed_.push(shape);
+            shouldBeTraversed.push(shape);
+
+            // TODO: Remove this debug code.
+            debugTraversedVector_.push_back(shape);
+
+            // // FIXME: This is a bad solution.
+            // std::cout << std::endl
+            //           << "@@@@@@@@" << std::endl;
+            // debugPrint_();
+            // std::cout << "@@@@@@@@" << std::endl
+            //           << std::endl;
+        });
+
+        while (!shouldBeTraversed.empty()) {
+            const auto currentIt = shouldBeTraversed.front()->createBFSIterator();
+            shouldBeTraversed.pop();
+
+            if (currentIt->isDone()) {
+                continue;
+            }
+
+            for (currentIt->first(); !currentIt->isDone(); currentIt->next()) {
+                traversed_.push(currentIt->currentItem());
+                shouldBeTraversed.push(currentIt->currentItem());
+
+                // TODO: Remove this debug code.
+                debugTraversedVector_.push_back(currentIt->currentItem());
+            }
+        }
+    }
+
+    void clearTraversed_() {
+        while (!traversed_.empty()) {
+            traversed_.pop();
+        }
+
+        // TODO: Remove this debug code.
+        debugTraversedVector_.clear();
+    }
+
 public:
-    BFSCompoundIterator(const ForwardIterator &begin, const ForwardIterator &end) {}
+    BFSCompoundIterator(const ForwardShapeIterator &begin, const ForwardShapeIterator &end) : begin_{begin}, end_{end} {
+        makeBfsTraversalHistory_();
+        // debugPrint_();
+    }
 
-    void first() const override {}
+    void first() override {
+        if (isIterated_) {
+            clearTraversed_();
+            makeBfsTraversalHistory_();
+            isIterated_ = false;
+        }
+    }
 
-    const Shape *currentItem() const override {}
+    const Shape *currentItem() const override {
+        return traversed_.front();
+    }
 
-    void next() const override {}
+    void next() override {
+        if (!isDone()) {
+            traversed_.pop();
+            isIterated_ = true;
+        }
+    }
 
-    bool isDone() const override {}
+    bool isDone() const override {
+        return traversed_.empty();
+    }
 };
