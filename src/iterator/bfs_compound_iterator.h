@@ -55,7 +55,6 @@ private:
 
             for (currentIt->first(); !currentIt->isDone(); currentIt->next()) {
                 traversed_.push(currentIt->currentItem());
-                shouldBeTraversed.push(currentIt->currentItem());
 
                 // TODO: Remove this debug code.
                 debugTraversedVector_.push_back(currentIt->currentItem());
