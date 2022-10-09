@@ -36,14 +36,14 @@ private:
 
             // TODO: Remove this debug code.
             debugTraversedVector_.push_back(shape);
-
-            // // FIXME: This is a bad solution.
-            // std::cout << std::endl
-            //           << "@@@@@@@@" << std::endl;
-            // debugPrint_();
-            // std::cout << "@@@@@@@@" << std::endl
-            //           << std::endl;
         });
+
+        // // FIXME: This is a bad solution.
+        // std::cout << std::endl
+        //           << "@@@@@@@@" << std::endl;
+        // debugPrint_();
+        // std::cout << "@@@@@@@@" << std::endl
+        //           << std::endl;
 
         while (!shouldBeTraversed.empty()) {
             const auto currentIt = shouldBeTraversed.front()->createBFSIterator();
@@ -97,6 +97,10 @@ public:
         if (!isDone()) {
             traversed_.pop();
             isIterated_ = true;
+
+            // Erase the first element of the debug vector.
+            debugTraversedVector_.front() = std::move(debugTraversedVector_.back());
+            debugTraversedVector_.pop_back();
         } else {
             throw MethodShouldNotBeRunError{"should not call next(), This iterator is done"};
         }

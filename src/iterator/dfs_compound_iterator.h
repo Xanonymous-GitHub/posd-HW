@@ -90,6 +90,10 @@ public:
         if (!isDone()) {
             traversed_.pop();
             isIterated_ = true;
+
+            // Erase the first element of the debug vector.
+            debugTraversedVector_.front() = std::move(debugTraversedVector_.back());
+            debugTraversedVector_.pop_back();
         } else {
             throw MethodShouldNotBeRunError{"should not call next(), this iterator is done"};
         }
