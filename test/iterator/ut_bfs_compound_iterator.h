@@ -35,10 +35,10 @@ private:
     const TwoDimensionalVector rectangle_right_vector_{&rectangle_vector_start_, &rectangle_right_vector_end_};
 
 protected:
-    const double DEVIATION = 0.0001;
-    const Circle circle_{&circle_vector_};
-    const Rectangle rectangle_{&rectangle_left_vector_, &rectangle_right_vector_};
-    const Triangle triangle_{&triangle_left_vector_, &triangle_right_vector_};
+    const double DEVIATION = 0.001;
+    Circle circle_{&circle_vector_};
+    Rectangle rectangle_{&rectangle_left_vector_, &rectangle_right_vector_};
+    Triangle triangle_{&triangle_left_vector_, &triangle_right_vector_};
 };
 
 class Lv0BfsCompoundIteratorTest : public BfsCompoundIteratorTestBase {
@@ -56,8 +56,8 @@ protected:
      * |
      * |--- circle_
      */
-    const Shape *const content_of_lv1_width_1_compound_shape_[1] = {&circle_};
-    const CompoundShape lv1_width_1_compound_shape_{content_of_lv1_width_1_compound_shape_, 1};
+    Shape *content_of_lv1_width_1_compound_shape_[1] = {&circle_};
+    CompoundShape lv1_width_1_compound_shape_{content_of_lv1_width_1_compound_shape_, 1};
 
     /**
      * lv1_compound_shape_
@@ -65,8 +65,8 @@ protected:
      * |--- circle_
      * |--- rectangle_
      */
-    const Shape *const content_of_lv1_width_2_compound_shape_[2] = {&circle_, &rectangle_};
-    const CompoundShape lv1_width_2_compound_shape_{content_of_lv1_width_2_compound_shape_, 2};
+    Shape *content_of_lv1_width_2_compound_shape_[2] = {&circle_, &rectangle_};
+    CompoundShape lv1_width_2_compound_shape_{content_of_lv1_width_2_compound_shape_, 2};
 
     /**
      * lv1_compound_shape_
@@ -75,8 +75,8 @@ protected:
      * |--- rectangle_
      * |--- triangle_
      */
-    const Shape *const content_of_lv1_width_3_compound_shape_[3] = {&circle_, &rectangle_, &triangle_};
-    const CompoundShape lv1_width_3_compound_shape_{content_of_lv1_width_3_compound_shape_, 3};
+    Shape *content_of_lv1_width_3_compound_shape_[3] = {&circle_, &rectangle_, &triangle_};
+    CompoundShape lv1_width_3_compound_shape_{content_of_lv1_width_3_compound_shape_, 3};
 };
 
 class Lv2BfsCompoundIteratorTest : public Lv1BfsCompoundIteratorTest {
@@ -88,8 +88,8 @@ protected:
      * |    |
      * |    |--- circle_
      */
-    const Shape *const content_of_lv2_width_1_compound_shape_[1] = {&lv1_width_1_compound_shape_};
-    const CompoundShape lv2_width_1_compound_shape_{content_of_lv2_width_1_compound_shape_, 1};
+    Shape *content_of_lv2_width_1_compound_shape_[1] = {&lv1_width_1_compound_shape_};
+    CompoundShape lv2_width_1_compound_shape_{content_of_lv2_width_1_compound_shape_, 1};
 
     /**
      * lv2_compound_shape_
@@ -103,8 +103,8 @@ protected:
      * |    |
      * |    |--- circle_
      */
-    const Shape *const content_of_lv2_width_2_compound_shape_[2] = {&lv1_width_2_compound_shape_, &lv1_width_1_compound_shape_};
-    const CompoundShape lv2_width_2_compound_shape_{lv1_width_2_compound_shape_, lv1_width_1_compound_shape_};
+    Shape *content_of_lv2_width_2_compound_shape_[2] = {&lv1_width_2_compound_shape_, &lv1_width_1_compound_shape_};
+    CompoundShape lv2_width_2_compound_shape_{lv1_width_2_compound_shape_, lv1_width_1_compound_shape_};
 
     /**
      * lv2_compound_shape_
@@ -126,8 +126,8 @@ protected:
      * |    |--- rectangle_
      * |    |--- triangle_
      */
-    const Shape *const content_of_lv2_width_4_compound_shape_[4] = {&circle_, &lv1_width_1_compound_shape_, &lv1_width_2_compound_shape_, &lv1_width_3_compound_shape_};
-    const CompoundShape lv2_width_4_compound_shape_{content_of_lv2_width_4_compound_shape_, 4};
+    Shape *content_of_lv2_width_4_compound_shape_[4] = {&circle_, &lv1_width_1_compound_shape_, &lv1_width_2_compound_shape_, &lv1_width_3_compound_shape_};
+    CompoundShape lv2_width_4_compound_shape_{content_of_lv2_width_4_compound_shape_, 4};
 };
 
 TEST_F(Lv0BfsCompoundIteratorTest, Lv0BfsCompoundIteratorShouldIterateOverZeroShapes) {

@@ -8,16 +8,16 @@
 
 class CompoundShape : public Shape {
 private:
-    std::list<const Shape *> shapes_;
+    std::list<Shape *> shapes_;
     const std::string name_ = "CompoundShape";
 
 public:
     template <class... MShape>
     // WARNING: When the size of `shapes` is 1, this constructor will acts in a wrong way.
-    CompoundShape(const MShape &...shapes) : shapes_{&shapes...} {}
+    CompoundShape(MShape &...shapes) : shapes_{&shapes...} {}
     CompoundShape(Shape **const shapes, int size) : shapes_{shapes, shapes + size} {}
-    CompoundShape(const Shape **const shapes, int size) : shapes_{shapes, shapes + size} {}
-    CompoundShape(const Shape *const *const shapes, int size) : shapes_{shapes, shapes + size} {}
+    // CompoundShape(const Shape **const shapes, int size) : shapes_{shapes, shapes + size} {}
+    // CompoundShape(const Shape *const *const shapes, int size) : shapes_{shapes, shapes + size} {}
 
     ~CompoundShape() {
         // Ownership of shapes is transferred to the compound shape.
@@ -74,19 +74,17 @@ public:
         return new BFSCompoundIterator<decltype(shapes_)::const_iterator>{shapes_.cbegin(), shapes_.cend()};
     }
 
-    void addShape(const Shape *const shape) override {
+    void addShape(Shape *const shape) override {
         shapes_.push_back(shape);
     }
 
-    void deleteShape(const Shape *const shape) override {
-        shapes_.erase(
-            std::remove_if(
-                shapes_.begin(),
-                shapes_.end(),
-                [&](const Shape *const s) {
-                    return s == shape;
-                }),
-            shapes_.cend() // ^_^
-        );
+    void deleteShape(Shape *const shape) override {
+        shapes_.remove(shape);
+
+        for (const auto &s : shapes_) {
+            if (s->name() == "CompoundShape") {
+                s->deleteShape(shape);
+            }
+        }
     }
 };

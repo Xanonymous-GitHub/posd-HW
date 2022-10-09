@@ -22,11 +22,11 @@ public:
         using std::runtime_error::runtime_error;
     };
 
-    virtual void addShape(const Shape *const shape) {
+    virtual void addShape(Shape *const shape) {
         throw MethodShouldNotBeRunError("addShape() should not be run");
     };
 
-    virtual void deleteShape(const Shape *const shape) {
+    virtual void deleteShape(Shape *const shape) {
         throw MethodShouldNotBeRunError("deleteShape() should not be run");
     };
 };

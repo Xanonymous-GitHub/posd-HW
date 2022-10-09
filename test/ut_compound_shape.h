@@ -35,9 +35,9 @@ private:
 
 protected:
     const double DEVIATION = 0.0001;
-    const Circle circle_{&circle_vector_};
-    const Rectangle rectangle_{&rectangle_left_vector_, &rectangle_right_vector_};
-    const Triangle triangle_{&triangle_left_vector_, &triangle_right_vector_};
+    Circle circle_{&circle_vector_};
+    Rectangle rectangle_{&rectangle_left_vector_, &rectangle_right_vector_};
+    Triangle triangle_{&triangle_left_vector_, &triangle_right_vector_};
 };
 
 class CompoundShapeTestWithoutNesting : public CompoundShapeTest {
@@ -49,7 +49,8 @@ protected:
      * |-- rectangle_
      * |-- triangle_
      */
-    const CompoundShape compound_shape_{circle_, rectangle_, triangle_};
+    Shape *content_of_compound_shape_[3] = {&circle_, &rectangle_, &triangle_};
+    CompoundShape compound_shape_{content_of_compound_shape_, 3};
 };
 
 class CompoundShapeTestWithNesting : public CompoundShapeTestWithoutNesting {
@@ -66,7 +67,8 @@ protected:
      * |   |-- rectangle_
      * |   |-- triangle_
      */
-    const CompoundShape compound_shape_n1_{circle_, rectangle_, triangle_, compound_shape_};
+    Shape *content_of_compound_shape_n1_[4] = {&circle_, &rectangle_, &triangle_, &compound_shape_};
+    CompoundShape compound_shape_n1_{content_of_compound_shape_n1_, 4};
 };
 
 class CompoundShapeTestWithMultipleNesting : public CompoundShapeTestWithNesting {
@@ -88,7 +90,8 @@ protected:
      * |   |   |-- rectangle_
      * |   |   |-- triangle_
      */
-    const CompoundShape compound_shape_n2_{circle_, rectangle_, triangle_, compound_shape_n1_};
+    Shape *content_of_compound_shape_n2_[4] = {&circle_, &rectangle_, &triangle_, &compound_shape_n1_};
+    CompoundShape compound_shape_n2_{content_of_compound_shape_n2_, 4};
 };
 
 TEST_F(CompoundShapeTestWithoutNesting, AreaShouldBeCorrect) {

@@ -27,10 +27,10 @@ protected:
     }
 
     const double DEVIATION = 0.0001;
-    const Shape *circle_;
-    const Shape *triangle_;
-    const Shape *rectangle_;
-    const Shape *compound_;
+    Shape *circle_;
+    Shape *triangle_;
+    Shape *rectangle_;
+    Shape *compound_;
 };
 
 TEST_F(ShapeTest, AreaWithPolymorphismShouldBeCorrect) {
