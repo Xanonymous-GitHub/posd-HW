@@ -528,3 +528,189 @@ TEST_F(CompoundShapeTestWithMultipleNesting, ShouldCorrectlyDeleteShape) {
     // Expect
     EXPECT_EQ(actual_info, expected_info);
 }
+
+TEST_F(CompoundShapeTestWithoutNesting, CreateBFSIteratorCorrectly) {
+    // Arrange
+    const auto it = compound_shape_.createBFSIterator();
+
+    // Expect
+    EXPECT_NE(it, nullptr);
+    EXPECT_NO_THROW(it->first());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &circle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &rectangle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &triangle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), true);
+}
+
+TEST_F(CompoundShapeTestWithoutNesting, CreateDFSIteratorCorrectly) {
+    // Arrange
+    const auto it = compound_shape_.createDFSIterator();
+
+    // Expect
+    EXPECT_NE(it, nullptr);
+    EXPECT_NO_THROW(it->first());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &circle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &rectangle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &triangle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), true);
+}
+
+TEST_F(CompoundShapeTestWithNesting, CreateBFSIteratorCorrectly) {
+    // Arrange
+    const auto it = compound_shape_n1_.createBFSIterator();
+
+    // Expect
+    EXPECT_NE(it, nullptr);
+    EXPECT_NO_THROW(it->first());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &circle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &rectangle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &triangle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &compound_shape_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &circle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &rectangle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &triangle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), true);
+}
+
+TEST_F(CompoundShapeTestWithNesting, CreateDFSIteratorCorrectly) {
+    // Arrange
+    const auto it = compound_shape_n1_.createDFSIterator();
+
+    // Expect
+    EXPECT_NE(it, nullptr);
+    EXPECT_NO_THROW(it->first());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &circle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &rectangle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &triangle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &compound_shape_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &circle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &rectangle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &triangle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), true);
+}
+
+TEST_F(CompoundShapeTestWithMultipleNesting, CreateBFSIteratorCorrectly) {
+    // Arrange
+    const auto it = compound_shape_n2_.createBFSIterator();
+
+    // Expect
+    EXPECT_NE(it, nullptr);
+    EXPECT_NO_THROW(it->first());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &circle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &rectangle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &triangle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &compound_shape_n1_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &circle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &rectangle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &triangle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &compound_shape_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &circle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &rectangle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &triangle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), true);
+}
+
+TEST_F(CompoundShapeTestWithMultipleNesting, CreateDFSIteratorCorrectly) {
+    // Arrange
+    const auto it = compound_shape_n2_.createDFSIterator();
+
+    // Expect
+    EXPECT_NE(it, nullptr);
+    EXPECT_NO_THROW(it->first());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &circle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &rectangle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &triangle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &compound_shape_n1_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &circle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &rectangle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &triangle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &compound_shape_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &circle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &rectangle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), false);
+    EXPECT_EQ(it->currentItem(), &triangle_);
+    EXPECT_NO_THROW(it->next());
+    EXPECT_EQ(it->isDone(), true);
+}
