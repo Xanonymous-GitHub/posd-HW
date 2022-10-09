@@ -43,23 +43,81 @@ TEST_F(TriangleTest, IllegalTriangle) {
     EXPECT_ANY_THROW(Triangle(&vec5, &vec6));
 }
 
-TEST_F(TriangleTest, ShouldCreateNullIteratorWhenCallCreateBfsIterator) {
+TEST_F(TriangleTest, CreatedBFSIteratorShouldThrowWhenCallingFirst) {
     // Act
     const auto it = triangle_.createBFSIterator();
 
     // Expect
     EXPECT_THROW({ it->first(); }, Iterator::MethodShouldNotBeRunError);
-    EXPECT_TRUE(it->isDone());
 
     delete it;
 }
 
-TEST_F(TriangleTest, ShouldCreateNullIteratorWhenCallCreateDfsIterator) {
+TEST_F(TriangleTest, CreatedDFSIteratorShouldThrowWhenCallingFirst) {
     // Act
     const auto it = triangle_.createDFSIterator();
 
     // Expect
     EXPECT_THROW({ it->first(); }, Iterator::MethodShouldNotBeRunError);
+
+    delete it;
+}
+
+TEST_F(TriangleTest, CreatedBFSIteratorShouldThrowWhenCallingCurrentItem) {
+    // Act
+    const auto it = triangle_.createBFSIterator();
+
+    // Expect
+    EXPECT_THROW({ it->currentItem(); }, Iterator::MethodShouldNotBeRunError);
+
+    delete it;
+}
+
+TEST_F(TriangleTest, CreatedDFSIteratorShouldThrowWhenCallingCurrentItem) {
+    // Act
+    const auto it = triangle_.createDFSIterator();
+
+    // Expect
+    EXPECT_THROW({ it->currentItem(); }, Iterator::MethodShouldNotBeRunError);
+
+    delete it;
+}
+
+TEST_F(TriangleTest, CreatedBFSIteratorShouldThrowWhenCallingNext) {
+    // Act
+    const auto it = triangle_.createBFSIterator();
+
+    // Expect
+    EXPECT_THROW({ it->next(); }, Iterator::MethodShouldNotBeRunError);
+
+    delete it;
+}
+
+TEST_F(TriangleTest, CreatedDFSIteratorShouldThrowWhenCallingNext) {
+    // Act
+    const auto it = triangle_.createDFSIterator();
+
+    // Expect
+    EXPECT_THROW({ it->next(); }, Iterator::MethodShouldNotBeRunError);
+
+    delete it;
+}
+
+TEST_F(TriangleTest, CreatedBFSIteratorShouldGetTRUEWhenCallingIsDone) {
+    // Act
+    const auto it = triangle_.createBFSIterator();
+
+    // Expect
+    EXPECT_TRUE(it->isDone());
+
+    delete it;
+}
+
+TEST_F(TriangleTest, CreatedDFSIteratorShouldGetTRUEWhenCallingIsDone) {
+    // Act
+    const auto it = triangle_.createDFSIterator();
+
+    // Expect
     EXPECT_TRUE(it->isDone());
 
     delete it;

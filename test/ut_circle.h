@@ -33,23 +33,81 @@ TEST_F(CircleTest, ShouldCorrectlyPrintInfo) {
     EXPECT_EQ(circle_.info(), "Circle (Vector ((-5.00, 9.00), (3.00, 4.00)))");
 }
 
-TEST_F(CircleTest, ShouldCreateNullIteratorWhenCallCreateBfsIterator) {
+TEST_F(CircleTest, CreatedBFSIteratorShouldThrowWhenCallingFirst) {
     // Act
     const auto it = circle_.createBFSIterator();
 
     // Expect
     EXPECT_THROW({ it->first(); }, Iterator::MethodShouldNotBeRunError);
-    EXPECT_TRUE(it->isDone());
 
     delete it;
 }
 
-TEST_F(CircleTest, ShouldCreateNullIteratorWhenCallCreateDfsIterator) {
+TEST_F(CircleTest, CreatedDFSIteratorShouldThrowWhenCallingFirst) {
     // Act
     const auto it = circle_.createDFSIterator();
 
     // Expect
     EXPECT_THROW({ it->first(); }, Iterator::MethodShouldNotBeRunError);
+
+    delete it;
+}
+
+TEST_F(CircleTest, CreatedBFSIteratorShouldThrowWhenCallingCurrentItem) {
+    // Act
+    const auto it = circle_.createBFSIterator();
+
+    // Expect
+    EXPECT_THROW({ it->currentItem(); }, Iterator::MethodShouldNotBeRunError);
+
+    delete it;
+}
+
+TEST_F(CircleTest, CreatedDFSIteratorShouldThrowWhenCallingCurrentItem) {
+    // Act
+    const auto it = circle_.createDFSIterator();
+
+    // Expect
+    EXPECT_THROW({ it->currentItem(); }, Iterator::MethodShouldNotBeRunError);
+
+    delete it;
+}
+
+TEST_F(CircleTest, CreatedBFSIteratorShouldThrowWhenCallingNext) {
+    // Act
+    const auto it = circle_.createBFSIterator();
+
+    // Expect
+    EXPECT_THROW({ it->next(); }, Iterator::MethodShouldNotBeRunError);
+
+    delete it;
+}
+
+TEST_F(CircleTest, CreatedDFSIteratorShouldThrowWhenCallingNext) {
+    // Act
+    const auto it = circle_.createDFSIterator();
+
+    // Expect
+    EXPECT_THROW({ it->next(); }, Iterator::MethodShouldNotBeRunError);
+
+    delete it;
+}
+
+TEST_F(CircleTest, CreatedBFSIteratorShouldGetTRUEWhenCallingIsDone) {
+    // Act
+    const auto it = circle_.createBFSIterator();
+
+    // Expect
+    EXPECT_TRUE(it->isDone());
+
+    delete it;
+}
+
+TEST_F(CircleTest, CreatedDFSIteratorShouldGetTRUEWhenCallingIsDone) {
+    // Act
+    const auto it = circle_.createDFSIterator();
+
+    // Expect
     EXPECT_TRUE(it->isDone());
 
     delete it;

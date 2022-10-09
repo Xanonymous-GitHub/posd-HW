@@ -49,23 +49,81 @@ TEST_F(RectangleTest, IllegalRectangle) {
     EXPECT_ANY_THROW(Rectangle(&vec5, &vec6));
 }
 
-TEST_F(RectangleTest, ShouldCreateNullIteratorWhenCallCreateBfsIterator) {
+TEST_F(RectangleTest, CreatedBFSIteratorShouldThrowWhenCallingFirst) {
     // Act
     const auto it = rectangle_.createBFSIterator();
 
     // Expect
     EXPECT_THROW({ it->first(); }, Iterator::MethodShouldNotBeRunError);
-    EXPECT_TRUE(it->isDone());
 
     delete it;
 }
 
-TEST_F(RectangleTest, ShouldCreateNullIteratorWhenCallCreateDfsIterator) {
+TEST_F(RectangleTest, CreatedDFSIteratorShouldThrowWhenCallingFirst) {
     // Act
     const auto it = rectangle_.createDFSIterator();
 
     // Expect
     EXPECT_THROW({ it->first(); }, Iterator::MethodShouldNotBeRunError);
+
+    delete it;
+}
+
+TEST_F(RectangleTest, CreatedBFSIteratorShouldThrowWhenCallingCurrentItem) {
+    // Act
+    const auto it = rectangle_.createBFSIterator();
+
+    // Expect
+    EXPECT_THROW({ it->currentItem(); }, Iterator::MethodShouldNotBeRunError);
+
+    delete it;
+}
+
+TEST_F(RectangleTest, CreatedDFSIteratorShouldThrowWhenCallingCurrentItem) {
+    // Act
+    const auto it = rectangle_.createDFSIterator();
+
+    // Expect
+    EXPECT_THROW({ it->currentItem(); }, Iterator::MethodShouldNotBeRunError);
+
+    delete it;
+}
+
+TEST_F(RectangleTest, CreatedBFSIteratorShouldThrowWhenCallingNext) {
+    // Act
+    const auto it = rectangle_.createBFSIterator();
+
+    // Expect
+    EXPECT_THROW({ it->next(); }, Iterator::MethodShouldNotBeRunError);
+
+    delete it;
+}
+
+TEST_F(RectangleTest, CreatedDFSIteratorShouldThrowWhenCallingNext) {
+    // Act
+    const auto it = rectangle_.createDFSIterator();
+
+    // Expect
+    EXPECT_THROW({ it->next(); }, Iterator::MethodShouldNotBeRunError);
+
+    delete it;
+}
+
+TEST_F(RectangleTest, CreatedBFSIteratorShouldGetTRUEWhenCallingIsDone) {
+    // Act
+    const auto it = rectangle_.createBFSIterator();
+
+    // Expect
+    EXPECT_TRUE(it->isDone());
+
+    delete it;
+}
+
+TEST_F(RectangleTest, CreatedDFSIteratorShouldGetTRUEWhenCallingIsDone) {
+    // Act
+    const auto it = rectangle_.createDFSIterator();
+
+    // Expect
     EXPECT_TRUE(it->isDone());
 
     delete it;
