@@ -19,12 +19,13 @@ public:
         // Therefore, the circle does not delete the radius vector.
     }
 
-    double radius() const {
+    constexpr double radius() const {
         return _radiusVec->length();
     }
 
     double area() const override {
-        return M_PI * radius() * radius();
+        const double myRadius = radius();
+        return M_PI * myRadius * myRadius;
     }
 
     double perimeter() const override {
@@ -37,6 +38,17 @@ public:
 
     std::string name() const override {
         return name_;
+    }
+
+    std::set<const Point*> getPoints() {
+
+    }
+
+    void accept(const ShapeVisitor* visitor) {
+        
+    }
+
+    Iterator *createIterator(const IteratorFactory *factory) override {
     }
 
     Iterator *createDFSIterator() const override {

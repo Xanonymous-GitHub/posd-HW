@@ -54,6 +54,10 @@ public:
         return name_;
     }
 
+    Iterator *createIterator(const IteratorFactory *factory) override {
+
+    }
+
     Iterator *createDFSIterator() const override {
         return new NullIterator();
     }
@@ -61,4 +65,10 @@ public:
     Iterator *createBFSIterator() const override {
         return new NullIterator();
     }
+
+    std::set<const Point*> getPoints() {
+
+    }
+
+    void accept(const ShapeVisitor* visitor) {}
 };

@@ -66,12 +66,24 @@ public:
         return name_;
     }
 
+    Iterator *createIterator(const IteratorFactory *factory) override {
+
+    }
+
     Iterator *createDFSIterator() const override {
         return new DFSCompoundIterator<decltype(shapes_)::const_iterator>{shapes_.cbegin(), shapes_.cend()};
     }
 
     Iterator *createBFSIterator() const override {
         return new BFSCompoundIterator<decltype(shapes_)::const_iterator>{shapes_.cbegin(), shapes_.cend()};
+    }
+
+    std::set<const Point*> getPoints() {
+
+    }
+
+    void accept(const ShapeVisitor* visitor) {
+
     }
 
     void addShape(Shape *const shape) override {

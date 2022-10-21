@@ -10,11 +10,17 @@ public:
 
     virtual std::string info() const = 0;
 
+    virtual Iterator *createIterator(const IteratorFactory *factory) = 0;
+
     virtual Iterator *createDFSIterator() const = 0;
 
     virtual Iterator *createBFSIterator() const = 0;
 
     virtual std::string name() const = 0;
+
+    virtual std::set<const Point *> getPoints() = 0;
+
+    virtual void accept(const ShapeVisitor *visitor) = 0;
 
     virtual ~Shape() {}
 
