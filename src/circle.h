@@ -12,7 +12,7 @@ private:
     const TwoDimensionalVector *const _radiusVec;
     const std::string name_ = "Circle";
 
-    constexpr const Point *center_() const {
+    const Point *center_() const {
         return _radiusVec->a();
     }
 
