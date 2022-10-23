@@ -14,7 +14,7 @@ private:
     const std::string name_ = "CompoundShape";
 
     struct NonValueDuplicateSetComparator_ {
-        const bool operator()(const Shape *const lhs, const Shape *const rhs) const {
+        const bool operator()(const Point *const lhs, const Point *const rhs) const {
             return lhs->info() < rhs->info();
         }
     };
