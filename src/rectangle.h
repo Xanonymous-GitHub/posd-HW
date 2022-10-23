@@ -78,7 +78,7 @@ public:
         return {commonPoint, unCommonPointA, unCommonPointB, lastPoint};
     }
 
-    void accept(const ShapeVisitor *const visitor) const override {
+    void accept(ShapeVisitor *const visitor) const override {
         visitor->visitRectangle(this);
     }
 };

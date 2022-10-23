@@ -51,7 +51,7 @@ public:
         return {leftDownPoint, rightUpPoint};
     }
 
-    void accept(const ShapeVisitor *const visitor) const override {
+    void accept(ShapeVisitor *const visitor) const override {
         visitor->visitCircle(this);
     }
 
