@@ -14,20 +14,24 @@ private:
                point.y() >= leftDownPoint_.y() && point.y() <= rightUpPoint_.y();
     }
 
-    constexpr bool collideInTopLeft_(const BoundingBox &other) const {
-        return containsPoint_(Point{other.leftDownPoint_.x(), other.rightUpPoint_.y()});
+    bool collideInTopLeft_(const BoundingBox &other) const {
+        const auto topLeftPoint = Point{other.leftDownPoint_.x(), other.rightUpPoint_.y()};
+        return containsPoint_(topLeftPoint);
     }
 
-    constexpr bool collideInTopRight_(const BoundingBox &other) const {
-        return containsPoint_(Point{other.rightUpPoint_.x(), other.rightUpPoint_.y()});
+    bool collideInTopRight_(const BoundingBox &other) const {
+        const auto topRightPoint = Point{other.rightUpPoint_.x(), other.rightUpPoint_.y()};
+        return containsPoint_(topRightPoint);
     }
 
-    constexpr bool collideInBottomLeft_(const BoundingBox &other) const {
-        return containsPoint_(Point{other.leftDownPoint_.x(), other.leftDownPoint_.y()});
+    bool collideInBottomLeft_(const BoundingBox &other) const {
+        const auto bottomLeftPoint = Point{other.leftDownPoint_.x(), other.leftDownPoint_.y()};
+        return containsPoint_(bottomLeftPoint);
     }
 
-    constexpr bool collideInBottomRight_(const BoundingBox &other) const {
-        return containsPoint_(Point{other.rightUpPoint_.x(), other.leftDownPoint_.y()});
+    bool collideInBottomRight_(const BoundingBox &other) const {
+        const auto bottomRightPoint = Point{other.rightUpPoint_.x(), other.leftDownPoint_.y()};
+        return containsPoint_(bottomRightPoint);
     }
 
     double findMaxX_(const std::set<const Point *> &points) const {
