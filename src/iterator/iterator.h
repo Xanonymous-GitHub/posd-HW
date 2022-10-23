@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../shape.h"
+class Shape;
 
 class Iterator {
 public:

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "./visitor/shape_visitor.h"
 #include "iterator/null_iterator.h"
 #include "shape.h"
 #include "two_dimensional_vector.h"
@@ -52,10 +53,6 @@ public:
         return name_;
     }
 
-    Iterator *createIterator(const IteratorFactory *factory) override {
-
-    }
-
     Iterator *createDFSIterator() const override {
         return new NullIterator();
     }
@@ -64,11 +61,14 @@ public:
         return new NullIterator();
     }
 
-    std::set<const Point*> getPoints() {
-
+    std::set<const Point *> getPoints() const override {
+        const auto commonPoint = TwoDimensionalVector::common_point(_v1, _v2);
+        const auto unCommonPointA = TwoDimensionalVector::other_point(_v1, commonPoint);
+        const auto unCommonPointB = TwoDimensionalVector::other_point(_v2, commonPoint);
+        return {commonPoint, unCommonPointA, unCommonPointB};
     }
 
-    void accept(const ShapeVisitor* visitor) {
-        
+    void accept(const ShapeVisitor *const visitor) const override {
+        visitor->visitTriangle(this);
     }
 };

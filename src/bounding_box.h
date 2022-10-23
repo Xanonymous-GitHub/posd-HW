@@ -10,15 +10,19 @@ private:
     const Point *const _min;
 
 public:
-    BoundingBox(std::set<const Point *> points) {}
+    BoundingBox(const std::set<const Point *> &points) {}
 
-    const Point *calMaximumPoint(const std::set<const Point *> points) {}
+    const Point *calMaximumPoint(const std::set<const Point *> &points) {}
 
-    const Point *calMinimumPoint(const std::set<const Point *> points) {}
+    const Point *calMinimumPoint(const std::set<const Point *> &points) {}
 
-    const Point *max() {}
+    constexpr const Point *max() {
+        return _max;
+    }
 
-    const Point *min() {}
+    constexpr const Point *min() {
+        return _min;
+    }
 
-    bool collide(const BoundingBox *box) {}
+    bool collide(const BoundingBox *const box) {}
 };

@@ -1,6 +1,11 @@
 #pragma once
 
+#include "./iterator/factory/iterator_factory.h"
+#include <set>
+
 class Iterator;
+class Point;
+class ShapeVisitor;
 
 class Shape {
 public:
@@ -10,7 +15,9 @@ public:
 
     virtual std::string info() const = 0;
 
-    virtual Iterator *createIterator(const IteratorFactory *factory) = 0;
+    virtual Iterator *createIterator(const IteratorFactory *const factory) const {
+        return factory->createIterator();
+    }
 
     virtual Iterator *createDFSIterator() const = 0;
 
@@ -18,9 +25,9 @@ public:
 
     virtual std::string name() const = 0;
 
-    virtual std::set<const Point *> getPoints() = 0;
+    virtual std::set<const Point *> getPoints() const = 0;
 
-    virtual void accept(const ShapeVisitor *visitor) = 0;
+    virtual void accept(const ShapeVisitor *const visitor) const = 0;
 
     virtual ~Shape() {}
 

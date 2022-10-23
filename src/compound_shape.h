@@ -2,6 +2,8 @@
 
 #include "./iterator/bfs_compound_iterator.h"
 #include "./iterator/dfs_compound_iterator.h"
+#include "./iterator/factory/iterator_factory.h"
+#include "./visitor/shape_visitor.h"
 #include "shape.h"
 
 #include <list>
@@ -10,6 +12,12 @@ class CompoundShape : public Shape {
 private:
     std::list<Shape *> shapes_;
     const std::string name_ = "CompoundShape";
+
+    struct NonValueDuplicateSetComparator_ {
+        const bool operator()(const Shape *const lhs, const Shape *const rhs) const {
+            return lhs->info() < rhs->info();
+        }
+    };
 
 public:
     template <class... MShape>
@@ -66,8 +74,8 @@ public:
         return name_;
     }
 
-    Iterator *createIterator(const IteratorFactory *factory) override {
-
+    Iterator *createIterator(const IteratorFactory *const factory) const override {
+        return factory->createIterator(shapes_.cbegin(), shapes_.cend());
     }
 
     Iterator *createDFSIterator() const override {
@@ -78,12 +86,20 @@ public:
         return new BFSCompoundIterator<decltype(shapes_)::const_iterator>{shapes_.cbegin(), shapes_.cend()};
     }
 
-    std::set<const Point*> getPoints() {
+    std::set<const Point *> getPoints() const override {
+        std::set<const Point *, NonValueDuplicateSetComparator_> points;
 
+        for (const auto &shape : shapes_) {
+            const auto shapePoints = shape->getPoints();
+
+            points.insert(shapePoints.cbegin(), shapePoints.cend());
+        }
+
+        return std::set<const Point *>(points.cbegin(), points.cend());
     }
 
-    void accept(const ShapeVisitor* visitor) {
-
+    void accept(const ShapeVisitor *const visitor) const override {
+        visitor->visitCompoundShape(this);
     }
 
     void addShape(Shape *const shape) override {

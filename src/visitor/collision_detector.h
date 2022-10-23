@@ -15,15 +15,19 @@ private:
     const BoundingBox *_targetBoundingBox;
 
 public:
-    CollisionDetector(const Shape *shape) {}
+    CollisionDetector(const Shape *const shape) {}
 
-    void visitCircle(const Circle *circle) override {}
+    void visitCircle(const Circle *const circle) const override {
 
-    void visitTriangle(const Triangle *triangle) override {}
+    }
 
-    void visitRectangle(const Rectangle *rectangle) override {}
+    void visitTriangle(const Triangle *const triangle) const override {}
 
-    void visitCompoundShape(const CompoundShape *compoundShape) override {}
+    void visitRectangle(const Rectangle *const rectangle) const override {}
 
-    std::vector<Shape *> collidedShapes() const {}
+    void visitCompoundShape(const CompoundShape *const compoundShape) const override {}
+
+    std::vector<Shape *> collidedShapes() const {
+        return _collideResult;
+    }
 };

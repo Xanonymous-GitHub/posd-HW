@@ -1,5 +1,6 @@
 #pragma once
 
+#include "./visitor/shape_visitor.h"
 #include "iterator/null_iterator.h"
 #include "shape.h"
 #include "two_dimensional_vector.h"
@@ -10,6 +11,10 @@ class Circle : public Shape {
 private:
     const TwoDimensionalVector *const _radiusVec;
     const std::string name_ = "Circle";
+
+    constexpr const Point *center_() const {
+        return _radiusVec->a();
+    }
 
 public:
     Circle(const TwoDimensionalVector *const radiusVec) : _radiusVec(radiusVec) {}
@@ -40,15 +45,14 @@ public:
         return name_;
     }
 
-    std::set<const Point*> getPoints() {
-
+    std::set<const Point *> getPoints() const override {
+        const auto leftDownPoint = new Point(center_()->x() - radius(), center_()->y() - radius());
+        const auto rightUpPoint = new Point(center_()->x() + radius(), center_()->y() + radius());
+        return {leftDownPoint, rightUpPoint};
     }
 
-    void accept(const ShapeVisitor* visitor) {
-        
-    }
-
-    Iterator *createIterator(const IteratorFactory *factory) override {
+    void accept(const ShapeVisitor *const visitor) const override {
+        visitor->visitCircle(this);
     }
 
     Iterator *createDFSIterator() const override {
