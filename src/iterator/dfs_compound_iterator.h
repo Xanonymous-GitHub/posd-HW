@@ -2,6 +2,7 @@
 
 #include <queue>
 #include <iostream>
+#include <algorithm>
 
 #include "../shape.h"
 #include "iterator.h"
