@@ -42,7 +42,12 @@ public:
     void visitCompoundShape(CompoundShape *const compoundShape) override {
         auto compoundShapeBoundingBox = BoundingBox{compoundShape->getPoints()};
         if (compoundShapeBoundingBox.collide(&_targetBoundingBox)) {
-            _collideResult.push_back(compoundShape);
+            const auto listIteratorFactory = ListIteratorFactory{};
+            const auto compoundShapeListIterator = compoundShape->createIterator(&listIteratorFactory);
+            for (; !compoundShapeListIterator->isDone(); compoundShapeListIterator->next()) {
+                const auto current = compoundShapeListIterator->currentItem();
+                const_cast<Shape *const>(current)->accept(this);
+            }
         }
     }
 
