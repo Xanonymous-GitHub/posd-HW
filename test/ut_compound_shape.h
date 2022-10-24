@@ -714,3 +714,35 @@ TEST_F(CompoundShapeTestWithMultipleNesting, CreateDFSIteratorCorrectly) {
     EXPECT_NO_THROW(it->next());
     EXPECT_EQ(it->isDone(), true);
 }
+
+TEST_F(CompoundShapeTestWithNesting, ShouldCorrectlyGetPoints) {
+    // Arrange
+    const auto expectedPoint1 = Point{4.00, 4.00};
+    const auto expectedPoint2 = Point{-4.00, -4.00};
+    const auto expectedPoint3 = Point{0.00, 0.00};
+    const auto expectedPoint4 = Point{4.00, 0.00};
+    const auto expectedPoint5 = Point{0.00, 3.00};
+    const auto expectedPoint6 = Point{3.00, 0.00};
+    const auto expectedPoint7 = Point{0.00, 5.00};
+    const auto expectedPoint8 = Point{3.00, 5.00};
+
+    // Act
+    const auto actualPoints = compound_shape_n1_.getPoints();
+
+    std::vector<std::string> actualPointsInfo;
+    for (const auto& point : actualPoints) {
+        actualPointsInfo.push_back(point->info());
+    }
+
+    // Expect
+    // Just like you said, we should find a way to remove the same-value points.
+    EXPECT_EQ(actualPoints.size(), 8);
+    EXPECT_TRUE(std::find(actualPointsInfo.cbegin(), actualPointsInfo.cend(), expectedPoint1.info()) != actualPointsInfo.cend());
+    EXPECT_TRUE(std::find(actualPointsInfo.cbegin(), actualPointsInfo.cend(), expectedPoint2.info()) != actualPointsInfo.cend());
+    EXPECT_TRUE(std::find(actualPointsInfo.cbegin(), actualPointsInfo.cend(), expectedPoint3.info()) != actualPointsInfo.cend());
+    EXPECT_TRUE(std::find(actualPointsInfo.cbegin(), actualPointsInfo.cend(), expectedPoint4.info()) != actualPointsInfo.cend());
+    EXPECT_TRUE(std::find(actualPointsInfo.cbegin(), actualPointsInfo.cend(), expectedPoint5.info()) != actualPointsInfo.cend());
+    EXPECT_TRUE(std::find(actualPointsInfo.cbegin(), actualPointsInfo.cend(), expectedPoint6.info()) != actualPointsInfo.cend());
+    EXPECT_TRUE(std::find(actualPointsInfo.cbegin(), actualPointsInfo.cend(), expectedPoint7.info()) != actualPointsInfo.cend());
+    EXPECT_TRUE(std::find(actualPointsInfo.cbegin(), actualPointsInfo.cend(), expectedPoint8.info()) != actualPointsInfo.cend());
+}
