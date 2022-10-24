@@ -1,7 +1,9 @@
 #pragma once
 
-#include <queue>
+#include <algorithm>
 #include <iostream>
+#include <queue>
+#include <utility>
 
 #include "../shape.h"
 #include "iterator.h"
