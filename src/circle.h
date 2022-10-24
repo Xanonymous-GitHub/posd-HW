@@ -46,8 +46,10 @@ public:
     }
 
     std::set<const Point *> getPoints() const override {
-        const auto leftDownPoint = new Point(center_()->x() - radius(), center_()->y() - radius());
-        const auto rightUpPoint = new Point(center_()->x() + radius(), center_()->y() + radius());
+        const auto myCenter = center_();
+        const auto myRadius = radius();
+        const auto leftDownPoint = new Point(myCenter->x() - myRadius, myCenter->y() - myRadius);
+        const auto rightUpPoint = new Point(myCenter->x() + myRadius, myCenter->y() + myRadius);
         return {leftDownPoint, rightUpPoint};
     }
 
