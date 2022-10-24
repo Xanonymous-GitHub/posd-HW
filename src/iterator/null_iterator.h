@@ -8,7 +8,7 @@ public:
         throw MethodShouldNotBeRunError{"first() should not be run"};
     }
 
-    const Shape *currentItem() const override {
+    Shape *currentItem() const override {
         throw MethodShouldNotBeRunError{"currentItem() should not be run"};
     }
 

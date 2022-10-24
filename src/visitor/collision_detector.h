@@ -46,7 +46,7 @@ public:
             const auto compoundShapeListIterator = compoundShape->createIterator(&listIteratorFactory);
             for (; !compoundShapeListIterator->isDone(); compoundShapeListIterator->next()) {
                 const auto current = compoundShapeListIterator->currentItem();
-                const_cast<Shape *const>(current)->accept(this);
+                current->accept(this);
             }
         }
     }

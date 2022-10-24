@@ -17,8 +17,8 @@ private:
 
     const ForwardShapeIterator begin_, end_;
 
-    std::queue<const Shape *> traversed_;
-    std::vector<const Shape *> debugTraversedVector_;
+    std::queue<Shape *> traversed_;
+    std::vector<Shape *> debugTraversedVector_;
 
     void debugPrint_() const {
         std::cout << "traversed_: ";
@@ -31,7 +31,7 @@ private:
     }
 
     void makeDfsTraversalHistory_() {
-        std::for_each(begin_, end_, [&](const Shape *const shape) {
+        std::for_each(begin_, end_, [&](Shape *const shape) {
             traversed_.push(shape);
 
             // TODO: Remove this debug code.
@@ -81,7 +81,7 @@ public:
         }
     }
 
-    const Shape *currentItem() const override {
+    Shape *currentItem() const override {
         if (!isDone()) {
             return traversed_.front();
         } else {
