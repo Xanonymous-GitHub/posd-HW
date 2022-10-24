@@ -98,7 +98,7 @@ public:
         return std::set<const Point *>(points.cbegin(), points.cend());
     }
 
-    void accept(ShapeVisitor *const visitor) const override {
+    void accept(ShapeVisitor *const visitor) override {
         visitor->visitCompoundShape(this);
     }
 

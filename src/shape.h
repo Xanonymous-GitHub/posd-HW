@@ -27,7 +27,7 @@ public:
 
     virtual std::set<const Point *> getPoints() const = 0;
 
-    virtual void accept(ShapeVisitor *const visitor) const = 0;
+    virtual void accept(ShapeVisitor *const visitor) = 0;
 
     virtual ~Shape() {}
 
