@@ -128,3 +128,26 @@ TEST_F(RectangleTest, CreatedDFSIteratorShouldGetTRUEWhenCallingIsDone) {
 
     delete it;
 }
+
+TEST_F(RectangleTest, ShouldCorrectlyGetPoints) {
+    // Arrange
+    const auto expectedPoint1 = Point{0.00, 0.00};
+    const auto expectedPoint2 = Point{4.00, 0.00};
+    const auto expectedPoint3 = Point{0.00, 3.00};
+    const auto expectedPoint4 = Point{4.00, 3.00};
+
+    // Act
+    const auto actualPoints = rectangle_.getPoints();
+
+    std::vector<std::string> actualPointsInfo;
+    for (const auto &point : actualPoints) {
+        actualPointsInfo.push_back(point->info());
+    }
+
+    // Expect
+    EXPECT_EQ(actualPoints.size(), 4);
+    EXPECT_TRUE(std::find(actualPointsInfo.cbegin(), actualPointsInfo.cend(), expectedPoint1.info()) != actualPointsInfo.cend());
+    EXPECT_TRUE(std::find(actualPointsInfo.cbegin(), actualPointsInfo.cend(), expectedPoint2.info()) != actualPointsInfo.cend());
+    EXPECT_TRUE(std::find(actualPointsInfo.cbegin(), actualPointsInfo.cend(), expectedPoint3.info()) != actualPointsInfo.cend());
+    EXPECT_TRUE(std::find(actualPointsInfo.cbegin(), actualPointsInfo.cend(), expectedPoint4.info()) != actualPointsInfo.cend());
+}

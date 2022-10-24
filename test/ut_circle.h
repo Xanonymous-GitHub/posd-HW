@@ -112,3 +112,22 @@ TEST_F(CircleTest, CreatedDFSIteratorShouldGetTRUEWhenCallingIsDone) {
 
     delete it;
 }
+
+TEST_F(CircleTest, ShouldCorrectlyGetPoints) {
+    // Arrange
+    const auto expectedPoint1 = Point{-14.43, -0.43};
+    const auto expectedPoint2 = Point{4.43, 18.43};
+
+    // Act
+    const auto actualPoints = circle_.getPoints();
+
+    std::vector<std::string> actualPointsInfo;
+    for (const auto &point : actualPoints) {
+        actualPointsInfo.push_back(point->info());
+    }
+
+    // Expect
+    EXPECT_EQ(actualPoints.size(), 2);
+    EXPECT_TRUE(std::find(actualPointsInfo.cbegin(), actualPointsInfo.cend(), expectedPoint1.info()) != actualPointsInfo.cend());
+    EXPECT_TRUE(std::find(actualPointsInfo.cbegin(), actualPointsInfo.cend(), expectedPoint2.info()) != actualPointsInfo.cend());
+}
