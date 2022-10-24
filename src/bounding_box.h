@@ -9,31 +9,6 @@ private:
     const Point rightUpPoint_;
     const Point leftDownPoint_;
 
-    constexpr bool containsPoint_(const Point &point) const {
-        return point.x() >= leftDownPoint_.x() && point.x() <= rightUpPoint_.x() &&
-               point.y() >= leftDownPoint_.y() && point.y() <= rightUpPoint_.y();
-    }
-
-    bool collideInTopLeft_(const BoundingBox &other) const {
-        const auto topLeftPoint = Point{other.leftDownPoint_.x(), other.rightUpPoint_.y()};
-        return containsPoint_(topLeftPoint);
-    }
-
-    bool collideInTopRight_(const BoundingBox &other) const {
-        const auto topRightPoint = Point{other.rightUpPoint_.x(), other.rightUpPoint_.y()};
-        return containsPoint_(topRightPoint);
-    }
-
-    bool collideInBottomLeft_(const BoundingBox &other) const {
-        const auto bottomLeftPoint = Point{other.leftDownPoint_.x(), other.leftDownPoint_.y()};
-        return containsPoint_(bottomLeftPoint);
-    }
-
-    bool collideInBottomRight_(const BoundingBox &other) const {
-        const auto bottomRightPoint = Point{other.rightUpPoint_.x(), other.leftDownPoint_.y()};
-        return containsPoint_(bottomRightPoint);
-    }
-
     double findMaxX_(const std::set<const Point *> &points) const {
         double maxX = -DBL_MAX;
         for (const auto &point : points) {
@@ -103,9 +78,9 @@ public:
             throw std::invalid_argument("The bounding box to collide with cannot be null.");
         }
 
-        return collideInTopLeft_(*box) ||
-               collideInTopRight_(*box) ||
-               collideInBottomLeft_(*box) ||
-               collideInBottomRight_(*box);
+        return !((box->rightUpPoint_.x() < leftDownPoint_.x()) ||
+                 (box->leftDownPoint_.x() > rightUpPoint_.x()) ||
+                 (box->rightUpPoint_.y() < leftDownPoint_.y()) ||
+                 (box->leftDownPoint_.y() > rightUpPoint_.y()));
     }
 };
