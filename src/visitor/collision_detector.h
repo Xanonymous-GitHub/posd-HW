@@ -7,6 +7,7 @@
 #include "../rectangle.h"
 #include "../triangle.h"
 #include "shape_visitor.h"
+#include <algorithm>
 #include <vector>
 
 class CollisionDetector : public ShapeVisitor {
@@ -45,7 +46,12 @@ public:
         }
     }
 
-    std::vector<const Shape *> collidedShapes() const {
-        return _collideResult;
+    std::vector<Shape *> collidedShapes() const {
+        // convert all elements from const Shape * to Shape *.
+        // We insist that the returned vector contains only non-const Shape *.
+        std::vector<Shape *> result;
+        std::transform(_collideResult.cbegin(), _collideResult.cend(), std::back_inserter(result),
+                       [](const Shape *const shape) { return const_cast<Shape *>(shape); });
+        return result;
     }
 };
