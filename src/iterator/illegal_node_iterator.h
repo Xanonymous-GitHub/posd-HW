@@ -1,16 +1,15 @@
-#include "./iterator.h"
-#include "./factory/list_iterator_factory.h"
-#include "../visitor/illegal_node_checker.h"
 #include "../shape.h"
-#include <queue>
+#include "../visitor/illegal_node_checker.h"
+#include "./factory/list_iterator_factory.h"
+#include "./iterator.h"
 #include <list>
+#include <queue>
 
-class IllegalNodeIterator : public Iterator
-{
+class IllegalNodeIterator : public Iterator {
 private:
     bool isIterated_ = false;
 
-    const Shape* root_;
+    const Shape *root_;
 
     std::queue<Shape *> traversed_;
 
@@ -42,8 +41,9 @@ private:
             traversed_.pop();
         }
     }
+
 public:
-    IllegalNodeIterator(Shape *root): root_{root} {
+    IllegalNodeIterator(Shape *root) : root_{root} {
         makeIllegalTraversalHistory_();
     }
 

@@ -235,7 +235,7 @@ TEST_F(BoundingBoxTest, shouldBeRecognizedAsNOTCollideOfTwoNONCollideShapes3) {
 }
 
 TEST_F(BoundingBoxTest, ShouldGetCorrectDistance) {
-        // Arrange
+    // Arrange
     const auto pointSet1 = triangle_.getPoints();
     const auto pointSet2 = circle2_.getPoints();
     auto boundingBox1 = BoundingBox(pointSet1);

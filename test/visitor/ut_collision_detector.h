@@ -172,7 +172,7 @@ TEST_F(CollisionDetectorTest, shouldCorrectlyVisitCompoundShapeAndFindSomeOfItsC
     CollisionDetector collisionDetector{&rectangle3_};
     Shape *content_of_compound_shape1_[2] = {&circle2_, &rectangle1_};
     CompoundShape compoundShape1{content_of_compound_shape1_, 2};
-    
+
     Shape *content_of_compound_shape2_[3] = {&circle1_, &rectangle2_, &compoundShape1};
     CompoundShape compoundShape2{content_of_compound_shape2_, 3};
 

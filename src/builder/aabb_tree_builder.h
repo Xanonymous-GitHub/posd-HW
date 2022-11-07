@@ -1,18 +1,17 @@
 #pragma once
 
-#include "../shape.h"
-#include "../triangle.h"
 #include "../circle.h"
 #include "../iterator/factory/list_iterator_factory.h"
+#include "../shape.h"
+#include "../triangle.h"
 #include "../visitor/closest_shape_finder.h"
 #include <vector>
 
-class AABBTreeBuilder
-{
+class AABBTreeBuilder {
 private:
-    std::vector<Shape*> tree_;
+    std::vector<Shape *> tree_;
 
-    void insertShape_(Shape* newShape) {
+    void insertShape_(Shape *newShape) {
         if (tree_.empty()) {
             tree_.push_back(newShape);
             return;

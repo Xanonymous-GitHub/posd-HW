@@ -1,13 +1,13 @@
 #pragma once
 
-#include "./shape_visitor.h"
 #include "../compound_shape.h"
 #include "../iterator/factory/list_iterator_factory.h"
+#include "./shape_visitor.h"
 
-class IllegalNodeChecker : public ShapeVisitor
-{
+class IllegalNodeChecker : public ShapeVisitor {
 private:
     bool isIllegal_ = false;
+
 public:
     void visitCircle(Circle *circle) override {
         // ?
