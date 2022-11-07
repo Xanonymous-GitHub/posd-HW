@@ -12,6 +12,7 @@ class ClosestShapeFinder : public ShapeVisitor
 private:
     double closestDis_ = DBL_MAX;
     Shape* closestShape_ = nullptr;
+    CompoundShape* parentShape_ = nullptr;
     BoundingBox _targetBoundingBox;
 
     void replaceDisAndShape_(const double dis, Shape* shape) {
@@ -22,7 +23,7 @@ private:
     }
 
 public:
-    ClosestShapeFinder(Shape *shape): _targetBoundingBox{BoundingBox{shape->getPoints()}} {}
+    ClosestShapeFinder(Shape *shape): parentShape_{dynamic_cast<CompoundShape*>(shape)}, _targetBoundingBox{BoundingBox{shape->getPoints()}} {}
 
     void visitCircle(Circle *circle) override {
         auto circleBoundingBox = BoundingBox{circle->getPoints()};
@@ -51,5 +52,8 @@ public:
         return closestShape_;
     }
 
-    CompoundShape *getParent() const {}
+    CompoundShape *getParent() const {
+        // ?????????
+        return parentShape_;
+    }
 };
