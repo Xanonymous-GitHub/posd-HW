@@ -1,4 +1,7 @@
 #include "./iterator.h"
+#include "./factory/list_iterator_factory.h"
+#include "../visitor/illegal_node_checker.h"
+#include "../shape.h"
 #include <queue>
 #include <list>
 
@@ -11,13 +14,20 @@ private:
 
     std::queue<Shape *> traversed_;
 
-    // TODO findout where is the illegal shape.
-    // May use list iterator to found.
-    void makeBfsTraversalHistory_() {
-        std::for_each(begin_, end_, [&](Shape *const shape) {
+    void makeIllegalTraversalHistory_() {
+        const auto listIteratorFactory = ListIteratorFactory{};
+        const auto listIterator = root_->createIterator(&listIteratorFactory);
 
-            traversed_.push(shape);
-        });
+        for (listIterator->first(); !listIterator->isDone(); listIterator->next()) {
+            const auto shape = listIterator->currentItem();
+            // Check if shape is illegal.
+            // If yes, then push it to traversed_.
+            auto illegalNodeChecker = IllegalNodeChecker{};
+            shape->accept(&illegalNodeChecker);
+            if (illegalNodeChecker.isIllegal()) {
+                traversed_.push(shape);
+            }
+        }
 
         // // FIXME: This is a bad solution.
         // std::cout << std::endl
@@ -33,12 +43,14 @@ private:
         }
     }
 public:
-    IllegalNodeIterator(Shape *root): root_{root} {}
+    IllegalNodeIterator(Shape *root): root_{root} {
+        makeIllegalTraversalHistory_();
+    }
 
     void first() override {
         if (isIterated_) {
             clearTraversed_();
-            makeBfsTraversalHistory_();
+            makeIllegalTraversalHistory_();
             isIterated_ = false;
         }
     }
