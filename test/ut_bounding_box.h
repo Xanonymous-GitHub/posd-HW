@@ -233,3 +233,18 @@ TEST_F(BoundingBoxTest, shouldBeRecognizedAsNOTCollideOfTwoNONCollideShapes3) {
     // Expect
     EXPECT_FALSE(isCollide);
 }
+
+TEST_F(BoundingBoxTest, ShouldGetCorrectDistance) {
+        // Arrange
+    const auto pointSet1 = triangle_.getPoints();
+    const auto pointSet2 = circle2_.getPoints();
+    auto boundingBox1 = BoundingBox(pointSet1);
+    auto boundingBox2 = BoundingBox(pointSet2);
+
+    // Act
+    const auto dis = boundingBox2.distance(&boundingBox1);
+
+    // Expect
+    // std::cout<<dis<<std::endl;
+    EXPECT_NEAR(dis, 23.3665, DEVIATION);
+}
