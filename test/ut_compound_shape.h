@@ -746,3 +746,34 @@ TEST_F(CompoundShapeTestWithNesting, ShouldCorrectlyGetPoints) {
     EXPECT_TRUE(std::find(actualPointsInfo.cbegin(), actualPointsInfo.cend(), expectedPoint7.info()) != actualPointsInfo.cend());
     EXPECT_TRUE(std::find(actualPointsInfo.cbegin(), actualPointsInfo.cend(), expectedPoint8.info()) != actualPointsInfo.cend());
 }
+
+TEST_F(CompoundShapeTestWithoutNesting, ShouldCorrectlyReplaceShape) {
+    // Arrange
+    const auto point1 = Point{4.00, 0.00};
+    const auto point2 = Point{0.00, 3.00};
+
+    const auto tmpV = TwoDimensionalVector{&point1, &point2};
+
+    auto tmpCircle = Circle{&tmpV};
+
+    const std::string expected_info =
+        // clang-format off
+        "CompoundShape ("
+            "Circle ("
+                "Vector ((0.00, 0.00), (4.00, 0.00))"
+            "), "
+            "Circle ("
+                "Vector ((4.00, 0.00), (0.00, 3.00))"
+            "), "
+            "Triangle ("
+                "Vector ((0.00, 0.00), (4.00, 0.00)), "
+                "Vector ((0.00, 0.00), (0.00, 3.00))"
+            ")"
+        ")";
+
+    // Act
+    compound_shape_.replace(&rectangle_, &tmpCircle);
+
+    // Expect
+    EXPECT_EQ(compound_shape_.info(), expected_info);
+}

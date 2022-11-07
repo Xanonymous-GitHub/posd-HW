@@ -85,6 +85,8 @@ public:
     }
 
     double distance(BoundingBox *box) {
-        
+        const auto v1 = TwoDimensionalVector{box->max(), this->max()};
+        const auto v2 = TwoDimensionalVector{box->min(), this->min()};
+        return v1.length() + v2.length();
     }
 };
