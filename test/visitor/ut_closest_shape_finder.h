@@ -79,6 +79,20 @@ protected:
  * Because the TA not want us to use const!
  */
 
+TEST_F(ClosestShapeFinderTest, shouldGetCorrectClosestShape) {
+    // Arrange
+    ClosestShapeFinder closestShapeFinder{&triangle_};
+
+    // Act
+    const auto initialClosetShape = closestShapeFinder.getClosestShape();
+    circle1_.accept(&closestShapeFinder);
+    const auto finalClosetShape = closestShapeFinder.getClosestShape();
+
+    // Expect
+    EXPECT_EQ(initialClosetShape, nullptr);
+    EXPECT_EQ(finalClosetShape, &circle1_);
+}
+
 TEST_F(ClosestShapeFinderTest, shouldCorrectlyVisitCircleAndFindItIsTheClosetShape) {
     // Arrange
     ClosestShapeFinder closestShapeFinder{&triangle_};

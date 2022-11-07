@@ -5,6 +5,8 @@
 
 class IllegalNodeChecker : public ShapeVisitor
 {
+private:
+    bool isIllegal_ = false;
 public:
     void visitCircle(Circle *circle) override {}
 
@@ -14,5 +16,7 @@ public:
 
     void visitCompoundShape(CompoundShape *compoundShape) override {}
 
-    bool isIllegal() const {}
+    bool isIllegal() const {
+        return isIllegal_;
+    }
 };
