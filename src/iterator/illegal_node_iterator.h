@@ -7,10 +7,12 @@ class IllegalNodeIterator : public Iterator
 private:
     bool isIterated_ = false;
 
-    const std::list::iterator begin_, end_;
+    const Shape* root_;
 
     std::queue<Shape *> traversed_;
 
+    // TODO findout where is the illegal shape.
+    // May use list iterator to found.
     void makeBfsTraversalHistory_() {
         std::for_each(begin_, end_, [&](Shape *const shape) {
 
@@ -31,11 +33,7 @@ private:
         }
     }
 public:
-    IllegalNodeIterator(Shape *root) {
-        if (root->name() == "CompoundShape") {
-
-        }
-    }
+    IllegalNodeIterator(Shape *root): root_{root} {}
 
     void first() override {
         if (isIterated_) {
