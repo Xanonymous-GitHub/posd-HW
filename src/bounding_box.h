@@ -83,4 +83,8 @@ public:
                  (box->rightUpPoint_.y() < leftDownPoint_.y()) ||
                  (box->leftDownPoint_.y() > rightUpPoint_.y()));
     }
+
+    double distance(BoundingBox *box) {
+        
+    }
 };

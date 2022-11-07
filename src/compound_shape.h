@@ -115,4 +115,8 @@ public:
             }
         }
     }
+
+    void replace(Shape *old_shape, Shape *new_shape) {
+        std::replace(shapes_.begin(), shapes_.end(), old_shape, new_shape);
+    }
 };
