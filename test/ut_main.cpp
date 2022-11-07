@@ -13,6 +13,10 @@
 #include "./iterator/ut_list_compound_iterator.h"
 #include "./visitor/ut_collision_detector.h"
 #include "./ut_bounding_box.h"
+#include "./visitor/ut_closest_shape_finder.h"
+#include "./visitor/ut_illegal_node_checker.h"
+#include "./builder/ut_aabb_tree_builder.h"
+
 
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
