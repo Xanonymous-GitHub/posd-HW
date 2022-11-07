@@ -23,7 +23,8 @@ private:
     }
 
 public:
-    ClosestShapeFinder(Shape *shape): parentShape_{dynamic_cast<CompoundShape*>(shape)}, _targetBoundingBox{BoundingBox{shape->getPoints()}} {}
+    // parentShape_{dynamic_cast<CompoundShape*>(shape)},
+    ClosestShapeFinder(Shape *shape): _targetBoundingBox{BoundingBox{shape->getPoints()}} {}
 
     void visitCircle(Circle *circle) override {
         auto circleBoundingBox = BoundingBox{circle->getPoints()};
@@ -44,8 +45,7 @@ public:
     }
 
     void visitCompoundShape(CompoundShape *compoundShape) override {
-        auto compoundShapeBoundingBox = BoundingBox{compoundShape->getPoints()};
-        // ?
+        parentShape_ = compoundShape;
     }
 
     Shape *getClosestShape() const {
@@ -53,7 +53,6 @@ public:
     }
 
     CompoundShape *getParent() const {
-        // ?????????
         return parentShape_;
     }
 };
