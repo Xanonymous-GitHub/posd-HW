@@ -41,23 +41,23 @@ private:
 
 public:
     void insertTriangle(const Point *common_point, const Point *v1_point, const Point *v2_point) {
-        const auto v1 = TwoDimensionalVector{common_point, v1_point};
-        const auto v2 = TwoDimensionalVector{common_point, v2_point};
-        auto triangle = Triangle{&v1, &v2};
-        insertShape_(&triangle);
+        const auto v1 = new TwoDimensionalVector{common_point, v1_point};
+        const auto v2 = new TwoDimensionalVector{common_point, v2_point};
+        auto triangle = new Triangle{v1, v2};
+        insertShape_(triangle);
     }
 
     void insertCircle(const Point *center, const Point *to_radius) {
-        const auto v = TwoDimensionalVector{center, to_radius};
-        auto circle = Circle{&v};
-        insertShape_(&circle);
+        const auto v = new TwoDimensionalVector{center, to_radius};
+        auto circle = new Circle{v};
+        insertShape_(circle);
     }
 
     void insertRectangle(const Point *common_point, const Point *v1_point, const Point *v2_point) {
-        const auto v1 = TwoDimensionalVector{common_point, v1_point};
-        const auto v2 = TwoDimensionalVector{common_point, v2_point};
-        auto rectangle = Rectangle{&v1, &v2};
-        insertShape_(&rectangle);
+        const auto v1 = new TwoDimensionalVector{common_point, v1_point};
+        const auto v2 = new TwoDimensionalVector{common_point, v2_point};
+        auto rectangle = new Rectangle{v1, v2};
+        insertShape_(rectangle);
     }
 
     Shape *getTree() const {
