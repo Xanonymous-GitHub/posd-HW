@@ -2,22 +2,25 @@
 
 .PHONY: clean test
 
-all: directories ut_main
+all: directories bin/ut_all
 
 TEST = $(shell ls ./test/**/*.h ./test/**/*.cpp)
 
 SRC = $(shell ls ./src/**/*.h ./src/**/*.cpp)
 
-COMPILE_ARGS = -O2 -std=gnu++2a test/ut_main.cpp -o bin/ut_all -lgtest -lpthread -fconcepts
+OBJ = $(shell ls src/iterator/factory/*.cpp \
+	| $(STRIP_PARENT_PATH) \
+	| $(REPLACE_CPP_EXTENSION_WITH_O))
+STRIP_PARENT_PATH = sed 's|src/iterator/factory/|obj/|g'
+REPLACE_CPP_EXTENSION_WITH_O = sed 's|.cpp|.o|g'
 
-# Don't use this for now, it's not working, just for fun.
-COMPILE_ARGS_ME = -O2 -std=gnu++17 test/ut_main.cpp -o bin/ut_all -lgtest -lpthread
+COMPILE_ARGS = -O2 -std=gnu++17 -Wfatal-errors
 
-ut_main: test/ut_main.cpp $(TEST) $(SRC)
-	# Note that the latest version of g++ std currently is 'gnu++2b'.
-	# However, the latest version of g++ on the server is 'gnu++2a', so we use 'gnu++2a' here.
+bin/ut_all: test/ut_main.cpp $(OBJ) $(TEST) $(SRC)
+	g++ -o $@ $< $(OBJ) $(COMPILE_ARGS) -lgtest -lpthread
 
-	g++ $(COMPILE_ARGS_ME)
+obj/%.o: src/iterator/factory/%.cpp
+	g++ -o $@ -c $< $(COMPILE_ARGS)
 
 directories:
 	mkdir -p bin
