@@ -26,17 +26,20 @@ IteratorFactory *IteratorFactory::getInstance(const std::string &requested_insta
         return instances_[requested_instance_name].get();
     }
 
+    IteratorFactory *instance = nullptr;
+
     if (requested_instance_name == "DFS") {
-        instances_[requested_instance_name] = std::make_unique<DFSIteratorFactory>();
+        instance = new DFSIteratorFactory{};
     } else if (requested_instance_name == "BFS") {
-        instances_[requested_instance_name] = std::make_unique<BFSIteratorFactory>();
+        instance = new BFSIteratorFactory{};
     } else if (requested_instance_name == "List") {
-        instances_[requested_instance_name] = std::make_unique<ListIteratorFactory>();
+        instance = new ListIteratorFactory{};
     } else {
         throw IteratorFactoryException{"Unknown iterator type"};
     }
 
-    return instances_[requested_instance_name].get();
+    instances_.emplace(requested_instance_name, instance);
+    return instance;
 }
 
 bool IteratorFactory::HasExistingInstanceOf_(const std::string &requested_instance_name) {
