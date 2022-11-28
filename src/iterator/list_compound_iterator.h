@@ -1,9 +1,10 @@
 #pragma once
 
 #include "./iterator.h"
+#include <algorithm>
+#include <iostream>
 #include <queue>
 #include <vector>
-#include <iostream>
 
 template <class ForwardShapeIterator>
 class ListCompoundIterator : public Iterator {
