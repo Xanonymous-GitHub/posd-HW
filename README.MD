@@ -4,6 +4,9 @@
 
  ###### Pattern-Oriented Software Design course Homework
 
+ ## Warning
+ This project doesn't scan the memory leak, so you should use `valgrind` to check the memory leak.
+
  ### Refs:
  > You may need to connect to the NTUT VPN service for accessing.
  - Course repo: http://140.124.181.100/yccheng/posd2022f
