@@ -31,6 +31,8 @@ private:
             index_ += match.length() + match.position();
             return match.str();
         }
+
+        return match.str();
     }
 
 public:
