@@ -1,6 +1,7 @@
 #pragma once
 
 #define MATH_PRECISION_DIGITS 2
+#define DEBUGMSG(msg) std::cout << msg << std::endl;
 
 #include <cmath>
 #include <iomanip>
