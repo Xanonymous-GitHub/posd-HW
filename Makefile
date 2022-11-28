@@ -17,7 +17,7 @@ REPLACE_CPP_EXTENSION_WITH_O = sed 's|.cpp|.o|g'
 COMPILE_ARGS = -O2 -std=gnu++17 -Wfatal-errors
 
 bin/ut_all: test/ut_main.cpp $(OBJ) $(TEST) $(SRC)
-	g++ -o $@ $< $(OBJ) $(COMPILE_ARGS) -lgtest -lpthread
+	g++ -o $@ $< $(OBJ) $(COMPILE_ARGS) -lgtest -lpthread -fsanitize=address -g
 
 obj/%.o: src/iterator/factory/%.cpp
 	g++ -o $@ -c $< $(COMPILE_ARGS)
