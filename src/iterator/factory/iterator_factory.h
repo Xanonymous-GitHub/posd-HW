@@ -14,4 +14,5 @@ public:
     }
 
     virtual Iterator *createIterator(const std::list<Shape *>::const_iterator &begin, const std::list<Shape *>::const_iterator &end) const = 0;
+    static IteratorFactory *getInstance(std::string name);
 };

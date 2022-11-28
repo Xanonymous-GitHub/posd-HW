@@ -16,7 +16,9 @@
 #include "./visitor/ut_closest_shape_finder.h"
 #include "./visitor/ut_illegal_node_checker.h"
 #include "./builder/ut_aabb_tree_builder.h"
-
+#include "./builder/ut_shape_builder.h"
+#include "./builder/ut_shape_parser.h"
+#include "./builder/ut_scanner.h"
 
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
