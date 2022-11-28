@@ -3,7 +3,10 @@
 #include "../two_dimensional_vector.h"
 #include "./scanner.h"
 #include "./shape_builder.h"
+#include <array>
+#include <cassert>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 class ShapeParser {
@@ -11,24 +14,66 @@ private:
     Scanner scanner_;
     ShapeBuilder builder_{};
 
+    std::array<const Point *, 3> organizeNext4PointsTo3AndEnsureFirstIsCommonPoint_() {
+        const auto scannedPoints = std::array<const Point, 4>{
+            Point{scanner_.nextDouble(), scanner_.nextDouble()},
+            Point{scanner_.nextDouble(), scanner_.nextDouble()},
+            Point{scanner_.nextDouble(), scanner_.nextDouble()},
+            Point{scanner_.nextDouble(), scanner_.nextDouble()},
+        };
+
+        auto infoPointMap = std::unordered_map<std::string, const Point>{};
+        auto result = std::array<const Point *, 3>{};
+
+        for (const auto &point : scannedPoints) {
+            const auto pointStr = point.info();
+
+            if (infoPointMap.count(pointStr) != 0) {
+                result.at(0) = new Point{point};
+                continue;
+            }
+
+            infoPointMap.try_emplace(pointStr, point);
+        }
+
+        assert(infoPointMap.size() == 3);
+
+        auto i = 0;
+        for (const auto &point : scannedPoints) {
+            if (point == *result.at(0)) {
+                continue;
+            }
+
+            result.at(++i) = new Point{point};
+        }
+
+        return result;
+    }
+
+    void skipNonCompoundEnding_() {
+        // skip the `)))` part
+        scanner_.next();
+        scanner_.next();
+        scanner_.next();
+    }
+
     void parseCircle_() {
         auto center = new Point{scanner_.nextDouble(), scanner_.nextDouble()};
         auto toRadius = new Point{scanner_.nextDouble(), scanner_.nextDouble()};
         builder_.buildCircle(center, toRadius);
+        skipNonCompoundEnding_();
     }
 
     void parseTriangle_() {
-        auto commonPoint = new Point{scanner_.nextDouble(), scanner_.nextDouble()};
-        auto v1Point = new Point{scanner_.nextDouble(), scanner_.nextDouble()};
-        auto v2Point = new Point{scanner_.nextDouble(), scanner_.nextDouble()};
-        builder_.buildTriangle(commonPoint, v1Point, v2Point);
+        const auto points = organizeNext4PointsTo3AndEnsureFirstIsCommonPoint_();
+        builder_.buildTriangle(points.at(0), points.at(1), points.at(2));
+        skipNonCompoundEnding_();
     }
 
     void parseRectangle_() {
-        auto commonPoint = new Point{scanner_.nextDouble(), scanner_.nextDouble()};
-        auto v1Point = new Point{scanner_.nextDouble(), scanner_.nextDouble()};
-        auto v2Point = new Point{scanner_.nextDouble(), scanner_.nextDouble()};
-        builder_.buildRectangle(commonPoint, v1Point, v2Point);
+        const auto points = organizeNext4PointsTo3AndEnsureFirstIsCommonPoint_();
+        builder_.buildRectangle(points.at(0), points.at(1), points.at(2));
+        skipNonCompoundEnding_();
     }
 
 public:
