@@ -82,7 +82,7 @@ const std::regex Scanner::COLLECTABLE_TOKEN_REG_EXPS_ = std::regex{
 };
 
 const std::regex Scanner::COLLECTABLE_FLOATING_POINT_TOKEN_REG_EXPS_ = std::regex{
-    R"((\d+\.\d+|\d+))",
+    R"(([+-]?(\d+([.]\d*)?(e[+-]?\d+)?|[.]\d+(e[+-]?\d+)?)))",
     std::regex_constants::ECMAScript | std::regex_constants::optimize,
 };
 
