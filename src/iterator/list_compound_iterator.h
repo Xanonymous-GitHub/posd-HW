@@ -3,6 +3,7 @@
 #include "./iterator.h"
 #include <queue>
 #include <vector>
+#include <iostream>
 
 template <class ForwardShapeIterator>
 class ListCompoundIterator : public Iterator {

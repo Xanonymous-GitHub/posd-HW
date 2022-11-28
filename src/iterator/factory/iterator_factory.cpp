@@ -1,7 +1,7 @@
 #include "./iterator_factory.h"
 
-#include <cstring>
 #include <list>
+#include <string>
 #include <unordered_map>
 
 #include "../../shape.h"
