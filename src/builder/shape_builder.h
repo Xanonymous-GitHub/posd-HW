@@ -57,9 +57,16 @@ public:
     }
 
     void buildCompoundEnd() {
+        if (unfinished_compound_shapes_.empty()) {
+            return;
+        }
+
         auto compound_shape = unfinished_compound_shapes_.top();
         unfinished_compound_shapes_.pop();
-        deliverBuiltShape_(compound_shape);
+
+        if (compound_shape != nullptr) {
+            deliverBuiltShape_(compound_shape);
+        }
     }
 
     std::vector<Shape *> getResult() {
