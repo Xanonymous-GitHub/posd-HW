@@ -42,8 +42,8 @@ public:
     void visitCompoundShape(CompoundShape *const compoundShape) override {
         auto compoundShapeBoundingBox = BoundingBox{compoundShape->getPoints()};
         if (compoundShapeBoundingBox.collide(&_targetBoundingBox)) {
-            const auto listIteratorFactory = ListIteratorFactory{};
-            const auto compoundShapeListIterator = compoundShape->createIterator(&listIteratorFactory);
+            const auto listIteratorFactory = IteratorFactory::getInstance("List");
+            const auto compoundShapeListIterator = compoundShape->createIterator(listIteratorFactory);
             for (; !compoundShapeListIterator->isDone(); compoundShapeListIterator->next()) {
                 const auto current = compoundShapeListIterator->currentItem();
                 current->accept(this);

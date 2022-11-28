@@ -22,8 +22,8 @@ public:
     }
 
     void visitCompoundShape(CompoundShape *compoundShape) override {
-        const auto listIteratorFactory = ListIteratorFactory{};
-        const auto compoundShapeListIterator = compoundShape->createIterator(&listIteratorFactory);
+        const auto listIteratorFactory = IteratorFactory::getInstance("List");
+        const auto compoundShapeListIterator = compoundShape->createIterator(listIteratorFactory);
 
         // FIXME: remove this line.
         // std::cout<< "@@@@@@@@@@@@@" << std::endl;

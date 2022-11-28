@@ -125,7 +125,7 @@ protected:
 
 TEST_F(Lv2ListCompoundIteratorTest, shouldGetCorrectItemWhenCallingCurrentItem) {
     // Arrange
-    const auto it = lv2_width_4_compound_shape_.createIterator(new ListIteratorFactory());
+    const auto it = lv2_width_4_compound_shape_.createIterator(IteratorFactory::getInstance("List"));
 
     // Act
     const auto current_item = it->currentItem();
@@ -136,7 +136,7 @@ TEST_F(Lv2ListCompoundIteratorTest, shouldGetCorrectItemWhenCallingCurrentItem) 
 
 TEST_F(Lv2ListCompoundIteratorTest, shouldGetCorrectItemAfterCallingNext) {
     // Arrange
-    const auto it = lv2_width_4_compound_shape_.createIterator(new ListIteratorFactory());
+    const auto it = lv2_width_4_compound_shape_.createIterator(IteratorFactory::getInstance("List"));
 
     // Act
     it->next();
@@ -147,7 +147,7 @@ TEST_F(Lv2ListCompoundIteratorTest, shouldGetCorrectItemAfterCallingNext) {
 
 TEST_F(Lv2ListCompoundIteratorTest, shouldGetCorrectReturnOrThrowWhenDone) {
     // Arrange
-    const auto it = lv2_width_4_compound_shape_.createIterator(new ListIteratorFactory());
+    const auto it = lv2_width_4_compound_shape_.createIterator(IteratorFactory::getInstance("List"));
 
     // Act
     it->next();
@@ -167,7 +167,7 @@ TEST_F(Lv2ListCompoundIteratorTest, shouldGetCorrectReturnOrThrowWhenDone) {
 
 TEST_F(Lv2ListCompoundIteratorTest, shouldNotTraverseIntoLv1CompoundShape) {
     // Arrange
-    const auto it = lv2_width_4_compound_shape_.createIterator(new ListIteratorFactory());
+    const auto it = lv2_width_4_compound_shape_.createIterator(IteratorFactory::getInstance("List"));
 
     // Act
     it->next();
