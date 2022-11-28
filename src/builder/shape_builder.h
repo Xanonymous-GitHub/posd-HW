@@ -11,18 +11,19 @@ private:
     std::vector<Shape *> result_{};
     std::stack<CompoundShape *> unfinished_compound_shapes_{};
 
-    void safeDeleteResults() {
-        for (auto &shape : result_) {
-            delete shape;
+    template <typename ContainerType>
+    void safeDeleteOf_(ContainerType &container) {
+        for (auto &el : container) {
+            delete el;
         }
     }
 
-    bool isBuildingCompoundShape() {
+    bool isBuildingCompoundShape_() {
         return !unfinished_compound_shapes_.empty();
     }
 
     void deliverBuiltShape_(Shape *const shape) {
-        if (isBuildingCompoundShape()) {
+        if (isBuildingCompoundShape_()) {
             unfinished_compound_shapes_.top()->addShape(shape);
         } else {
             result_.push_back(shape);
@@ -68,6 +69,11 @@ public:
     }
 
     ~ShapeBuilder() {
-        safeDeleteResults();
+        safeDeleteOf_(result_);
+        while (!unfinished_compound_shapes_.empty()) {
+            auto compound_shape = unfinished_compound_shapes_.top();
+            unfinished_compound_shapes_.pop();
+            delete compound_shape;
+        }
     }
 };
