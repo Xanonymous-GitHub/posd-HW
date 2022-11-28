@@ -23,10 +23,10 @@ obj/%.o: src/iterator/factory/%.cpp
 	g++ -o $@ -c $< $(COMPILE_ARGS)
 
 directories:
-	mkdir -p bin
+	mkdir -p bin obj
 
 clean:
-	rm -rf bin
+	rm -rf bin obj
 
 test: all
 	bin/ut_all
