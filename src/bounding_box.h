@@ -50,16 +50,16 @@ private:
     }
 
 public:
-    constexpr BoundingBox(const std::set<Point> &points) noexcept : rightUpPoint_{calMaximumPoint(points)},
+    BoundingBox(const std::set<Point> &points) noexcept : rightUpPoint_{calMaximumPoint(points)},
                                                                     leftDownPoint_{calMinimumPoint(points)} {}
 
-    constexpr Point calMaximumPoint(const std::set<Point> &points) const noexcept {
+    Point calMaximumPoint(const std::set<Point> &points) const noexcept {
         const double maxX = findMaxX_(points);
         const double maxY = findMaxY_(points);
         return Point{maxX, maxY};
     }
 
-    constexpr Point calMinimumPoint(const std::set<Point> &points) const noexcept {
+    Point calMinimumPoint(const std::set<Point> &points) const noexcept {
         const double minX = findMinX_(points);
         const double minY = findMinY_(points);
         return Point{minX, minY};
