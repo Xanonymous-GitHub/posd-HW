@@ -4,10 +4,10 @@ class CircleTest : public ::testing::Test {
 private:
     const Point _a{-5, 9};
     const Point _b{3, 4};
-    const TwoDimensionalVector vec_{&_a, &_b};
+    const TwoDimensionalVector vec_{_a, _b};
 
 protected:
-    CircleTest() : circle_{&vec_} {}
+    CircleTest() : circle_{vec_} {}
 
     const double DEVIATION = 0.0001;
     const Circle circle_;
@@ -122,8 +122,8 @@ TEST_F(CircleTest, ShouldCorrectlyGetPoints) {
     const auto actualPoints = circle_.getPoints();
 
     std::vector<std::string> actualPointsInfo;
-    for (const auto &point : actualPoints) {
-        actualPointsInfo.push_back(point->info());
+    for (auto &&point : actualPoints) {
+        actualPointsInfo.push_back(point.info());
     }
 
     // Expect

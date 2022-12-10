@@ -5,11 +5,11 @@ private:
     const Point _a{0, 0};
     const Point _b{4, 0};
     const Point _c{0, 3};
-    const TwoDimensionalVector vec1_{&_a, &_b};
-    const TwoDimensionalVector vec2_{&_a, &_c};
+    const TwoDimensionalVector vec1_{_a, _b};
+    const TwoDimensionalVector vec2_{_a, _c};
 
 protected:
-    TriangleTest() : triangle_{&vec1_, &vec2_} {}
+    TriangleTest() : triangle_{vec1_, vec2_} {}
     const double DEVIATION = 0.0001;
     const Triangle triangle_;
 };
@@ -38,9 +38,9 @@ TEST_F(TriangleTest, IllegalTriangle) {
     const TwoDimensionalVector vec1{&o, &o_1}, vec2{&o, &o_2}, vec3{&k, &k_1}, vec4{&k, &k_2}, vec5{&k_1, &k_2}, vec6{&o, &l};
 
     // Expect
-    EXPECT_ANY_THROW(Triangle(&vec1, &vec2));
-    EXPECT_ANY_THROW(Triangle(&vec3, &vec1));
-    EXPECT_ANY_THROW(Triangle(&vec5, &vec6));
+    EXPECT_ANY_THROW(Triangle(vec1, vec2));
+    EXPECT_ANY_THROW(Triangle(vec3, vec1));
+    EXPECT_ANY_THROW(Triangle(vec5, vec6));
 }
 
 TEST_F(TriangleTest, CreatedBFSIteratorShouldThrowWhenCallingFirst) {
@@ -134,7 +134,7 @@ TEST_F(TriangleTest, ShouldCorrectlyGetPoints) {
 
     std::vector<std::string> actualPointsInfo;
     for (const auto &point : actualPoints) {
-        actualPointsInfo.push_back(point->info());
+        actualPointsInfo.push_back(point.info());
     }
 
     // Expect

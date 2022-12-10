@@ -31,22 +31,22 @@ private:
     }
 
 public:
-    void buildCircle(const Point *center, const Point *to_radius) {
-        const auto v = new TwoDimensionalVector{center, to_radius};
+    void buildCircle(const Point &center, const Point &to_radius) {
+        const auto v = TwoDimensionalVector{center, to_radius};
         auto circle = new Circle{v};
         deliverBuiltShape_(circle);
     }
 
-    void buildTriangle(const Point *common_point, const Point *v1_point, const Point *v2_point) {
-        const auto v1 = new TwoDimensionalVector{common_point, v1_point};
-        const auto v2 = new TwoDimensionalVector{common_point, v2_point};
+    void buildTriangle(const Point &common_point, const Point &v1_point, const Point &v2_point) {
+        const auto v1 = TwoDimensionalVector{common_point, v1_point};
+        const auto v2 = TwoDimensionalVector{common_point, v2_point};
         auto triangle = new Triangle{v1, v2};
         deliverBuiltShape_(triangle);
     }
 
-    void buildRectangle(const Point *common_point, const Point *v1_point, const Point *v2_point) {
-        const auto v1 = new TwoDimensionalVector{common_point, v1_point};
-        const auto v2 = new TwoDimensionalVector{common_point, v2_point};
+    void buildRectangle(const Point &common_point, const Point &v1_point, const Point &v2_point) {
+        const auto v1 = TwoDimensionalVector{common_point, v1_point};
+        const auto v2 = TwoDimensionalVector{common_point, v2_point};
         auto rectangle = new Rectangle{v1, v2};
         deliverBuiltShape_(rectangle);
     }

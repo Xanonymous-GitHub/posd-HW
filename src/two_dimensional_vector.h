@@ -2,73 +2,94 @@
 
 #include "point.h"
 #include <cmath>
+#include <optional>
 
 class TwoDimensionalVector {
 private:
-    const Point *const _a;
-    const Point *const _b;
+    const Point _a;
+    const Point _b;
 
-    constexpr double _x_offset() const {
-        return _b->x() - _a->x();
+    constexpr double _x_offset() const noexcept {
+        return _b.x() - _a.x();
     }
 
-    constexpr double _y_offset() const {
-        return _b->y() - _a->y();
+    constexpr double _y_offset() const noexcept {
+        return _b.y() - _a.y();
     }
 
 public:
-    TwoDimensionalVector(const Point *const a, const Point *const b) : _a(a), _b(b) {}
+    constexpr TwoDimensionalVector(const Point &a, const Point &b) noexcept : _a{a}, _b{b} {}
+    constexpr TwoDimensionalVector(const Point *a, const Point *b) : _a{*a}, _b{*b} {}
 
-    ~TwoDimensionalVector() {
-        // Ownership of the points is not transferred to the vector.
-        // Therefore, the vector does not delete the points.
+    bool operator==(const TwoDimensionalVector &vec) const noexcept {
+        return &vec == this || vec.info() == info();
     }
 
-    const Point *a() const {
+    constexpr Point a() const noexcept {
         return _a;
     }
 
-    const Point *b() const {
+    constexpr Point b() const noexcept {
         return _b;
     }
 
-    constexpr double length() const {
-        return sqrt(_x_offset() * _x_offset() + _y_offset() * _y_offset());
+    constexpr double length() const noexcept {
+        const auto x_offset = _x_offset();
+        const auto y_offset = _y_offset();
+        return sqrt(x_offset * x_offset + y_offset * y_offset);
     }
 
-    constexpr double dot(const TwoDimensionalVector *const vec) const {
-        return _x_offset() * vec->_x_offset() + _y_offset() * vec->_y_offset();
+    constexpr double dot(const TwoDimensionalVector &vec) const noexcept {
+        return _x_offset() * vec._x_offset() + _y_offset() * vec._y_offset();
     }
 
-    constexpr double cross(const TwoDimensionalVector *const vec) const {
-        return _x_offset() * vec->_y_offset() - _y_offset() * vec->_x_offset();
+    constexpr double cross(const TwoDimensionalVector &vec) const noexcept {
+        return _x_offset() * vec._y_offset() - _y_offset() * vec._x_offset();
     }
 
-    std::string info() const {
-        return "Vector (" + _a->info() + ", " + _b->info() + ")";
+    std::string info() const noexcept {
+        return "Vector (" + _a.info() + ", " + _b.info() + ")";
     }
 
-    static const Point *common_point(const TwoDimensionalVector *const vec1, const TwoDimensionalVector *const vec2) {
-        if (vec1->_a == vec2->_a) {
-            return vec1->_a;
-        } else if (vec1->_a == vec2->_b) {
-            return vec1->_a;
-        } else if (vec1->_b == vec2->_a) {
-            return vec1->_b;
-        } else if (vec1->_b == vec2->_b) {
-            return vec1->_b;
-        } else {
-            return nullptr;
+    static const std::optional<Point> common_point(const TwoDimensionalVector &vec1, const TwoDimensionalVector &vec2) noexcept {
+        const auto &&a1 = vec1.a();
+        const auto &&a2 = vec2.a();
+
+        if (a1 == a2) {
+            return a1;
         }
+
+        const auto &&b2 = vec2.b();
+
+        if (a1 == b2) {
+            return a1;
+        }
+
+        const auto &&b1 = vec1.b();
+
+        if (b1 == a2) {
+            return b1;
+        }
+
+        if (b1 == b2) {
+            return b1;
+        }
+
+        return std::nullopt;
     }
 
-    static const Point *other_point(const TwoDimensionalVector *const vec, const Point *const point) {
-        if (vec->_a == point) {
-            return vec->_b;
-        } else if (vec->_b == point) {
-            return vec->_a;
-        } else {
-            return nullptr;
+    static const std::optional<Point> other_point(const TwoDimensionalVector &vec, const Point &point) noexcept {
+        const auto &&a = vec.a();
+        const auto &&b = vec.b();
+
+        if (a == point) {
+            return b;
         }
+
+        if (b == point) {
+            return a;
+        }
+
+        return std::nullopt;
     }
 };

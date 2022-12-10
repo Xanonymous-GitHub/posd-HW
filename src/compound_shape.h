@@ -4,25 +4,27 @@
 #include "./iterator/dfs_compound_iterator.h"
 #include "./iterator/factory/iterator_factory.h"
 #include "./visitor/shape_visitor.h"
+#include "point.h"
 #include "shape.h"
 
 #include <list>
+#include <set>
 
 class CompoundShape : public Shape {
 private:
     std::list<Shape *> shapes_;
-    const std::string name_ = "CompoundShape";
+    const std::string_view name_ = "CompoundShape";
 
     struct NonValueDuplicateSetComparator_ {
-        const bool operator()(const Point *const lhs, const Point *const rhs) const {
-            return lhs->info() < rhs->info();
+        const bool operator()(const Point &lhs, const Point &rhs) const {
+            return lhs.info() < rhs.info();
         }
     };
 
 public:
     template <class... MShape>
     // WARNING: When the size of `shapes` is 1, this constructor will acts in a wrong way.
-    CompoundShape(MShape &...shapes) : shapes_{&shapes...} {}
+    constexpr CompoundShape(MShape &...shapes) : shapes_{&shapes...} {}
     CompoundShape(Shape **const shapes, int size) : shapes_{shapes, shapes + size} {}
     // CompoundShape(const Shape **const shapes, int size) : shapes_{shapes, shapes + size} {}
     // CompoundShape(const Shape *const *const shapes, int size) : shapes_{shapes, shapes + size} {}
@@ -33,9 +35,9 @@ public:
     }
 
     double area() const override {
-        double area = 0;
+        auto &&area = 0.0;
 
-        for (const auto &shape : shapes_) {
+        for (auto &&shape : shapes_) {
             area += shape->area();
         }
 
@@ -43,9 +45,9 @@ public:
     }
 
     double perimeter() const override {
-        double perimeter = 0;
+        auto &&perimeter = 0.0;
 
-        for (const auto &shape : shapes_) {
+        for (auto &&shape : shapes_) {
             perimeter += shape->perimeter();
         }
 
@@ -70,7 +72,7 @@ public:
         return "CompoundShape (" + ss.str() + ")";
     }
 
-    std::string name() const override {
+    std::string_view name() const override {
         return name_;
     }
 
@@ -86,16 +88,16 @@ public:
         return new BFSCompoundIterator<decltype(shapes_)::const_iterator>{shapes_.cbegin(), shapes_.cend()};
     }
 
-    std::set<const Point *> getPoints() const override {
-        std::set<const Point *, NonValueDuplicateSetComparator_> points;
+    std::set<Point> getPoints() const override {
+        std::set<Point, NonValueDuplicateSetComparator_> points;
 
-        for (const auto &shape : shapes_) {
+        for (auto &&shape : shapes_) {
             const auto shapePoints = shape->getPoints();
 
             points.insert(shapePoints.cbegin(), shapePoints.cend());
         }
 
-        return std::set<const Point *>(points.cbegin(), points.cend());
+        return std::set<Point>{points.cbegin(), points.cend()};
     }
 
     void accept(ShapeVisitor *const visitor) override {
@@ -109,7 +111,7 @@ public:
     void deleteShape(Shape *const shape) override {
         shapes_.remove(shape);
 
-        for (const auto &s : shapes_) {
+        for (auto &&s : shapes_) {
             if (s->name() == "CompoundShape") {
                 s->deleteShape(shape);
             }

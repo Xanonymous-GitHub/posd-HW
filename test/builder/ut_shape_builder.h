@@ -65,12 +65,12 @@ protected:
     const TwoDimensionalVector rectangle3_right_vector_{&rectangle3_vector_start_, &rectangle3_right_vector_end_};
 
     const double DEVIATION = 0.0001;
-    Circle circle1_{&circle1_vector_};
-    Circle circle2_{&circle2_vector_};
-    Rectangle rectangle1_{&rectangle1_left_vector_, &rectangle1_right_vector_};
-    Rectangle rectangle2_{&rectangle2_left_vector_, &rectangle2_right_vector_};
-    Rectangle rectangle3_{&rectangle3_left_vector_, &rectangle3_right_vector_};
-    Triangle triangle_{&triangle_left_vector_, &triangle_right_vector_};
+    Circle circle1_{circle1_vector_};
+    Circle circle2_{circle2_vector_};
+    Rectangle rectangle1_{rectangle1_left_vector_, rectangle1_right_vector_};
+    Rectangle rectangle2_{rectangle2_left_vector_, rectangle2_right_vector_};
+    Rectangle rectangle3_{rectangle3_left_vector_, rectangle3_right_vector_};
+    Triangle triangle_{triangle_left_vector_, triangle_right_vector_};
 
     ShapeBuilder shape_builder_{};
 
@@ -84,7 +84,7 @@ protected:
 
 TEST_F(ShapeBuilderTest, ShouldCorrectlyBuildCircle) {
     // Act
-    shape_builder_.buildCircle(&circle1_vector_start_, &circle1_vector_end_);
+    shape_builder_.buildCircle(circle1_vector_start_, circle1_vector_end_);
     const auto result = shape_builder_.getResult();
 
     // Expect
@@ -97,7 +97,7 @@ TEST_F(ShapeBuilderTest, ShouldCorrectlyBuildCircle) {
 
 TEST_F(ShapeBuilderTest, ShouldCorrectlyBuildTriangle) {
     // Act
-    shape_builder_.buildTriangle(&triangle_vector_start_, &triangle_left_vector_end_, &triangle_right_vector_end_);
+    shape_builder_.buildTriangle(triangle_vector_start_, triangle_left_vector_end_, triangle_right_vector_end_);
     const auto result = shape_builder_.getResult();
 
     // Expect
@@ -110,7 +110,7 @@ TEST_F(ShapeBuilderTest, ShouldCorrectlyBuildTriangle) {
 
 TEST_F(ShapeBuilderTest, ShouldCorrectlyBuildRectangle) {
     // Act
-    shape_builder_.buildRectangle(&rectangle1_vector_start_, &rectangle1_left_vector_end_, &rectangle1_right_vector_end_);
+    shape_builder_.buildRectangle(rectangle1_vector_start_, rectangle1_left_vector_end_, rectangle1_right_vector_end_);
     const auto result = shape_builder_.getResult();
 
     // Expect
@@ -123,9 +123,9 @@ TEST_F(ShapeBuilderTest, ShouldCorrectlyBuildRectangle) {
 
 TEST_F(ShapeBuilderTest, ShouldCorrectlyBuildMultipleSimpleShapes) {
     // Act
-    shape_builder_.buildCircle(&circle1_vector_start_, &circle1_vector_end_);
-    shape_builder_.buildTriangle(&triangle_vector_start_, &triangle_left_vector_end_, &triangle_right_vector_end_);
-    shape_builder_.buildRectangle(&rectangle1_vector_start_, &rectangle1_left_vector_end_, &rectangle1_right_vector_end_);
+    shape_builder_.buildCircle(circle1_vector_start_, circle1_vector_end_);
+    shape_builder_.buildTriangle(triangle_vector_start_, triangle_left_vector_end_, triangle_right_vector_end_);
+    shape_builder_.buildRectangle(rectangle1_vector_start_, rectangle1_left_vector_end_, rectangle1_right_vector_end_);
     const auto result = shape_builder_.getResult();
 
     // Expect
@@ -152,14 +152,13 @@ TEST_F(ShapeBuilderTest, ShouldCorrectlyBuildShapesWithSimpleCompound) {
             ")"
         ")";
     // clang-format on
-
     // Act
-    shape_builder_.buildCircle(&circle1_vector_start_, &circle1_vector_end_);
-    shape_builder_.buildTriangle(&triangle_vector_start_, &triangle_left_vector_end_, &triangle_right_vector_end_);
-    shape_builder_.buildRectangle(&rectangle1_vector_start_, &rectangle1_left_vector_end_, &rectangle1_right_vector_end_);
+    shape_builder_.buildCircle(circle1_vector_start_, circle1_vector_end_);
+    shape_builder_.buildTriangle(triangle_vector_start_, triangle_left_vector_end_, triangle_right_vector_end_);
+    shape_builder_.buildRectangle(rectangle1_vector_start_, rectangle1_left_vector_end_, rectangle1_right_vector_end_);
     shape_builder_.buildCompoundShape();
-    shape_builder_.buildCircle(&circle2_vector_start_, &circle2_vector_end_);
-    shape_builder_.buildRectangle(&rectangle2_vector_start_, &rectangle2_left_vector_end_, &rectangle2_right_vector_end_);
+    shape_builder_.buildCircle(circle2_vector_start_, circle2_vector_end_);
+    shape_builder_.buildRectangle(rectangle2_vector_start_, rectangle2_left_vector_end_, rectangle2_right_vector_end_);
     shape_builder_.buildCompoundEnd();
     const auto result = shape_builder_.getResult();
 
@@ -195,15 +194,15 @@ TEST_F(ShapeBuilderTest, ShouldCorrectlyBuildShapesWithMultipleCompounds) {
     // clang-format on
 
     // Act
-    shape_builder_.buildCircle(&circle1_vector_start_, &circle1_vector_end_);
-    shape_builder_.buildTriangle(&triangle_vector_start_, &triangle_left_vector_end_, &triangle_right_vector_end_);
-    shape_builder_.buildRectangle(&rectangle1_vector_start_, &rectangle1_left_vector_end_, &rectangle1_right_vector_end_);
+    shape_builder_.buildCircle(circle1_vector_start_, circle1_vector_end_);
+    shape_builder_.buildTriangle(triangle_vector_start_, triangle_left_vector_end_, triangle_right_vector_end_);
+    shape_builder_.buildRectangle(rectangle1_vector_start_, rectangle1_left_vector_end_, rectangle1_right_vector_end_);
     shape_builder_.buildCompoundShape();
     shape_builder_.buildCompoundShape();
-    shape_builder_.buildCircle(&circle2_vector_start_, &circle2_vector_end_);
-    shape_builder_.buildRectangle(&rectangle2_vector_start_, &rectangle2_left_vector_end_, &rectangle2_right_vector_end_);
+    shape_builder_.buildCircle(circle2_vector_start_, circle2_vector_end_);
+    shape_builder_.buildRectangle(rectangle2_vector_start_, rectangle2_left_vector_end_, rectangle2_right_vector_end_);
     shape_builder_.buildCompoundEnd();
-    shape_builder_.buildCircle(&circle1_vector_start_, &circle1_vector_end_);
+    shape_builder_.buildCircle(circle1_vector_start_, circle1_vector_end_);
     shape_builder_.buildCompoundEnd();
     const auto result = shape_builder_.getResult();
 

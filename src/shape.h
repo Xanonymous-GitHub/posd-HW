@@ -23,9 +23,9 @@ public:
 
     virtual Iterator *createBFSIterator() const = 0;
 
-    virtual std::string name() const = 0;
+    virtual std::string_view name() const = 0;
 
-    virtual std::set<const Point *> getPoints() const = 0;
+    virtual std::set<Point> getPoints() const = 0;
 
     virtual void accept(ShapeVisitor *const visitor) = 0;
 

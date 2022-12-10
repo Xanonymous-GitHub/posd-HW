@@ -4,52 +4,49 @@
 #include "iterator/null_iterator.h"
 #include "shape.h"
 #include "two_dimensional_vector.h"
+#include <optional>
 #include <string>
 
 class Triangle : public Shape {
 private:
-    const TwoDimensionalVector *const _v1;
-    const TwoDimensionalVector *const _v2;
-    const TwoDimensionalVector *_v3;
-    const std::string name_ = "Triangle";
+    const TwoDimensionalVector v1_;
+    const TwoDimensionalVector v2_;
+    const TwoDimensionalVector v3_;
+    const std::string_view name_ = "Triangle";
 
 public:
-    Triangle(
-        const TwoDimensionalVector *const v1,
-        const TwoDimensionalVector *const v2) : _v1(v1), _v2(v2) {
-        if (v1->cross(v2) == 0) {
-            throw std::invalid_argument("The triangle is degenerate.");
-        }
-
-        const auto common_point = TwoDimensionalVector::common_point(v1, v2);
-        if (common_point == nullptr) {
-            throw std::invalid_argument("no common point");
-        }
-
-        const auto non_common_point_a = TwoDimensionalVector::other_point(v1, common_point);
-        const auto non_common_point_b = TwoDimensionalVector::other_point(v2, common_point);
-
-        _v3 = new TwoDimensionalVector(non_common_point_a, non_common_point_b);
-    }
-
-    ~Triangle() {
-        // Ownership of the vectors is not transferred to the triangle.
-        // Therefore, the triangle does not delete the vectors.
-    }
+    constexpr Triangle(
+        const TwoDimensionalVector &v1,
+        // clang-format off
+        const TwoDimensionalVector &v2) : v1_{v1}, v2_{v2}, v3_ {
+        [&]() -> TwoDimensionalVector {
+            if (v1.cross(v2) == 0) {
+                throw std::invalid_argument("The triangle is degenerate.");
+            }
+            const auto common_point = TwoDimensionalVector::common_point(v1, v2);
+            if (common_point == std::nullopt) {
+                throw std::invalid_argument("no common point");
+            }
+            const auto non_common_point_a = TwoDimensionalVector::other_point(v1, *common_point);
+            const auto non_common_point_b = TwoDimensionalVector::other_point(v2, *common_point);
+            return TwoDimensionalVector{*non_common_point_a, *non_common_point_b};
+        }()
+    } {}
+    // clang-format on
 
     double area() const override {
-        return abs(0.5 * _v1->cross(_v2));
+        return abs(0.5 * v1_.cross(v2_));
     }
 
     double perimeter() const override {
-        return _v1->length() + _v2->length() + _v3->length();
+        return v1_.length() + v2_.length() + v3_.length();
     }
 
     std::string info() const override {
-        return "Triangle (" + _v1->info() + ", " + _v2->info() + ")";
+        return "Triangle (" + v1_.info() + ", " + v2_.info() + ")";
     }
 
-    std::string name() const override {
+    std::string_view name() const override {
         return name_;
     }
 
@@ -61,11 +58,16 @@ public:
         return new NullIterator();
     }
 
-    std::set<const Point *> getPoints() const override {
-        const auto commonPoint = TwoDimensionalVector::common_point(_v1, _v2);
-        const auto unCommonPointA = TwoDimensionalVector::other_point(_v1, commonPoint);
-        const auto unCommonPointB = TwoDimensionalVector::other_point(_v2, commonPoint);
-        return {commonPoint, unCommonPointA, unCommonPointB};
+    std::set<Point> getPoints() const override {
+        const auto commonPoint = TwoDimensionalVector::common_point(v1_, v2_);
+        if (commonPoint == std::nullopt) {
+            throw std::invalid_argument("no common point");
+        }
+
+        const auto unCommonPointA = TwoDimensionalVector::other_point(v1_, *commonPoint);
+        const auto unCommonPointB = TwoDimensionalVector::other_point(v2_, *commonPoint);
+
+        return {*commonPoint, *unCommonPointA, *unCommonPointB};
     }
 
     void accept(ShapeVisitor *const visitor) override {

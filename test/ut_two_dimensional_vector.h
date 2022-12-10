@@ -2,17 +2,16 @@
 
 class TwoDimensionalVectorTest : public ::testing::Test {
 protected:
-    TwoDimensionalVectorTest() : vec{TwoDimensionalVector(&_a, &_b)} {}
     const double DEVIATION = 0.0001;
-    const TwoDimensionalVector vec;
     const Point _a{-5, 9};
     const Point _b{3, 4};
+    const TwoDimensionalVector vec{_a, _b};
 };
 
 TEST_F(TwoDimensionalVectorTest, ShouldCorrectlySetBeginAndEnd) {
     // Expect
-    EXPECT_EQ(vec.a(), &_a);
-    EXPECT_EQ(vec.b(), &_b);
+    EXPECT_EQ(vec.a(), _a);
+    EXPECT_EQ(vec.b(), _b);
 }
 
 TEST_F(TwoDimensionalVectorTest, ShouldCorrectlyCalculateLength) {
@@ -24,20 +23,20 @@ TEST_F(TwoDimensionalVectorTest, ShouldCorrectlyCalculateDotProduct) {
     // Arrange
     const Point c{0, 0};
     const Point d{1, 1};
-    const TwoDimensionalVector vec2{&c, &d};
+    const TwoDimensionalVector vec2{c, d};
 
     // Expect
-    EXPECT_NEAR(vec.dot(&vec2), 3, DEVIATION);
+    EXPECT_NEAR(vec.dot(vec2), 3, DEVIATION);
 }
 
 TEST_F(TwoDimensionalVectorTest, ShouldCorrectlyCalculateCrossProduct) {
     // Arrange
     const Point c{0, 0};
     const Point d{1, 1};
-    const TwoDimensionalVector vec2{&c, &d};
+    const TwoDimensionalVector vec2{c, d};
 
     // Expect
-    EXPECT_NEAR(vec.cross(&vec2), 13, DEVIATION);
+    EXPECT_NEAR(vec.cross(vec2), 13, DEVIATION);
 }
 
 TEST_F(TwoDimensionalVectorTest, ShouldCorrectlyPrintInfo) {

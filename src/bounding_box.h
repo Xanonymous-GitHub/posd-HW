@@ -9,68 +9,68 @@ private:
     const Point rightUpPoint_;
     const Point leftDownPoint_;
 
-    double findMaxX_(const std::set<const Point *> &points) const {
+    double findMaxX_(const std::set<Point> &points) const noexcept {
         double maxX = -DBL_MAX;
-        for (const auto &point : points) {
-            if (point->x() > maxX) {
-                maxX = point->x();
+        for (auto &&point : points) {
+            if (point.x() > maxX) {
+                maxX = point.x();
             }
         }
         return maxX;
     }
 
-    double findMinX_(const std::set<const Point *> &points) const {
+    double findMinX_(const std::set<Point> &points) const noexcept {
         double minX = DBL_MAX;
-        for (const auto &point : points) {
-            if (point->x() < minX) {
-                minX = point->x();
+        for (auto &&point : points) {
+            if (point.x() < minX) {
+                minX = point.x();
             }
         }
         return minX;
     }
 
-    double findMaxY_(const std::set<const Point *> &points) const {
+    double findMaxY_(const std::set<Point> &points) const noexcept {
         double maxY = -DBL_MAX;
-        for (const auto &point : points) {
-            if (point->y() > maxY) {
-                maxY = point->y();
+        for (auto &&point : points) {
+            if (point.y() > maxY) {
+                maxY = point.y();
             }
         }
         return maxY;
     }
 
-    double findMinY_(const std::set<const Point *> &points) const {
+    double findMinY_(const std::set<Point> &points) const noexcept {
         double minY = DBL_MAX;
-        for (const auto &point : points) {
-            if (point->y() < minY) {
-                minY = point->y();
+        for (auto &&point : points) {
+            if (point.y() < minY) {
+                minY = point.y();
             }
         }
         return minY;
     }
 
 public:
-    BoundingBox(const std::set<const Point *> &points) : rightUpPoint_{*calMaximumPoint(points)},
-                                                         leftDownPoint_{*calMinimumPoint(points)} {}
+    constexpr BoundingBox(const std::set<Point> &points) noexcept : rightUpPoint_{calMaximumPoint(points)},
+                                                                    leftDownPoint_{calMinimumPoint(points)} {}
 
-    const Point *calMaximumPoint(const std::set<const Point *> &points) const {
+    constexpr Point calMaximumPoint(const std::set<Point> &points) const noexcept {
         const double maxX = findMaxX_(points);
         const double maxY = findMaxY_(points);
-        return new Point{maxX, maxY};
+        return Point{maxX, maxY};
     }
 
-    const Point *calMinimumPoint(const std::set<const Point *> &points) const {
+    constexpr Point calMinimumPoint(const std::set<Point> &points) const noexcept {
         const double minX = findMinX_(points);
         const double minY = findMinY_(points);
-        return new Point{minX, minY};
+        return Point{minX, minY};
     }
 
-    constexpr const Point *max() const {
-        return &rightUpPoint_;
+    constexpr Point max() const noexcept {
+        return rightUpPoint_;
     }
 
-    constexpr const Point *min() const {
-        return &leftDownPoint_;
+    constexpr Point min() const noexcept {
+        return leftDownPoint_;
     }
 
     bool collide(const BoundingBox *const box) {

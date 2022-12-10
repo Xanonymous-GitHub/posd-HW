@@ -9,27 +9,22 @@
 
 class Circle : public Shape {
 private:
-    const TwoDimensionalVector *const _radiusVec;
-    const std::string name_ = "Circle";
+    const TwoDimensionalVector radiusVec_;
+    const std::string_view name_ = "Circle";
 
-    const Point *center_() const {
-        return _radiusVec->a();
+    constexpr Point center_() const noexcept {
+        return radiusVec_.a();
     }
 
 public:
-    Circle(const TwoDimensionalVector *const radiusVec) : _radiusVec(radiusVec) {}
+    constexpr Circle(const TwoDimensionalVector &radiusVec) noexcept : radiusVec_{radiusVec} {}
 
-    ~Circle() {
-        // Ownership of the radius vector is not transferred to the circle.
-        // Therefore, the circle does not delete the radius vector.
-    }
-
-    constexpr double radius() const {
-        return _radiusVec->length();
+    constexpr double radius() const noexcept {
+        return radiusVec_.length();
     }
 
     double area() const override {
-        const double myRadius = radius();
+        const auto &&myRadius = radius();
         return M_PI * myRadius * myRadius;
     }
 
@@ -38,19 +33,24 @@ public:
     }
 
     std::string info() const override {
-        return "Circle (" + _radiusVec->info() + ")";
+        return "Circle (" + radiusVec_.info() + ")";
     }
 
-    std::string name() const override {
+    std::string_view name() const override {
         return name_;
     }
 
-    std::set<const Point *> getPoints() const override {
-        const auto myCenter = center_();
-        const auto myRadius = radius();
-        const auto leftDownPoint = new Point(myCenter->x() - myRadius, myCenter->y() - myRadius);
-        const auto rightUpPoint = new Point(myCenter->x() + myRadius, myCenter->y() + myRadius);
-        return {leftDownPoint, rightUpPoint};
+    std::set<Point> getPoints() const override {
+        const auto &&myCenter = center_();
+        const auto &&myRadius = radius();
+
+        const auto &&myCenterX = myCenter.x();
+        const auto &&myCenterY = myCenter.y();
+
+        return {
+            Point(myCenterX - myRadius, myCenterY - myRadius),
+            Point(myCenterX + myRadius, myCenterY + myRadius),
+        };
     }
 
     void accept(ShapeVisitor *const visitor) override {
@@ -58,10 +58,10 @@ public:
     }
 
     Iterator *createDFSIterator() const override {
-        return new NullIterator();
+        return new NullIterator{};
     }
 
     Iterator *createBFSIterator() const override {
-        return new NullIterator();
+        return new NullIterator{};
     }
 };

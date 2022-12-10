@@ -10,7 +10,7 @@ private:
     const Point circle_vector_end_{4, 0};
 
     // The vector for creating a `Circle`.
-    const TwoDimensionalVector circle_vector_{&circle_vector_start_, &circle_vector_end_};
+    const TwoDimensionalVector circle_vector_{circle_vector_start_, circle_vector_end_};
 
     /**
      * @brief Points that make up a vector for a `Triangle`.
@@ -20,8 +20,8 @@ private:
     const Point triangle_right_vector_end_{0, 3};
 
     // The vectors for creating a `Triangle`.
-    const TwoDimensionalVector triangle_left_vector_{&triangle_vector_start_, &triangle_left_vector_end_};
-    const TwoDimensionalVector triangle_right_vector_{&triangle_vector_start_, &triangle_right_vector_end_};
+    const TwoDimensionalVector triangle_left_vector_{triangle_vector_start_, triangle_left_vector_end_};
+    const TwoDimensionalVector triangle_right_vector_{triangle_vector_start_, triangle_right_vector_end_};
 
     /**
      * @brief Points that make up a vector for a `Rectangle`.
@@ -31,14 +31,14 @@ private:
     const Point rectangle_right_vector_end_{0, 5};
 
     // The vectors for creating a `Rectangle`.
-    const TwoDimensionalVector rectangle_left_vector_{&rectangle_vector_start_, &rectangle_left_vector_end_};
-    const TwoDimensionalVector rectangle_right_vector_{&rectangle_vector_start_, &rectangle_right_vector_end_};
+    const TwoDimensionalVector rectangle_left_vector_{rectangle_vector_start_, rectangle_left_vector_end_};
+    const TwoDimensionalVector rectangle_right_vector_{rectangle_vector_start_, rectangle_right_vector_end_};
 
 protected:
     const double DEVIATION = 0.001;
-    Circle circle_{&circle_vector_};
-    Rectangle rectangle_{&rectangle_left_vector_, &rectangle_right_vector_};
-    Triangle triangle_{&triangle_left_vector_, &triangle_right_vector_};
+    Circle circle_{circle_vector_};
+    Rectangle rectangle_{rectangle_left_vector_, rectangle_right_vector_};
+    Triangle triangle_{triangle_left_vector_, triangle_right_vector_};
 };
 
 class Lv0DfsCompoundIteratorTest : public DfsCompoundIteratorTestBase {

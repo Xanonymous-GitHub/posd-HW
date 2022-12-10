@@ -66,12 +66,12 @@ private:
 
 protected:
     const double DEVIATION = 0.0001;
-    Circle circle1_{&circle1_vector_};
-    Circle circle2_{&circle2_vector_};
-    Rectangle rectangle1_{&rectangle1_left_vector_, &rectangle1_right_vector_};
-    Rectangle rectangle2_{&rectangle2_left_vector_, &rectangle2_right_vector_};
-    Rectangle rectangle3_{&rectangle3_left_vector_, &rectangle3_right_vector_};
-    Triangle triangle_{&triangle_left_vector_, &triangle_right_vector_};
+    Circle circle1_{circle1_vector_};
+    Circle circle2_{circle2_vector_};
+    Rectangle rectangle1_{rectangle1_left_vector_, rectangle1_right_vector_};
+    Rectangle rectangle2_{rectangle2_left_vector_, rectangle2_right_vector_};
+    Rectangle rectangle3_{rectangle3_left_vector_, rectangle3_right_vector_};
+    Triangle triangle_{triangle_left_vector_, triangle_right_vector_};
 };
 
 /**

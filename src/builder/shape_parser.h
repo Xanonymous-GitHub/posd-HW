@@ -14,7 +14,7 @@ private:
     Scanner scanner_;
     ShapeBuilder builder_{};
 
-    std::array<const Point *, 3> organizeNext4PointsTo3AndEnsureFirstIsCommonPoint_() {
+    std::array<Point, 3> organizeNext4PointsTo3AndEnsureFirstIsCommonPoint_() {
         const auto scannedPoints = std::array<const Point, 4>{
             Point{scanner_.nextDouble(), scanner_.nextDouble()},
             Point{scanner_.nextDouble(), scanner_.nextDouble()},
@@ -23,13 +23,13 @@ private:
         };
 
         auto infoPointMap = std::unordered_map<std::string, const Point>{};
-        auto result = std::array<const Point *, 3>{};
+        auto result$_ = std::array<const Point *, 3>{};
 
         for (const auto &point : scannedPoints) {
             const auto pointStr = point.info();
 
             if (infoPointMap.count(pointStr) != 0) {
-                result.at(0) = new Point{point};
+                result$_.at(0) = new Point{point};
                 continue;
             }
 
@@ -40,11 +40,22 @@ private:
 
         auto i = 0;
         for (const auto &point : scannedPoints) {
-            if (point == *result.at(0)) {
+            if (point == *result$_.at(0)) {
                 continue;
             }
 
-            result.at(++i) = new Point{point};
+            result$_.at(++i) = new Point{point};
+        }
+
+        const std::array result = {
+            *result$_.at(0),
+            *result$_.at(1),
+            *result$_.at(2),
+        };
+
+        // free the memory
+        for (auto &&point : result$_) {
+            delete point;
         }
 
         return result;
@@ -58,8 +69,8 @@ private:
     }
 
     void parseCircle_() {
-        auto center = new Point{scanner_.nextDouble(), scanner_.nextDouble()};
-        auto toRadius = new Point{scanner_.nextDouble(), scanner_.nextDouble()};
+        auto center = Point{scanner_.nextDouble(), scanner_.nextDouble()};
+        auto toRadius = Point{scanner_.nextDouble(), scanner_.nextDouble()};
         builder_.buildCircle(center, toRadius);
         skipNonCompoundEnding_();
     }
