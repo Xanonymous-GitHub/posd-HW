@@ -15,7 +15,7 @@ private:
     const std::string_view name_ = "Triangle";
 
 public:
-    constexpr Triangle(
+    Triangle(
         const TwoDimensionalVector &v1,
         // clang-format off
         const TwoDimensionalVector &v2) : v1_{v1}, v2_{v2}, v3_ {

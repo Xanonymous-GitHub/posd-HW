@@ -22,7 +22,7 @@ private:
     }
 
 public:
-    constexpr Rectangle(
+    Rectangle(
         const TwoDimensionalVector &lengthVec,
         const TwoDimensionalVector &widthVec) : lengthVec_{lengthVec}, widthVec_{widthVec} {
         if (lengthVec.dot(widthVec) != 0) {
