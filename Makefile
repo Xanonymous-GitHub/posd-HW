@@ -1,8 +1,10 @@
 # use `git update-index --no-assume-unchanged ./Makefile` to re-track this file.
 
-.PHONY: clean test # TODO: change to test_all.
+.PHONY: clean # TODO: change to test_all.
 
-all: clean directories
+all: test
+
+prepare: clean directories
 
 TEST = $(shell ls ./test/**/*.h ./test/**/*.cpp)
 
@@ -34,13 +36,13 @@ directories:
 clean:
 	rm -rf bin obj
 
-test: all bin/ut_all
+test: prepare bin/ut_all
 	bin/ut_all
 
-test_ta: all bin/ut_all_ta
+test_ta: prepare bin/ut_all_ta
 	bin/ut_all_ta
 
-test_all: all bin/ut_all bin/ut_all_ta
+test_all: prepare bin/ut_all bin/ut_all_ta
 	bin/ut_all
 	bin/ut_all_ta
 
