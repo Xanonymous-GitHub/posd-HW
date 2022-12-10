@@ -1,6 +1,6 @@
 # use `git update-index --no-assume-unchanged ./Makefile` to re-track this file.
 
-.PHONY: clean
+.PHONY: clean test # TODO: change to test_all.
 
 all: clean directories
 
