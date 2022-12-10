@@ -132,7 +132,7 @@ protected:
 
 TEST_F(Lv0BfsCompoundIteratorTest, Lv0BfsCompoundIteratorShouldIterateOverZeroShapes) {
     // Arrange
-    const auto it = lv0_compound_shape_.createBFSIterator();
+    const auto it = lv0_compound_shape_.createIterator(IteratorFactory::getInstance("BFS"));
 
     // Act
     const auto expectedTraversalHistory = std::vector<const Shape *>{};
@@ -145,7 +145,7 @@ TEST_F(Lv0BfsCompoundIteratorTest, Lv0BfsCompoundIteratorShouldIterateOverZeroSh
 
 TEST_F(Lv1BfsCompoundIteratorTest, Lv1Width1BfsCompoundIteratorShouldIterateOverOneShape) {
     // Arrange
-    const auto it = lv1_width_1_compound_shape_.createBFSIterator();
+    const auto it = lv1_width_1_compound_shape_.createIterator(IteratorFactory::getInstance("BFS"));
 
     // Act
     const auto expectedTraversalHistory = std::vector<const Shape *>{&circle_};
@@ -161,7 +161,7 @@ TEST_F(Lv1BfsCompoundIteratorTest, Lv1Width1BfsCompoundIteratorShouldIterateOver
 
 TEST_F(Lv1BfsCompoundIteratorTest, Lv1Width2BfsCompoundIteratorShouldIterateOverTwoShapes) {
     // Arrange
-    const auto it = lv1_width_2_compound_shape_.createBFSIterator();
+    const auto it = lv1_width_2_compound_shape_.createIterator(IteratorFactory::getInstance("BFS"));
 
     // Act
     const auto expectedTraversalHistory = std::vector<const Shape *>{&circle_, &rectangle_};
@@ -177,7 +177,7 @@ TEST_F(Lv1BfsCompoundIteratorTest, Lv1Width2BfsCompoundIteratorShouldIterateOver
 
 TEST_F(Lv1BfsCompoundIteratorTest, Lv1Width3BfsCompoundIteratorShouldIterateOverThreeShapes) {
     // Arrange
-    const auto it = lv1_width_3_compound_shape_.createBFSIterator();
+    const auto it = lv1_width_3_compound_shape_.createIterator(IteratorFactory::getInstance("BFS"));
 
     // Act
     const auto expectedTraversalHistory = std::vector<const Shape *>{&circle_, &rectangle_, &triangle_};
@@ -193,7 +193,7 @@ TEST_F(Lv1BfsCompoundIteratorTest, Lv1Width3BfsCompoundIteratorShouldIterateOver
 
 TEST_F(Lv2BfsCompoundIteratorTest, Lv2Width1BfsCompoundIteratorShouldIterateCorrectly) {
     // Arrange
-    const auto it = lv2_width_1_compound_shape_.createBFSIterator();
+    const auto it = lv2_width_1_compound_shape_.createIterator(IteratorFactory::getInstance("BFS"));
 
     // Act
     const auto expectedTraversalHistory = std::vector<const Shape *>{&lv1_width_1_compound_shape_, &circle_};
@@ -209,7 +209,7 @@ TEST_F(Lv2BfsCompoundIteratorTest, Lv2Width1BfsCompoundIteratorShouldIterateCorr
 
 TEST_F(Lv2BfsCompoundIteratorTest, Lv2Width2BfsCompoundIteratorShouldIterateCorrectly) {
     // Arrange
-    const auto it = lv2_width_2_compound_shape_.createBFSIterator();
+    const auto it = lv2_width_2_compound_shape_.createIterator(IteratorFactory::getInstance("BFS"));
 
     // Act
     const auto expectedTraversalHistory = std::vector<const Shape *>{
@@ -231,7 +231,7 @@ TEST_F(Lv2BfsCompoundIteratorTest, Lv2Width2BfsCompoundIteratorShouldIterateCorr
 
 TEST_F(Lv2BfsCompoundIteratorTest, Lv2Width4BfsCompoundIteratorShouldIterateCorrectly) {
     // Arrange
-    const auto it = lv2_width_4_compound_shape_.createBFSIterator();
+    const auto it = lv2_width_4_compound_shape_.createIterator(IteratorFactory::getInstance("BFS"));
 
     // Act
     const auto expectedTraversalHistory = std::vector<const Shape *>{

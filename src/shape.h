@@ -19,10 +19,6 @@ public:
         return factory->createIterator();
     }
 
-    virtual Iterator *createDFSIterator() const = 0;
-
-    virtual Iterator *createBFSIterator() const = 0;
-
     virtual std::string_view name() const = 0;
 
     virtual std::set<Point> getPoints() const = 0;

@@ -80,14 +80,6 @@ public:
         return factory->createIterator(shapes_.cbegin(), shapes_.cend());
     }
 
-    Iterator *createDFSIterator() const override {
-        return new DFSCompoundIterator<decltype(shapes_)::const_iterator>{shapes_.cbegin(), shapes_.cend()};
-    }
-
-    Iterator *createBFSIterator() const override {
-        return new BFSCompoundIterator<decltype(shapes_)::const_iterator>{shapes_.cbegin(), shapes_.cend()};
-    }
-
     std::set<Point> getPoints() const override {
         std::set<Point, NonValueDuplicateSetComparator_> points;
 

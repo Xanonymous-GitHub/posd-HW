@@ -49,7 +49,7 @@ private:
         //           << std::endl;
 
         while (!shouldBeTraversed.empty()) {
-            const auto currentIt = shouldBeTraversed.front()->createBFSIterator();
+            const auto currentIt = shouldBeTraversed.front()->createIterator(IteratorFactory::getInstance("BFS"));
             shouldBeTraversed.pop();
 
             if (currentIt->isDone()) {

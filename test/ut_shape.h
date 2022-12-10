@@ -53,10 +53,10 @@ TEST_F(ShapeTest, InfoWithPolymorphismShouldBeCorrect) {
 
 TEST_F(ShapeTest, CreateBFSIteratorWithPolymorphismShouldBeCorrect) {
     // Act
-    const auto circleBFSIterator = circle_.createBFSIterator();
-    const auto triangleBFSIterator = triangle_.createBFSIterator();
-    const auto rectangleBFSIterator = rectangle_.createBFSIterator();
-    const auto compoundBFSIterator = compound_.createBFSIterator();
+    const auto circleBFSIterator = circle_.createIterator(IteratorFactory::getInstance("BFS"));
+    const auto triangleBFSIterator = triangle_.createIterator(IteratorFactory::getInstance("BFS"));
+    const auto rectangleBFSIterator = rectangle_.createIterator(IteratorFactory::getInstance("BFS"));
+    const auto compoundBFSIterator = compound_.createIterator(IteratorFactory::getInstance("BFS"));
 
     // Expect
     EXPECT_THROW(circleBFSIterator->first(), Iterator::MethodShouldNotBeRunError);
@@ -79,10 +79,10 @@ TEST_F(ShapeTest, CreateBFSIteratorWithPolymorphismShouldBeCorrect) {
 
 TEST_F(ShapeTest, CreateDFSIteratorWithPolymorphismShouldBeCorrect) {
     // Act
-    const auto circleDFSIterator = circle_.createDFSIterator();
-    const auto triangleDFSIterator = triangle_.createDFSIterator();
-    const auto rectangleDFSIterator = rectangle_.createDFSIterator();
-    const auto compoundDFSIterator = compound_.createDFSIterator();
+    const auto circleDFSIterator = circle_.createIterator(IteratorFactory::getInstance("DFS"));
+    const auto triangleDFSIterator = triangle_.createIterator(IteratorFactory::getInstance("DFS"));
+    const auto rectangleDFSIterator = rectangle_.createIterator(IteratorFactory::getInstance("DFS"));
+    const auto compoundDFSIterator = compound_.createIterator(IteratorFactory::getInstance("DFS"));
 
     // Expect
     EXPECT_THROW(circleDFSIterator->first(), Iterator::MethodShouldNotBeRunError);

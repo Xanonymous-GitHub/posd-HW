@@ -59,14 +59,6 @@ public:
         return name_;
     }
 
-    Iterator *createDFSIterator() const override {
-        return new NullIterator{};
-    }
-
-    Iterator *createBFSIterator() const override {
-        return new NullIterator{};
-    }
-
     std::set<Point> getPoints() const override {
         const auto commonPoint = TwoDimensionalVector::common_point(lengthVec_, widthVec_);
         if (commonPoint == std::nullopt) {

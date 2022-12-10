@@ -44,7 +44,7 @@ private:
             // std::cout << "@@@@@@@@" << std::endl
             //           << std::endl;
 
-            const auto currentIt = shape->createDFSIterator();
+            const auto currentIt = shape->createIterator(IteratorFactory::getInstance("DFS"));
 
             if (currentIt->isDone()) {
                 return;

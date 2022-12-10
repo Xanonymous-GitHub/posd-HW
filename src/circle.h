@@ -56,12 +56,4 @@ public:
     void accept(ShapeVisitor *const visitor) override {
         visitor->visitCircle(this);
     }
-
-    Iterator *createDFSIterator() const override {
-        return new NullIterator{};
-    }
-
-    Iterator *createBFSIterator() const override {
-        return new NullIterator{};
-    }
 };

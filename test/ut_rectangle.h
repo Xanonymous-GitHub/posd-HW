@@ -51,7 +51,7 @@ TEST_F(RectangleTest, IllegalRectangle) {
 
 TEST_F(RectangleTest, CreatedBFSIteratorShouldThrowWhenCallingFirst) {
     // Act
-    const auto it = rectangle_.createBFSIterator();
+    const auto it = rectangle_.createIterator(IteratorFactory::getInstance("BFS"));
 
     // Expect
     EXPECT_THROW({ it->first(); }, Iterator::MethodShouldNotBeRunError);
@@ -61,7 +61,7 @@ TEST_F(RectangleTest, CreatedBFSIteratorShouldThrowWhenCallingFirst) {
 
 TEST_F(RectangleTest, CreatedDFSIteratorShouldThrowWhenCallingFirst) {
     // Act
-    const auto it = rectangle_.createDFSIterator();
+    const auto it = rectangle_.createIterator(IteratorFactory::getInstance("DFS"));
 
     // Expect
     EXPECT_THROW({ it->first(); }, Iterator::MethodShouldNotBeRunError);
@@ -71,7 +71,7 @@ TEST_F(RectangleTest, CreatedDFSIteratorShouldThrowWhenCallingFirst) {
 
 TEST_F(RectangleTest, CreatedBFSIteratorShouldThrowWhenCallingCurrentItem) {
     // Act
-    const auto it = rectangle_.createBFSIterator();
+    const auto it = rectangle_.createIterator(IteratorFactory::getInstance("BFS"));
 
     // Expect
     EXPECT_THROW({ it->currentItem(); }, Iterator::MethodShouldNotBeRunError);
@@ -81,7 +81,7 @@ TEST_F(RectangleTest, CreatedBFSIteratorShouldThrowWhenCallingCurrentItem) {
 
 TEST_F(RectangleTest, CreatedDFSIteratorShouldThrowWhenCallingCurrentItem) {
     // Act
-    const auto it = rectangle_.createDFSIterator();
+    const auto it = rectangle_.createIterator(IteratorFactory::getInstance("DFS"));
 
     // Expect
     EXPECT_THROW({ it->currentItem(); }, Iterator::MethodShouldNotBeRunError);
@@ -91,7 +91,7 @@ TEST_F(RectangleTest, CreatedDFSIteratorShouldThrowWhenCallingCurrentItem) {
 
 TEST_F(RectangleTest, CreatedBFSIteratorShouldThrowWhenCallingNext) {
     // Act
-    const auto it = rectangle_.createBFSIterator();
+    const auto it = rectangle_.createIterator(IteratorFactory::getInstance("BFS"));
 
     // Expect
     EXPECT_THROW({ it->next(); }, Iterator::MethodShouldNotBeRunError);
@@ -101,7 +101,7 @@ TEST_F(RectangleTest, CreatedBFSIteratorShouldThrowWhenCallingNext) {
 
 TEST_F(RectangleTest, CreatedDFSIteratorShouldThrowWhenCallingNext) {
     // Act
-    const auto it = rectangle_.createDFSIterator();
+    const auto it = rectangle_.createIterator(IteratorFactory::getInstance("DFS"));
 
     // Expect
     EXPECT_THROW({ it->next(); }, Iterator::MethodShouldNotBeRunError);
@@ -111,7 +111,7 @@ TEST_F(RectangleTest, CreatedDFSIteratorShouldThrowWhenCallingNext) {
 
 TEST_F(RectangleTest, CreatedBFSIteratorShouldGetTRUEWhenCallingIsDone) {
     // Act
-    const auto it = rectangle_.createBFSIterator();
+    const auto it = rectangle_.createIterator(IteratorFactory::getInstance("BFS"));
 
     // Expect
     EXPECT_TRUE(it->isDone());
@@ -121,7 +121,7 @@ TEST_F(RectangleTest, CreatedBFSIteratorShouldGetTRUEWhenCallingIsDone) {
 
 TEST_F(RectangleTest, CreatedDFSIteratorShouldGetTRUEWhenCallingIsDone) {
     // Act
-    const auto it = rectangle_.createDFSIterator();
+    const auto it = rectangle_.createIterator(IteratorFactory::getInstance("DFS"));
 
     // Expect
     EXPECT_TRUE(it->isDone());

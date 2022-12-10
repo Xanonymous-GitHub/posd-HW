@@ -35,7 +35,7 @@ TEST_F(CircleTest, ShouldCorrectlyPrintInfo) {
 
 TEST_F(CircleTest, CreatedBFSIteratorShouldThrowWhenCallingFirst) {
     // Act
-    const auto it = circle_.createBFSIterator();
+    const auto it = circle_.createIterator(IteratorFactory::getInstance("BFS"));
 
     // Expect
     EXPECT_THROW({ it->first(); }, Iterator::MethodShouldNotBeRunError);
@@ -45,7 +45,7 @@ TEST_F(CircleTest, CreatedBFSIteratorShouldThrowWhenCallingFirst) {
 
 TEST_F(CircleTest, CreatedDFSIteratorShouldThrowWhenCallingFirst) {
     // Act
-    const auto it = circle_.createDFSIterator();
+    const auto it = circle_.createIterator(IteratorFactory::getInstance("DFS"));
 
     // Expect
     EXPECT_THROW({ it->first(); }, Iterator::MethodShouldNotBeRunError);
@@ -55,7 +55,7 @@ TEST_F(CircleTest, CreatedDFSIteratorShouldThrowWhenCallingFirst) {
 
 TEST_F(CircleTest, CreatedBFSIteratorShouldThrowWhenCallingCurrentItem) {
     // Act
-    const auto it = circle_.createBFSIterator();
+    const auto it = circle_.createIterator(IteratorFactory::getInstance("BFS"));
 
     // Expect
     EXPECT_THROW({ it->currentItem(); }, Iterator::MethodShouldNotBeRunError);
@@ -65,7 +65,7 @@ TEST_F(CircleTest, CreatedBFSIteratorShouldThrowWhenCallingCurrentItem) {
 
 TEST_F(CircleTest, CreatedDFSIteratorShouldThrowWhenCallingCurrentItem) {
     // Act
-    const auto it = circle_.createDFSIterator();
+    const auto it = circle_.createIterator(IteratorFactory::getInstance("DFS"));
 
     // Expect
     EXPECT_THROW({ it->currentItem(); }, Iterator::MethodShouldNotBeRunError);
@@ -75,7 +75,7 @@ TEST_F(CircleTest, CreatedDFSIteratorShouldThrowWhenCallingCurrentItem) {
 
 TEST_F(CircleTest, CreatedBFSIteratorShouldThrowWhenCallingNext) {
     // Act
-    const auto it = circle_.createBFSIterator();
+    const auto it = circle_.createIterator(IteratorFactory::getInstance("BFS"));
 
     // Expect
     EXPECT_THROW({ it->next(); }, Iterator::MethodShouldNotBeRunError);
@@ -85,7 +85,7 @@ TEST_F(CircleTest, CreatedBFSIteratorShouldThrowWhenCallingNext) {
 
 TEST_F(CircleTest, CreatedDFSIteratorShouldThrowWhenCallingNext) {
     // Act
-    const auto it = circle_.createDFSIterator();
+    const auto it = circle_.createIterator(IteratorFactory::getInstance("DFS"));
 
     // Expect
     EXPECT_THROW({ it->next(); }, Iterator::MethodShouldNotBeRunError);
@@ -95,7 +95,7 @@ TEST_F(CircleTest, CreatedDFSIteratorShouldThrowWhenCallingNext) {
 
 TEST_F(CircleTest, CreatedBFSIteratorShouldGetTRUEWhenCallingIsDone) {
     // Act
-    const auto it = circle_.createBFSIterator();
+    const auto it = circle_.createIterator(IteratorFactory::getInstance("BFS"));
 
     // Expect
     EXPECT_TRUE(it->isDone());
@@ -105,7 +105,7 @@ TEST_F(CircleTest, CreatedBFSIteratorShouldGetTRUEWhenCallingIsDone) {
 
 TEST_F(CircleTest, CreatedDFSIteratorShouldGetTRUEWhenCallingIsDone) {
     // Act
-    const auto it = circle_.createDFSIterator();
+    const auto it = circle_.createIterator(IteratorFactory::getInstance("DFS"));
 
     // Expect
     EXPECT_TRUE(it->isDone());

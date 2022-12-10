@@ -132,7 +132,7 @@ protected:
 
 TEST_F(Lv0DfsCompoundIteratorTest, Lv0DfsCompoundIteratorShouldIterateOverZeroShapes) {
     // Arrange
-    const auto it = lv0_compound_shape_.createDFSIterator();
+    const auto it = lv0_compound_shape_.createIterator(IteratorFactory::getInstance("DFS"));
 
     // Act
     const auto expectedTraversalHistory = std::vector<const Shape *>{};
@@ -145,7 +145,7 @@ TEST_F(Lv0DfsCompoundIteratorTest, Lv0DfsCompoundIteratorShouldIterateOverZeroSh
 
 TEST_F(Lv1DfsCompoundIteratorTest, Lv1Width1DfsCompoundIteratorShouldIterateOverOneShape) {
     // Arrange
-    const auto it = lv1_width_1_compound_shape_.createDFSIterator();
+    const auto it = lv1_width_1_compound_shape_.createIterator(IteratorFactory::getInstance("DFS"));
 
     // Act
     const auto expectedTraversalHistory = std::vector<const Shape *>{&circle_};
@@ -161,7 +161,7 @@ TEST_F(Lv1DfsCompoundIteratorTest, Lv1Width1DfsCompoundIteratorShouldIterateOver
 
 TEST_F(Lv1DfsCompoundIteratorTest, Lv1Width2DfsCompoundIteratorShouldIterateOverTwoShapes) {
     // Arrange
-    const auto it = lv1_width_2_compound_shape_.createDFSIterator();
+    const auto it = lv1_width_2_compound_shape_.createIterator(IteratorFactory::getInstance("DFS"));
 
     // Act
     const auto expectedTraversalHistory = std::vector<const Shape *>{&circle_, &rectangle_};
@@ -177,7 +177,7 @@ TEST_F(Lv1DfsCompoundIteratorTest, Lv1Width2DfsCompoundIteratorShouldIterateOver
 
 TEST_F(Lv1DfsCompoundIteratorTest, Lv1Width3DfsCompoundIteratorShouldIterateOverThreeShapes) {
     // Arrange
-    const auto it = lv1_width_3_compound_shape_.createDFSIterator();
+    const auto it = lv1_width_3_compound_shape_.createIterator(IteratorFactory::getInstance("DFS"));
 
     // Act
     const auto expectedTraversalHistory = std::vector<const Shape *>{&circle_, &rectangle_, &triangle_};
@@ -193,7 +193,7 @@ TEST_F(Lv1DfsCompoundIteratorTest, Lv1Width3DfsCompoundIteratorShouldIterateOver
 
 TEST_F(Lv2DfsCompoundIteratorTest, Lv2Width1DfsCompoundIteratorShouldIterateCorrectly) {
     // Arrange
-    const auto it = lv2_width_1_compound_shape_.createDFSIterator();
+    const auto it = lv2_width_1_compound_shape_.createIterator(IteratorFactory::getInstance("DFS"));
 
     // Act
     const auto expectedTraversalHistory = std::vector<const Shape *>{&lv1_width_1_compound_shape_, &circle_};
@@ -209,7 +209,7 @@ TEST_F(Lv2DfsCompoundIteratorTest, Lv2Width1DfsCompoundIteratorShouldIterateCorr
 
 TEST_F(Lv2DfsCompoundIteratorTest, Lv2Width2DfsCompoundIteratorShouldIterateCorrectly) {
     // Arrange
-    const auto it = lv2_width_2_compound_shape_.createDFSIterator();
+    const auto it = lv2_width_2_compound_shape_.createIterator(IteratorFactory::getInstance("DFS"));
 
     // Act
     const auto expectedTraversalHistory = std::vector<const Shape *>{
@@ -231,7 +231,7 @@ TEST_F(Lv2DfsCompoundIteratorTest, Lv2Width2DfsCompoundIteratorShouldIterateCorr
 
 TEST_F(Lv2DfsCompoundIteratorTest, Lv2Width4DfsCompoundIteratorShouldIterateCorrectly) {
     // Arrange
-    const auto it = lv2_width_4_compound_shape_.createDFSIterator();
+    const auto it = lv2_width_4_compound_shape_.createIterator(IteratorFactory::getInstance("DFS"));
 
     // Act
     const auto expectedTraversalHistory = std::vector<const Shape *>{

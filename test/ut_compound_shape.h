@@ -531,7 +531,7 @@ TEST_F(CompoundShapeTestWithMultipleNesting, ShouldCorrectlyDeleteShape) {
 
 TEST_F(CompoundShapeTestWithoutNesting, CreateBFSIteratorCorrectly) {
     // Arrange
-    const auto it = compound_shape_.createBFSIterator();
+    const auto it = compound_shape_.createIterator(IteratorFactory::getInstance("BFS"));
 
     // Expect
     EXPECT_NE(it, nullptr);
@@ -550,7 +550,7 @@ TEST_F(CompoundShapeTestWithoutNesting, CreateBFSIteratorCorrectly) {
 
 TEST_F(CompoundShapeTestWithoutNesting, CreateDFSIteratorCorrectly) {
     // Arrange
-    const auto it = compound_shape_.createDFSIterator();
+    const auto it = compound_shape_.createIterator(IteratorFactory::getInstance("DFS"));
 
     // Expect
     EXPECT_NE(it, nullptr);
@@ -569,7 +569,7 @@ TEST_F(CompoundShapeTestWithoutNesting, CreateDFSIteratorCorrectly) {
 
 TEST_F(CompoundShapeTestWithNesting, CreateBFSIteratorCorrectly) {
     // Arrange
-    const auto it = compound_shape_n1_.createBFSIterator();
+    const auto it = compound_shape_n1_.createIterator(IteratorFactory::getInstance("BFS"));
 
     // Expect
     EXPECT_NE(it, nullptr);
@@ -600,7 +600,7 @@ TEST_F(CompoundShapeTestWithNesting, CreateBFSIteratorCorrectly) {
 
 TEST_F(CompoundShapeTestWithNesting, CreateDFSIteratorCorrectly) {
     // Arrange
-    const auto it = compound_shape_n1_.createDFSIterator();
+    const auto it = compound_shape_n1_.createIterator(IteratorFactory::getInstance("DFS"));
 
     // Expect
     EXPECT_NE(it, nullptr);
@@ -631,7 +631,7 @@ TEST_F(CompoundShapeTestWithNesting, CreateDFSIteratorCorrectly) {
 
 TEST_F(CompoundShapeTestWithMultipleNesting, CreateBFSIteratorCorrectly) {
     // Arrange
-    const auto it = compound_shape_n2_.createBFSIterator();
+    const auto it = compound_shape_n2_.createIterator(IteratorFactory::getInstance("BFS"));
 
     // Expect
     EXPECT_NE(it, nullptr);
@@ -674,7 +674,7 @@ TEST_F(CompoundShapeTestWithMultipleNesting, CreateBFSIteratorCorrectly) {
 
 TEST_F(CompoundShapeTestWithMultipleNesting, CreateDFSIteratorCorrectly) {
     // Arrange
-    const auto it = compound_shape_n2_.createDFSIterator();
+    const auto it = compound_shape_n2_.createIterator(IteratorFactory::getInstance("DFS"));
 
     // Expect
     EXPECT_NE(it, nullptr);
