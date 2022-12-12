@@ -18,7 +18,7 @@ OBJ = $(shell ls src/iterator/factory/*.cpp \
 STRIP_PARENT_PATH = sed 's|src/iterator/factory/|obj/|g'
 REPLACE_CPP_EXTENSION_WITH_O = sed 's|.cpp|.o|g'
 
-COMPILE_ARGS = -O2 -std=gnu++17 -Wfatal-errors
+COMPILE_ARGS = -O0 -std=gnu++17 -Wfatal-errors
 COMPILE_WITH_LINKED_FILES_ARGS = -lgtest -lpthread # -fsanitize=address -g
 
 bin/ut_all: test/ut_main.cpp $(OBJ) $(TEST) $(SRC)
@@ -48,3 +48,10 @@ test_all: prepare bin/ut_all bin/ut_all_ta
 
 sync_gtest:
 	git submodule update --init --recursive --remote --force --rebase
+
+valgrind: CXXFLAGS += -O0 -g
+valgrind: clean all
+	valgrind \
+	--tool=memcheck --error-exitcode=1 --track-origins=yes --leak-check=full --leak-resolution=high \
+	--num-callers=50 --show-leak-kinds=definite,possible --show-error-list=yes \
+	bin/ut_all

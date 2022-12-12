@@ -1,0 +1,33 @@
+{
+    "name": "Gtestrin++",
+    "image": "xanonymous/gtest-cpp-essential-env",
+    "runArgs": [
+        "--cap-add=SYS_PTRACE",
+        "--security-opt",
+        "seccomp=unconfined"
+    ],
+    "customizations": {
+        "vscode": {
+            "settings": {},
+            "extensions": [
+                "ms-vscode.makefile-tools",
+                "ms-vscode.cpptools",
+                "ms-vscode.cpptools-extension-pack",
+                "streetsidesoftware.code-spell-checker",
+                "GitHub.remotehub",
+                "eamodio.gitlens",
+                "VisualStudioExptTeam.vscodeintellicode",
+                "PKief.material-icon-theme",
+                "ms-vscode-remote.remote-ssh",
+                "ms-vscode-remote.remote-ssh-edit",
+                "ms-vscode-remote.vscode-remote-extensionpack",
+                "ms-vscode.remote-explorer",
+                "ms-vscode.remote-repositories",
+                "ms-vscode-remote.remote-wsl",
+                "DavidAnson.vscode-markdownlint"
+            ]
+        }
+    },
+    "postCreateCommand": "g++ -v",
+    "remoteUser": "vscode"
+}
