@@ -50,7 +50,7 @@ sync_gtest:
 	git submodule update --init --recursive --remote --force --rebase
 
 valgrind: CXXFLAGS += -O0 -g
-valgrind: clean all
+valgrind: clean prepare bin/ut_all
 	valgrind \
 	--tool=memcheck --error-exitcode=1 --track-origins=yes --leak-check=full --leak-resolution=high \
 	--num-callers=50 --show-leak-kinds=definite,possible --show-error-list=yes \
