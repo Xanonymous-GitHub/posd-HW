@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../shape.h"
 #include "./iterator.h"
 #include <algorithm>
 #include <iostream>
