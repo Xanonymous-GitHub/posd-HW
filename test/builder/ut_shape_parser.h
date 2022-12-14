@@ -1,6 +1,12 @@
 #include "../../src/builder/shape_parser.h"
 
 class ShapeParserTest : public ::testing::Test {
+protected:
+    void safeDelete_(const std::vector<Shape *> &container) const {
+        for (auto &&element : container) {
+            element->force_cleanup_shapes();
+        }
+    }
 };
 
 TEST_F(ShapeParserTest, ShouldCorrectlyParseSingleCircle) {
@@ -15,6 +21,9 @@ TEST_F(ShapeParserTest, ShouldCorrectlyParseSingleCircle) {
     auto result = parser.getResult();
     EXPECT_EQ(result.size(), 1);
     EXPECT_EQ(result.at(0)->info(), input);
+
+    // Clean up
+    safeDelete_(result);
 }
 
 TEST_F(ShapeParserTest, ShouldCorrectlyParseSingleTriangle) {
@@ -29,6 +38,9 @@ TEST_F(ShapeParserTest, ShouldCorrectlyParseSingleTriangle) {
     auto result = parser.getResult();
     EXPECT_EQ(result.size(), 1);
     EXPECT_EQ(result.at(0)->info(), input);
+
+    // Clean up
+    safeDelete_(result);
 }
 
 TEST_F(ShapeParserTest, ShouldCorrectlyParseSingleRectangle) {
@@ -43,14 +55,17 @@ TEST_F(ShapeParserTest, ShouldCorrectlyParseSingleRectangle) {
     auto result = parser.getResult();
     EXPECT_EQ(result.size(), 1);
     EXPECT_EQ(result.at(0)->info(), input);
+
+    // Clean up
+    safeDelete_(result);
 }
 
 TEST_F(ShapeParserTest, ShouldCorrectlyParseMultipleCircles) {
     // Arrange
     // clang-format off
     const std::string input = 
-        "Circle (Vector ((2.00, 7.40), (8.00, 2.00))), "
-        "Circle (Vector ((-2.00, 2.00), (-8.00, 9.10)))";
+        "Circle (Vector ((2.00, 7.00), (8.00, 2.00))), "
+        "Circle (Vector ((-2.00, 2.00), (-8.00, 9.00)))";
     // clang-format on
 
     ShapeParser parser{input};
@@ -61,8 +76,11 @@ TEST_F(ShapeParserTest, ShouldCorrectlyParseMultipleCircles) {
     // Expect
     auto result = parser.getResult();
     EXPECT_EQ(result.size(), 2);
-    EXPECT_EQ(result.at(0)->info(), "Circle (Vector ((2.00, 7.40), (8.00, 2.00)))");
-    EXPECT_EQ(result.at(1)->info(), "Circle (Vector ((-2.00, 2.00), (-8.00, 9.10)))");
+    EXPECT_EQ(result.at(0)->info(), "Circle (Vector ((2.00, 7.00), (8.00, 2.00)))");
+    EXPECT_EQ(result.at(1)->info(), "Circle (Vector ((-2.00, 2.00), (-8.00, 9.00)))");
+
+    // Clean up
+    safeDelete_(result);
 }
 
 TEST_F(ShapeParserTest, ShouldCorrectlyParseMultipleTriangles) {
@@ -83,6 +101,9 @@ TEST_F(ShapeParserTest, ShouldCorrectlyParseMultipleTriangles) {
     EXPECT_EQ(result.size(), 2);
     EXPECT_EQ(result.at(0)->info(), "Triangle (Vector ((4.00, 6.00), (6.00, 10.00)), Vector ((4.00, 6.00), (8.00, 6.00)))");
     EXPECT_EQ(result.at(1)->info(), "Triangle (Vector ((4.00, 6.00), (6.00, 10.00)), Vector ((4.00, 6.00), (8.00, 6.00)))");
+
+    // Clean up
+    safeDelete_(result);
 }
 
 TEST_F(ShapeParserTest, ShouldCorrectlyParseMultipleRectangles) {
@@ -103,13 +124,16 @@ TEST_F(ShapeParserTest, ShouldCorrectlyParseMultipleRectangles) {
     EXPECT_EQ(result.size(), 2);
     EXPECT_EQ(result.at(0)->info(), "Rectangle (Vector ((14.00, 8.00), (14.00, 12.00)), Vector ((14.00, 8.00), (16.00, 8.00)))");
     EXPECT_EQ(result.at(1)->info(), "Rectangle (Vector ((14.00, 8.00), (14.00, 12.00)), Vector ((14.00, 8.00), (16.00, 8.00)))");
+
+    // Clean up
+    safeDelete_(result);
 }
 
 TEST_F(ShapeParserTest, ShouldCorrectlyParseMixtureShapes) {
     // Arrange
     // clang-format off
     const std::string input = 
-        "Circle (Vector ((2.00, 7.40), (8.00, 2.00))), "
+        "Circle (Vector ((2.00, 7.00), (8.00, 2.00))), "
         "Triangle (Vector ((4.00, 6.00), (6.00, 10.00)), Vector ((4.00, 6.00), (8.00, 6.00))), "
         "Rectangle (Vector ((14.00, 8.00), (14.00, 12.00)), Vector ((14.00, 8.00), (16.00, 8.00)))";
     // clang-format on
@@ -122,16 +146,19 @@ TEST_F(ShapeParserTest, ShouldCorrectlyParseMixtureShapes) {
     // Expect
     auto result = parser.getResult();
     EXPECT_EQ(result.size(), 3);
-    EXPECT_EQ(result.at(0)->info(), "Circle (Vector ((2.00, 7.40), (8.00, 2.00)))");
+    EXPECT_EQ(result.at(0)->info(), "Circle (Vector ((2.00, 7.00), (8.00, 2.00)))");
     EXPECT_EQ(result.at(1)->info(), "Triangle (Vector ((4.00, 6.00), (6.00, 10.00)), Vector ((4.00, 6.00), (8.00, 6.00)))");
     EXPECT_EQ(result.at(2)->info(), "Rectangle (Vector ((14.00, 8.00), (14.00, 12.00)), Vector ((14.00, 8.00), (16.00, 8.00)))");
+
+    // Clean up
+    safeDelete_(result);
 }
 
 TEST_F(ShapeParserTest, ShouldCorrectlyParseMixtureShapesWithOneCompoundShape) {
     // Arrange
     // clang-format off
     const std::string input = 
-        "Circle (Vector ((2.00, 7.40), (8.00, 2.00))), "
+        "Circle (Vector ((2.00, 7.00), (8.00, 2.00))), "
         "Triangle (Vector ((4.00, 6.00), (6.00, 10.00)), Vector ((4.00, 6.00), (8.00, 6.00))), "
         "Rectangle (Vector ((14.00, 8.00), (14.00, 12.00)), Vector ((14.00, 8.00), (16.00, 8.00))), "
         "CompoundShape ("
@@ -155,19 +182,22 @@ TEST_F(ShapeParserTest, ShouldCorrectlyParseMixtureShapesWithOneCompoundShape) {
     // Expect
     auto result = parser.getResult();
     EXPECT_EQ(result.size(), 6);
-    EXPECT_EQ(result.at(0)->info(), "Circle (Vector ((2.00, 7.40), (8.00, 2.00)))");
+    EXPECT_EQ(result.at(0)->info(), "Circle (Vector ((2.00, 7.00), (8.00, 2.00)))");
     EXPECT_EQ(result.at(1)->info(), "Triangle (Vector ((4.00, 6.00), (6.00, 10.00)), Vector ((4.00, 6.00), (8.00, 6.00)))");
     EXPECT_EQ(result.at(2)->info(), "Rectangle (Vector ((14.00, 8.00), (14.00, 12.00)), Vector ((14.00, 8.00), (16.00, 8.00)))");
     EXPECT_EQ(result.at(3)->info(), "CompoundShape (Circle (Vector ((16.00, 14.00), (20.00, 14.00))), Rectangle (Vector ((0.00, 4.00), (6.00, 4.00)), Vector ((0.00, 4.00), (0.00, 8.00))))");
     EXPECT_EQ(result.at(4)->info(), "Triangle (Vector ((4.00, 6.00), (6.00, 10.00)), Vector ((4.00, 6.00), (8.00, 6.00)))");
     EXPECT_EQ(result.at(5)->info(), "Rectangle (Vector ((14.00, 8.00), (14.00, 12.00)), Vector ((14.00, 8.00), (16.00, 8.00)))");
+
+    // Clean up
+    safeDelete_(result);
 }
 
 TEST_F(ShapeParserTest, ShouldCorrectlyParseMixtureShapesWithComplexCompoundShapes) {
     // Arrange
     // clang-format off
     const std::string input = 
-        "Circle (Vector ((2.00, 7.40), (8.00, 2.00))), "
+        "Circle (Vector ((2.00, 7.00), (8.00, 2.00))), "
         "Triangle (Vector ((4.00, 6.00), (6.00, 10.00)), Vector ((4.00, 6.00), (8.00, 6.00))), "
         "Rectangle (Vector ((14.00, 8.00), (14.00, 12.00)), Vector ((14.00, 8.00), (16.00, 8.00))), "
         "CompoundShape ("
@@ -200,7 +230,7 @@ TEST_F(ShapeParserTest, ShouldCorrectlyParseMixtureShapesWithComplexCompoundShap
     // Expect
     auto result = parser.getResult();
     EXPECT_EQ(result.size(), 6);
-    EXPECT_EQ(result.at(0)->info(), "Circle (Vector ((2.00, 7.40), (8.00, 2.00)))");
+    EXPECT_EQ(result.at(0)->info(), "Circle (Vector ((2.00, 7.00), (8.00, 2.00)))");
     EXPECT_EQ(result.at(1)->info(), "Triangle (Vector ((4.00, 6.00), (6.00, 10.00)), Vector ((4.00, 6.00), (8.00, 6.00)))");
     EXPECT_EQ(result.at(2)->info(), "Rectangle (Vector ((14.00, 8.00), (14.00, 12.00)), Vector ((14.00, 8.00), (16.00, 8.00)))");
     EXPECT_EQ(result.at(3)->info(),
@@ -227,4 +257,7 @@ TEST_F(ShapeParserTest, ShouldCorrectlyParseMixtureShapesWithComplexCompoundShap
     );
     EXPECT_EQ(result.at(4)->info(), "Triangle (Vector ((4.00, 6.00), (6.00, 10.00)), Vector ((4.00, 6.00), (8.00, 6.00)))");
     EXPECT_EQ(result.at(5)->info(), "Rectangle (Vector ((14.00, 8.00), (14.00, 12.00)), Vector ((14.00, 8.00), (16.00, 8.00)))");
+
+    // Clean up
+    safeDelete_(result);
 }

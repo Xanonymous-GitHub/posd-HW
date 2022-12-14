@@ -34,6 +34,22 @@ public:
         // Therefore, the compound shape deletes the shapes.
     }
 
+    void force_cleanup_shapes() override {
+        for (auto &&s : shapes_) {
+            if (s != nullptr) {
+                s->force_cleanup_shapes();
+            }
+        }
+
+        for (auto &&s : shapes_) {
+            if (s != nullptr) {
+                delete s;
+            }
+        }
+
+        shapes_.clear();
+    }
+
     double area() const override {
         auto &&area = 0.0;
 

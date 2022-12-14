@@ -28,6 +28,8 @@ private:
             }
         }
 
+        delete listIterator;
+
         // // FIXME: This is a bad solution.
         // std::cout << std::endl
         //           << "@@@@@@@@" << std::endl;

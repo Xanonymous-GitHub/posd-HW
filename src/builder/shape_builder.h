@@ -3,57 +3,74 @@
 #include "../compound_shape.h"
 #include "../rectangle.h"
 #include "../triangle.h"
+#include <algorithm>
+#include <memory>
 #include <stack>
+#include <utility>
 #include <vector>
 
 class ShapeBuilder {
 private:
-    std::vector<Shape *> result_{};
+    std::vector<std::unique_ptr<Shape>> result_{};
     std::stack<CompoundShape *> unfinished_compound_shapes_{};
 
-    template <typename ContainerType>
-    void safeDeleteOf_(ContainerType &container) {
-        for (auto &el : container) {
+    template <typename StackContainerType>
+    void safeDeleteStackOf_(StackContainerType &stack_container) {
+        while (!stack_container.empty()) {
+            auto el = stack_container.top();
+            stack_container.pop();
             delete el;
         }
     }
 
-    bool isBuildingCompoundShape_() {
+    bool isBuildingCompoundShape_() const {
         return !unfinished_compound_shapes_.empty();
     }
 
-    void deliverBuiltShape_(Shape *const shape) {
-        if (isBuildingCompoundShape_()) {
-            unfinished_compound_shapes_.top()->addShape(shape);
-        } else {
-            result_.push_back(shape);
-        }
-    }
+    // void deliverBuiltShape_(Shape *const shape) {
+    //     if (isBuildingCompoundShape_()) {
+    //         unfinished_compound_shapes_.top()->addShape(shape);
+    //     } else {
+    //         result_.push_back(shape);
+    //     }
+    // }
 
 public:
     void buildCircle(const Point &center, const Point &to_radius) {
-        const auto v = TwoDimensionalVector{center, to_radius};
-        auto circle = new Circle{v};
-        deliverBuiltShape_(circle);
+        if (isBuildingCompoundShape_()) {
+            unfinished_compound_shapes_.top()->addShape(new Circle{{center, to_radius}});
+        } else {
+            result_.push_back(std::make_unique<Circle>(TwoDimensionalVector{center, to_radius}));
+        }
     }
 
     void buildTriangle(const Point &common_point, const Point &v1_point, const Point &v2_point) {
-        const auto v1 = TwoDimensionalVector{common_point, v1_point};
-        const auto v2 = TwoDimensionalVector{common_point, v2_point};
-        auto triangle = new Triangle{v1, v2};
-        deliverBuiltShape_(triangle);
+        if (isBuildingCompoundShape_()) {
+            unfinished_compound_shapes_.top()->addShape(
+                new Triangle{
+                    {common_point, v1_point},
+                    {common_point, v2_point},
+                });
+        } else {
+            result_.push_back(std::make_unique<Triangle>(TwoDimensionalVector{common_point, v1_point}, TwoDimensionalVector{common_point, v2_point}));
+        }
     }
 
     void buildRectangle(const Point &common_point, const Point &v1_point, const Point &v2_point) {
-        const auto v1 = TwoDimensionalVector{common_point, v1_point};
-        const auto v2 = TwoDimensionalVector{common_point, v2_point};
-        auto rectangle = new Rectangle{v1, v2};
-        deliverBuiltShape_(rectangle);
+        if (isBuildingCompoundShape_()) {
+            unfinished_compound_shapes_.top()->addShape(
+                new Rectangle{
+                    {common_point, v1_point},
+                    {common_point, v2_point},
+                });
+        } else {
+            result_.push_back(std::make_unique<Rectangle>(TwoDimensionalVector{common_point, v1_point}, TwoDimensionalVector{common_point, v2_point}));
+        }
     }
 
     void buildCompoundShape() {
-        auto compound_shape = new CompoundShape{{}, 0};
-        unfinished_compound_shapes_.push(compound_shape);
+        // const Shape *empty_shapes[0] = {};
+        unfinished_compound_shapes_.push(new CompoundShape{{}, 0});
     }
 
     void buildCompoundEnd() {
@@ -61,26 +78,38 @@ public:
             return;
         }
 
-        auto compound_shape = unfinished_compound_shapes_.top();
+        auto &c = unfinished_compound_shapes_.top();
         unfinished_compound_shapes_.pop();
 
-        if (compound_shape != nullptr) {
-            deliverBuiltShape_(compound_shape);
+        if (isBuildingCompoundShape_()) {
+            unfinished_compound_shapes_.top()->addShape(c);
+        } else {
+            result_.push_back(std::unique_ptr<CompoundShape>(c));
         }
     }
 
-    std::vector<Shape *> getResult() {
-        std::vector<Shape *> productions_ = result_;
+    void destructAllResultsAndBuildingCompounds() {
+        // for (auto &&shape : result_) {
+        //     if (shape != nullptr) {
+        //         delete shape;
+        //     }
+        // }
+
         result_.clear();
+        safeDeleteStackOf_(unfinished_compound_shapes_);
+    }
+
+    std::vector<Shape *> getResult() {
+        std::vector<Shape *> productions_;
+
+        std::for_each(result_.begin(), result_.end(), [&](const std::unique_ptr<Shape> &s) {
+            productions_.push_back(s.get());
+        });
+
         return productions_;
     }
 
     ~ShapeBuilder() {
-        safeDeleteOf_(result_);
-        while (!unfinished_compound_shapes_.empty()) {
-            auto compound_shape = unfinished_compound_shapes_.top();
-            unfinished_compound_shapes_.pop();
-            delete compound_shape;
-        }
+        // destructAllResultsAndBuildingCompounds();
     }
 };

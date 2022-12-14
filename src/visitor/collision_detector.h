@@ -48,6 +48,8 @@ public:
                 const auto current = compoundShapeListIterator->currentItem();
                 current->accept(this);
             }
+
+            delete compoundShapeListIterator;
         }
     }
 

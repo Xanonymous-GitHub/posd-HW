@@ -53,6 +53,7 @@ private:
             shouldBeTraversed.pop();
 
             if (currentIt->isDone()) {
+                delete currentIt;
                 continue;
             }
 
@@ -62,6 +63,8 @@ private:
                 // TODO: Remove this debug code.
                 debugTraversedVector_.push_back(currentIt->currentItem());
             }
+
+            delete currentIt;
         }
     }
 

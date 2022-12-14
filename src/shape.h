@@ -38,4 +38,6 @@ public:
     virtual void deleteShape(Shape *const shape) {
         throw MethodShouldNotBeRunError("deleteShape() should not be run");
     };
+
+    virtual void force_cleanup_shapes() {}
 };

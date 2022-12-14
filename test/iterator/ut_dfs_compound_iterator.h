@@ -141,6 +141,9 @@ TEST_F(Lv0DfsCompoundIteratorTest, Lv0DfsCompoundIteratorShouldIterateOverZeroSh
     for (it->first(); !it->isDone(); it->next()) {
         FAIL();
     }
+
+    // Clean up.
+    delete it;
 }
 
 TEST_F(Lv1DfsCompoundIteratorTest, Lv1Width1DfsCompoundIteratorShouldIterateOverOneShape) {
@@ -157,6 +160,9 @@ TEST_F(Lv1DfsCompoundIteratorTest, Lv1Width1DfsCompoundIteratorShouldIterateOver
     }
 
     EXPECT_EQ(i, expectedTraversalHistory.size());
+
+    // Clean up.
+    delete it;
 }
 
 TEST_F(Lv1DfsCompoundIteratorTest, Lv1Width2DfsCompoundIteratorShouldIterateOverTwoShapes) {
@@ -173,6 +179,9 @@ TEST_F(Lv1DfsCompoundIteratorTest, Lv1Width2DfsCompoundIteratorShouldIterateOver
     }
 
     EXPECT_EQ(i, expectedTraversalHistory.size());
+
+    // Clean up.
+    delete it;
 }
 
 TEST_F(Lv1DfsCompoundIteratorTest, Lv1Width3DfsCompoundIteratorShouldIterateOverThreeShapes) {
@@ -189,6 +198,9 @@ TEST_F(Lv1DfsCompoundIteratorTest, Lv1Width3DfsCompoundIteratorShouldIterateOver
     }
 
     EXPECT_EQ(i, expectedTraversalHistory.size());
+
+    // Clean up.
+    delete it;
 }
 
 TEST_F(Lv2DfsCompoundIteratorTest, Lv2Width1DfsCompoundIteratorShouldIterateCorrectly) {
@@ -205,6 +217,9 @@ TEST_F(Lv2DfsCompoundIteratorTest, Lv2Width1DfsCompoundIteratorShouldIterateCorr
     }
 
     EXPECT_EQ(i, expectedTraversalHistory.size());
+
+    // Clean up.
+    delete it;
 }
 
 TEST_F(Lv2DfsCompoundIteratorTest, Lv2Width2DfsCompoundIteratorShouldIterateCorrectly) {
@@ -227,6 +242,9 @@ TEST_F(Lv2DfsCompoundIteratorTest, Lv2Width2DfsCompoundIteratorShouldIterateCorr
     }
 
     EXPECT_EQ(i, expectedTraversalHistory.size());
+
+    // Clean up.
+    delete it;
 }
 
 TEST_F(Lv2DfsCompoundIteratorTest, Lv2Width4DfsCompoundIteratorShouldIterateCorrectly) {
@@ -254,4 +272,7 @@ TEST_F(Lv2DfsCompoundIteratorTest, Lv2Width4DfsCompoundIteratorShouldIterateCorr
     }
 
     EXPECT_EQ(i, expectedTraversalHistory.size());
+
+    // Clean up.
+    delete it;
 }

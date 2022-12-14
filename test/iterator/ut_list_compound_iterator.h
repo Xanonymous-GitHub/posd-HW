@@ -132,6 +132,9 @@ TEST_F(Lv2ListCompoundIteratorTest, shouldGetCorrectItemWhenCallingCurrentItem) 
 
     // Expect
     EXPECT_EQ(current_item, &circle_);
+
+    // Clean up.
+    delete it;
 }
 
 TEST_F(Lv2ListCompoundIteratorTest, shouldGetCorrectItemAfterCallingNext) {
@@ -143,6 +146,9 @@ TEST_F(Lv2ListCompoundIteratorTest, shouldGetCorrectItemAfterCallingNext) {
 
     // Expect
     EXPECT_EQ(it->currentItem(), &rectangle_);
+
+    // Clean up.
+    delete it;
 }
 
 TEST_F(Lv2ListCompoundIteratorTest, shouldGetCorrectReturnOrThrowWhenDone) {
@@ -163,6 +169,9 @@ TEST_F(Lv2ListCompoundIteratorTest, shouldGetCorrectReturnOrThrowWhenDone) {
     EXPECT_TRUE(it->isDone());
     EXPECT_THROW(it->currentItem(), Iterator::MethodShouldNotBeRunError);
     EXPECT_THROW(it->next(), Iterator::MethodShouldNotBeRunError);
+
+    // Clean up.
+    delete it;
 }
 
 TEST_F(Lv2ListCompoundIteratorTest, shouldNotTraverseIntoLv1CompoundShape) {
@@ -179,4 +188,7 @@ TEST_F(Lv2ListCompoundIteratorTest, shouldNotTraverseIntoLv1CompoundShape) {
 
     // Expect
     EXPECT_THROW(it->currentItem(), Iterator::MethodShouldNotBeRunError);
+
+    // Clean up.
+    delete it;
 }

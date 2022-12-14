@@ -47,6 +47,7 @@ private:
             const auto currentIt = shape->createIterator(IteratorFactory::getInstance("DFS"));
 
             if (currentIt->isDone()) {
+                delete currentIt;
                 return;
             }
 
@@ -55,6 +56,8 @@ private:
                 // TODO: Remove this debug code.
                 debugTraversedVector_.push_back(currentIt->currentItem());
             }
+
+            delete currentIt;
         });
     }
 

@@ -546,6 +546,9 @@ TEST_F(CompoundShapeTestWithoutNesting, CreateBFSIteratorCorrectly) {
     EXPECT_EQ(it->currentItem(), &triangle_);
     EXPECT_NO_THROW(it->next());
     EXPECT_EQ(it->isDone(), true);
+
+    // Clean up
+    delete it;
 }
 
 TEST_F(CompoundShapeTestWithoutNesting, CreateDFSIteratorCorrectly) {
@@ -565,6 +568,9 @@ TEST_F(CompoundShapeTestWithoutNesting, CreateDFSIteratorCorrectly) {
     EXPECT_EQ(it->currentItem(), &triangle_);
     EXPECT_NO_THROW(it->next());
     EXPECT_EQ(it->isDone(), true);
+
+    // Clean up
+    delete it;
 }
 
 TEST_F(CompoundShapeTestWithNesting, CreateBFSIteratorCorrectly) {
@@ -596,6 +602,9 @@ TEST_F(CompoundShapeTestWithNesting, CreateBFSIteratorCorrectly) {
     EXPECT_EQ(it->currentItem(), &triangle_);
     EXPECT_NO_THROW(it->next());
     EXPECT_EQ(it->isDone(), true);
+
+    // Clean up
+    delete it;
 }
 
 TEST_F(CompoundShapeTestWithNesting, CreateDFSIteratorCorrectly) {
@@ -627,6 +636,9 @@ TEST_F(CompoundShapeTestWithNesting, CreateDFSIteratorCorrectly) {
     EXPECT_EQ(it->currentItem(), &triangle_);
     EXPECT_NO_THROW(it->next());
     EXPECT_EQ(it->isDone(), true);
+
+    // Clean up
+    delete it;
 }
 
 TEST_F(CompoundShapeTestWithMultipleNesting, CreateBFSIteratorCorrectly) {
@@ -670,6 +682,9 @@ TEST_F(CompoundShapeTestWithMultipleNesting, CreateBFSIteratorCorrectly) {
     EXPECT_EQ(it->currentItem(), &triangle_);
     EXPECT_NO_THROW(it->next());
     EXPECT_EQ(it->isDone(), true);
+
+    // Clean up
+    delete it;
 }
 
 TEST_F(CompoundShapeTestWithMultipleNesting, CreateDFSIteratorCorrectly) {
@@ -713,6 +728,9 @@ TEST_F(CompoundShapeTestWithMultipleNesting, CreateDFSIteratorCorrectly) {
     EXPECT_EQ(it->currentItem(), &triangle_);
     EXPECT_NO_THROW(it->next());
     EXPECT_EQ(it->isDone(), true);
+
+    // Clean up
+    delete it;
 }
 
 TEST_F(CompoundShapeTestWithNesting, ShouldCorrectlyGetPoints) {

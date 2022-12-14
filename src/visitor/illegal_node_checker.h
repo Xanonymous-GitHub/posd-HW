@@ -32,6 +32,7 @@ public:
         if (compoundShapeListIterator->isDone()) {
             // found compound shape has no child.
             isIllegal_ = true;
+            delete compoundShapeListIterator;
             return;
         }
 
@@ -41,8 +42,11 @@ public:
         if (compoundShapeListIterator->isDone() && childA->name() == "CompoundShape") {
             // found compound shape has only one child which is another CompoundShape.
             isIllegal_ = true;
+            delete compoundShapeListIterator;
             return;
         }
+
+        delete compoundShapeListIterator;
     }
 
     bool isIllegal() const {

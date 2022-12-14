@@ -74,10 +74,9 @@ protected:
 
     ShapeBuilder shape_builder_{};
 
-    template <typename Container>
-    void safeDelete_(Container &container) {
-        for (auto &element : container) {
-            delete element;
+    void safeDelete_(const std::vector<Shape *> &container) const {
+        for (auto &&element : container) {
+            element->force_cleanup_shapes();
         }
     }
 };
