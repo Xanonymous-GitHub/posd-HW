@@ -38,7 +38,7 @@ jobs:
       uses: MarkusJx/googletest-installer@v1.1
 
     - name: Install valgrind
-      run: apt update -y && apt install -y valgrind
+      run: sudo apt update -y && sudo apt install -y valgrind
 
     - name: Run valgrind leak check
       run: make valgrind
