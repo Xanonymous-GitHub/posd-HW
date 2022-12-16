@@ -59,7 +59,7 @@ public:
             }
 
             _window = SDL_CreateWindow(
-                "SDL Tutorial",
+                "Your Shapes",
                 (displayWidth / 2) - (SCREEN_WIDTH / 2),
                 (displayHeight / 2) - (SCREEN_HEIGHT / 2),
                 SCREEN_WIDTH,
