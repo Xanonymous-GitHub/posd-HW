@@ -8,7 +8,6 @@ on:
 
 jobs:
   unit-test-self:
-
     runs-on: ubuntu-latest
     container: xanonymous/gtest-cpp-essential-env:latest
 
@@ -25,6 +24,9 @@ jobs:
         key: source-${{ github.sha }}
   
   leak-check-self:
+    runs-on: ubuntu-latest
+    container: xanonymous/gtest-cpp-essential-env:latest
+
     needs: [unit-test-self]
     steps:
     - name: Restore cached built files
