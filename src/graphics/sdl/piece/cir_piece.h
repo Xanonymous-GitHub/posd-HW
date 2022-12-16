@@ -4,12 +4,19 @@
 
 class CirPiece : public Piece {
 private:
-    int32_t _centreX;
-    int32_t _centreY;
-    int32_t _radius;
+    const int32_t _centreX;
+    const int32_t _centreY;
+    const int32_t _radius;
 
 public:
-    CirPiece(SDL_Renderer *renderer, int32_t centreX, int32_t centreY, int32_t radius) : Piece(renderer), _centreX(centreX), _centreY(centreY), _radius(radius) {}
+    CirPiece(
+        SDL_Renderer *const renderer,
+        const int32_t &centreX,
+        const int32_t &centreY,
+        const int32_t &radius) : Piece{renderer},
+                                 _centreX{centreX},
+                                 _centreY{centreY},
+                                 _radius{radius} {}
 
     void draw() override {
         // https://stackoverflow.com/questions/38334081/howto-draw-circles-arcs-and-vector-graphics-in-sdl
