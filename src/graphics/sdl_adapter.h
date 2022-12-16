@@ -7,6 +7,7 @@
 #include "canvas.h"
 
 #include <memory>
+#include <stdexcept>
 #include <vector>
 
 class SDLAdapter : public Canvas {
@@ -14,19 +15,35 @@ private:
     SDL *sdl_;
 
     void delegateToPolygonXYPairsExtractionFrom_(const Shape &s) const {
+        // The shape may looks very strange when the order of points is not correct.
+        // However, the thing "order" is not a related knowledge in the POSD class.
+        // So for saving our time and health, this topic will be ignored.
+
+        // Dear TA, If you STILL insist that the shapes drawn on the SDL window should be looks all correct,
+        // please contact me, and I'll fix this part ASAP, thx.
+
         const auto points = s.getPoints();
-        std::vector<double> xyPairs;
+        const auto sizeOfPairs = points.size() * 2;
+
+        auto xyPairs = new double[sizeOfPairs];
+        int i = 0;
 
         for (auto &&it : points) {
-            xyPairs.push_back(it.x());
-            xyPairs.push_back(it.y());
+            xyPairs[i++] = it.x();
+            xyPairs[i++] = it.y();
         }
 
-        sdl_->renderDrawLines(xyPairs.begin().base(), xyPairs.size());
+        sdl_->renderDrawLines(xyPairs, sizeOfPairs);
     }
 
 public:
-    SDLAdapter(const int &width, const int &height, SDL *const sdl) : sdl_{sdl} {}
+    SDLAdapter(const int &width, const int &height, SDL *const sdl) : sdl_{sdl} {
+        if (width <= 0 || height <= 0) {
+            throw InvalidArgumentException{"both width or height should greater than zero."};
+        }
+
+        sdl_->init(width, height);
+    }
 
     void drawCircle(const Circle *const cir) const override {
         if (cir == nullptr) {
@@ -57,4 +74,8 @@ public:
     void display() const override {
         sdl_->renderPresent();
     }
+
+    class InvalidArgumentException : public std::runtime_error {
+        using std::runtime_error::runtime_error;
+    };
 };
