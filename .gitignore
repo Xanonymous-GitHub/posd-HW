@@ -396,6 +396,6 @@ $RECYCLE.BIN/
 *.lnk
 
 .idea/
-bin/ut_all
+bin/*
 build/
 gtest/
