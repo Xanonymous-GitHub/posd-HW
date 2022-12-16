@@ -25,7 +25,7 @@ public:
 
     virtual void accept(ShapeVisitor *const visitor) = 0;
 
-    virtual ~Shape() {}
+    virtual ~Shape() = default;
 
     class MethodShouldNotBeRunError : public std::runtime_error {
         using std::runtime_error::runtime_error;
