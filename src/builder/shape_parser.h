@@ -90,8 +90,6 @@ private:
 public:
     ShapeParser(const std::string &input) : scanner_{input} {}
 
-    ~ShapeParser() {}
-
     void parse() {
         while (!scanner_.isDone()) {
             const auto token = scanner_.next();
