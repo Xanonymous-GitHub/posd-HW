@@ -1,0 +1,21 @@
+name: Leak Check
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  valgrind:
+    runs-on: ubuntu-latest
+    container: xanonymous/gtest-cpp-essential-env:latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Run valgrind leak check
+      run: make valgrind
+    
+    - name: Run valgrind leak check (Graphics)
+      run: make valgrind_graphics
