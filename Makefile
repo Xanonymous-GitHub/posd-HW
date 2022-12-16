@@ -73,5 +73,6 @@ VALGRIND_ARGS = \
 valgrind: clean prepare bin/ut_all
 	valgrind $(VALGRIND_ARGS) bin/ut_all
 
+# TODO: fix leak inside SDL's implementation (SDLRenderer) by SDLRenderer::init(int, int) 
 valgrind_graphics: clean prepare bin/graphics
 	export VALGRIND_MODE=true && valgrind $(VALGRIND_ARGS) bin/graphics ./input.txt
