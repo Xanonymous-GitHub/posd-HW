@@ -12,15 +12,15 @@ private:
     const TwoDimensionalVector radiusVec_;
     const std::string_view name_ = "Circle";
 
-    constexpr Point center_() const noexcept {
-        return radiusVec_.a();
-    }
-
 public:
     constexpr Circle(const TwoDimensionalVector &radiusVec) noexcept : radiusVec_{radiusVec} {}
 
     constexpr double radius() const noexcept {
         return radiusVec_.length();
+    }
+
+    constexpr Point center() const noexcept {
+        return radiusVec_.a();
     }
 
     double area() const override {
@@ -41,7 +41,7 @@ public:
     }
 
     std::set<Point> getPoints() const override {
-        const auto &&myCenter = center_();
+        const auto &&myCenter = center();
         const auto &&myRadius = radius();
 
         const auto &&myCenterX = myCenter.x();
