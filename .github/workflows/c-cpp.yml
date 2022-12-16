@@ -10,11 +10,11 @@ jobs:
   unit-test-self:
 
     runs-on: ubuntu-latest
+    container: xanonymous/gtest-cpp-essential-env:latest
 
     steps:
     - uses: actions/checkout@v3
-    - name: Install gtest
-      uses: MarkusJx/googletest-installer@v1.1
+
     - name: unit tests
       run: make test
 
@@ -25,7 +25,6 @@ jobs:
         key: source-${{ github.sha }}
   
   leak-check-self:
-    runs-on: ubuntu-latest
     needs: [unit-test-self]
     steps:
     - name: Restore cached built files
@@ -34,11 +33,5 @@ jobs:
         path: ./
         key: source-${{ github.sha }}
 
-    - name: Install gtest
-      uses: MarkusJx/googletest-installer@v1.1
-
-    - name: Install valgrind
-      run: sudo apt update -y && sudo apt install -y valgrind
-
     - name: Run valgrind leak check
-      run: make valgrind
+      run: make valgrind && make valgrind_graphics
