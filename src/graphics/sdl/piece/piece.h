@@ -9,5 +9,6 @@ protected:
 public:
     Piece(SDL_Renderer *const renderer) : _renderer{renderer} {}
 
+    virtual ~Piece() = default;
     virtual void draw() = 0;
 };
