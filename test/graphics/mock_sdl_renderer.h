@@ -7,8 +7,8 @@ private:
     bool _isInitCalled = false;
     int _width, _height;
     bool _isRenderPresentCalled = false;
-    double *_drawCircleCalledArgs;
-    double *_drawLinesCalledPoints;
+    double *_drawCircleCalledArgs = nullptr;
+    double *_drawLinesCalledPoints = nullptr;
     double _drawLinesCalledSize;
 
 public:
@@ -17,7 +17,13 @@ public:
     }
 
     ~MockSDLRenderer() {
-        delete[] _drawCircleCalledArgs;
+        if (_drawCircleCalledArgs != nullptr) {
+            delete[] _drawCircleCalledArgs;
+        }
+
+        if (_drawLinesCalledPoints != nullptr) {
+            delete[] _drawLinesCalledPoints;
+        }
     }
 
     void init(int width, int height) override {
