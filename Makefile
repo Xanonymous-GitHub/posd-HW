@@ -74,4 +74,4 @@ valgrind: clean prepare bin/ut_all
 	valgrind $(VALGRIND_ARGS) bin/ut_all
 
 valgrind_graphics: clean prepare bin/graphics
-	valgrind $(VALGRIND_ARGS) bin/graphics ./input.txt
+	export VALGRIND_MODE=true && valgrind $(VALGRIND_ARGS) bin/graphics ./input.txt

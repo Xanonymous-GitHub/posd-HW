@@ -21,9 +21,11 @@
 #include "./visitor/collision_detector.h"
 #include "./visitor/shape_printer.h"
 
+#include <cstdlib>
 #include <iostream>
 #include <memory>
 #include <stdexcept>
+#include <string>
 
 #define DEBUGMSG(msg) std::cout << msg << std::endl;
 
@@ -44,7 +46,7 @@ int main(int argc, const char *args[]) {
     parser.parse();
 
     const auto shapes = parser.getResult();
-    const std::shared_ptr<SDL> renderer = std::make_shared<SDLRenderer>(30);
+    SDL *renderer = new SDLRenderer{30};
     const std::shared_ptr<Canvas> canvas = std::make_shared<SDLAdapter>(1024, 768, renderer);
 
     ShapePrinter printer{canvas};
@@ -66,5 +68,12 @@ int main(int argc, const char *args[]) {
         it->force_cleanup_shapes();
     }
 
-    canvas->display();
+    const auto VALGRIND_MODE = std::getenv("VALGRIND_MODE");
+    const auto shouldStartDisplay = VALGRIND_MODE == nullptr || std::string_view(VALGRIND_MODE) != "true";
+
+    if (shouldStartDisplay) {
+        canvas->display();
+    }
+
+    delete renderer;
 }
