@@ -1,6 +1,7 @@
 #pragma once
 
 #include "shape.h"
+#include <limits>
 #include <set>
 #include <string>
 
@@ -10,7 +11,7 @@ private:
     const Point leftDownPoint_;
 
     double findMaxX_(const std::set<Point> &points) const noexcept {
-        double maxX = -DBL_MAX;
+        double maxX = std::numeric_limits<double>::min();
         for (auto &&point : points) {
             if (point.x() > maxX) {
                 maxX = point.x();
@@ -20,7 +21,7 @@ private:
     }
 
     double findMinX_(const std::set<Point> &points) const noexcept {
-        double minX = DBL_MAX;
+        double minX = std::numeric_limits<double>::max();
         for (auto &&point : points) {
             if (point.x() < minX) {
                 minX = point.x();
@@ -30,7 +31,7 @@ private:
     }
 
     double findMaxY_(const std::set<Point> &points) const noexcept {
-        double maxY = -DBL_MAX;
+        double maxY = std::numeric_limits<double>::min();
         for (auto &&point : points) {
             if (point.y() > maxY) {
                 maxY = point.y();
@@ -40,7 +41,7 @@ private:
     }
 
     double findMinY_(const std::set<Point> &points) const noexcept {
-        double minY = DBL_MAX;
+        double minY = std::numeric_limits<double>::max();
         for (auto &&point : points) {
             if (point.y() < minY) {
                 minY = point.y();
@@ -51,7 +52,7 @@ private:
 
 public:
     BoundingBox(const std::set<Point> &points) noexcept : rightUpPoint_{calMaximumPoint(points)},
-                                                                    leftDownPoint_{calMinimumPoint(points)} {}
+                                                          leftDownPoint_{calMinimumPoint(points)} {}
 
     Point calMaximumPoint(const std::set<Point> &points) const noexcept {
         const double maxX = findMaxX_(points);
