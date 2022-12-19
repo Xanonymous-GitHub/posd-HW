@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../event_listener.h"
 #include "./piece/cir_piece.h"
 #include "./piece/line_piece.h"
 #include "sdl.h"
@@ -22,10 +23,14 @@ private:
 
     SDL_Window *_window = nullptr;
     SDL_Renderer *_renderer = nullptr;
+    EventListener *_eventListener = nullptr;
     std::vector<std::unique_ptr<Piece>> _pieces;
 
 public:
-    SDLRenderer(const double &scale = 1.0) : _scale(scale) {}
+    SDLRenderer(
+        const double &scale,
+        EventListener *const eventListener) : _scale{scale},
+                                              _eventListener{eventListener} {}
 
     ~SDLRenderer() {
         destroy();
@@ -116,6 +121,45 @@ public:
                 (int)(radius * _scale)));
     };
 
+    void handle(const SDL_Event &e) {
+        int x, y;
+        SDL_GetMouseState(&x, &y);
+
+        const double rx = (x - _xOffset) / _scale;
+        const double ry = (_yOffset - y) / _scale;
+
+        if (e.type == SDL_MOUSEMOTION && e.button.button == SDL_BUTTON_LEFT) {
+            _eventListener->leftMouseMove(rx, ry);
+        } else if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT) {
+            _eventListener->leftMouseDown(rx, ry);
+        } else if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_RIGHT) {
+            _eventListener->rightMouseDown(rx, ry);
+        } else if (e.type == SDL_MOUSEBUTTONUP && e.button.button == SDL_BUTTON_LEFT) {
+            _eventListener->leftMouseUp(rx, ry);
+        }
+    }
+
+    void refresh() {
+        _pieces.clear();
+        SDL_SetRenderDrawColor(_renderer, 0x00, 0x1D, 0x3D, 0xFF);
+        SDL_RenderClear(_renderer);
+        SDL_SetRenderDrawColor(_renderer, 0xED, 0xED, 0xE9, 0xFF);
+
+        for (int i = 0; i < SCREEN_HEIGHT; i += 4) {
+            SDL_RenderDrawPoint(_renderer, SCREEN_WIDTH / 2, i);
+        }
+        for (int i = 0; i < SCREEN_WIDTH; i += 4) {
+            SDL_RenderDrawPoint(_renderer, i, SCREEN_HEIGHT / 2);
+        }
+
+        int x, y;
+        SDL_GetMouseState(&x, &y);
+
+        const double rx = (x - _xOffset) / _scale;
+        const double ry = (_yOffset - y) / _scale;
+        _eventListener->refresh(rx, ry);
+    }
+
     void renderPresent() override {
         SDL_Event e;
         bool quit = false;
@@ -125,26 +169,18 @@ public:
                 if (e.type == SDL_QUIT) {
                     quit = true;
                 }
+
+                handle(e);
             }
 
-            SDL_SetRenderDrawColor(_renderer, 0x00, 0x1D, 0x3D, 0xFF);
-            SDL_RenderClear(_renderer);
-            SDL_SetRenderDrawColor(_renderer, 0xED, 0xED, 0xE9, 0xFF);
-
-            for (int i = 0; i < SCREEN_HEIGHT; i += 4) {
-                SDL_RenderDrawPoint(_renderer, SCREEN_WIDTH / 2, i);
-            }
-
-            for (int i = 0; i < SCREEN_WIDTH; i += 4) {
-                SDL_RenderDrawPoint(_renderer, i, SCREEN_HEIGHT / 2);
-            }
+            refresh();
 
             for (auto &&it : _pieces) {
                 it->draw();
             }
 
             SDL_RenderPresent(_renderer);
-            SDL_Delay(100);
+            SDL_Delay(50);
         }
     }
 
