@@ -19,7 +19,7 @@ public:
     DragAndDrop(const std::vector<Shape *> &shapes) : _shapes{shapes} {}
     ~DragAndDrop() = default;
 
-    virtual void grab(const double &x, const double &y) {
+    virtual void grab(double x, double y) {
         const Point c1{x, y}, c2{x, y};
         const TwoDimensionalVector mr{c1, c2};
         const Circle mousePoint{mr};
@@ -39,7 +39,7 @@ public:
         _previousY = y;
     }
 
-    virtual void move(const double &x, const double &y) {
+    virtual void move(double x, double y) {
         if (_target_shape != nullptr) {
             const double deltaX = x - _previousX, deltaY = y - _previousY;
             _target_shape->move(deltaX, deltaY);
@@ -50,7 +50,7 @@ public:
         }
     }
 
-    virtual void drop(const double &x, const double &y) {
+    virtual void drop(double x, double y) {
         _target_shape = nullptr;
     }
 };
