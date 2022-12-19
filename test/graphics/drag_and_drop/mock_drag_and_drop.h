@@ -4,9 +4,9 @@
 
 class MockDragAndDrop : public DragAndDrop {
 private:
-    double _grabX, _grabY;
-    double _moveX, _moveY;
-    double _dropX, _dropY;
+    double _grabX = 0, _grabY = 0;
+    double _moveX = 0, _moveY = 0;
+    double _dropX = 0, _dropY = 0;
 
 public:
     void grab(double x, double y) override {
