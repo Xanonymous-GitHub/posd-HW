@@ -23,5 +23,5 @@ public:
 
     void undo() {}
 
-    std::stack<Command *> getHistory() {}
+    std::stack<Command *> getHistory() const {}
 };

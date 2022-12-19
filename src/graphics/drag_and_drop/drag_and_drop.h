@@ -17,7 +17,7 @@ private:
 public:
     DragAndDrop() = default;
     DragAndDrop(const std::vector<Shape *> &shapes) : _shapes{shapes} {}
-    ~DragAndDrop() {}
+    ~DragAndDrop() = default;
 
     virtual void grab(const double &x, const double &y) {
         const Point c1{x, y}, c2{x, y};

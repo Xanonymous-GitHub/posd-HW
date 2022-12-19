@@ -2,19 +2,17 @@
 
 class MousePosition {
 private:
-    MousePosition() = default;
-
-    static MousePosition *_instance;
     double _x, _y;
 
+protected:
+    MousePosition() = default;
+
 public:
-    ~MousePosition() {}
+    ~MousePosition() = default;
 
     static MousePosition *getInstance() {
-        if (_instance == nullptr) {
-            _instance = new MousePosition();
-        }
-        return _instance;
+        static MousePosition _instance{};
+        return &_instance;
     }
 
     void setPos(const double &x, const double &y) {
@@ -22,13 +20,11 @@ public:
         _y = y;
     }
 
-    double getX() noexcept {
+    double getX() const noexcept {
         return _x;
     }
 
-    double getY() noexcept {
+    double getY() const noexcept {
         return _y;
     }
 };
-
-MousePosition *MousePosition::_instance;
