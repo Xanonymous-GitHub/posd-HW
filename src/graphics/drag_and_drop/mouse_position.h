@@ -11,7 +11,7 @@ public:
     ~MousePosition() = default;
 
     static MousePosition *getInstance() {
-        static MousePosition _instance{};
+        static MousePosition _instance;
         return &_instance;
     }
 
