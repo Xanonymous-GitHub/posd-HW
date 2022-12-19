@@ -3,6 +3,7 @@
 #include "command.h"
 #include "macro_command.h"
 #include <stack>
+#include <stdexcept>
 
 class CommandHistory {
 private:
