@@ -12,7 +12,16 @@ private:
 public:
     MacroCommand() {}
 
-    ~MacroCommand() {}
+    ~MacroCommand() {
+        for (auto &&it : _commands) {
+            if (it != nullptr) {
+                delete it;
+                it = nullptr;
+            }
+        }
+
+        _commands.clear();
+    }
 
     void execute() override {
         for (auto &&it : _commands) {

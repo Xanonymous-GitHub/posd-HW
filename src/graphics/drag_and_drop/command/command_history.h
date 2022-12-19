@@ -11,10 +11,21 @@ private:
     std::stack<Command *> _history;
     std::stack<Command *> _undoCommands;
 
+    template <typename T>
+    void safeCleanStackOf_(std::stack<T *> &s) {
+        while (!s.empty()) {
+            delete s.top();
+            s.pop();
+        }
+    }
+
 public:
     CommandHistory() {}
 
-    ~CommandHistory() {}
+    ~CommandHistory() {
+        safeCleanStackOf_(_history);
+        safeCleanStackOf_(_undoCommands);
+    }
 
     void beginMacroCommand() {}
 
