@@ -37,7 +37,7 @@ public:
         updateCurrentXY();
 
         _dragAndDrop->grab(_x, _y);
-        _commandHistory->addCommand(this);
+        _commandHistory->addCommand(new GrabCommand{*this});
     }
 
     void undo() override {
