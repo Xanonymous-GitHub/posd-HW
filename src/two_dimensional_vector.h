@@ -6,49 +6,54 @@
 
 class TwoDimensionalVector {
 private:
-    const Point _a;
-    const Point _b;
+    Point _a;
+    Point _b;
 
-    constexpr double _x_offset() const noexcept {
+    double _x_offset() const noexcept {
         return _b.x() - _a.x();
     }
 
-    constexpr double _y_offset() const noexcept {
+    double _y_offset() const noexcept {
         return _b.y() - _a.y();
     }
 
 public:
-    constexpr TwoDimensionalVector(const Point &a, const Point &b) noexcept : _a{a}, _b{b} {}
-    constexpr TwoDimensionalVector(const Point *a, const Point *b) : _a{*a}, _b{*b} {}
+    TwoDimensionalVector(const Point &a, const Point &b) noexcept : _a{a}, _b{b} {}
+    TwoDimensionalVector(const Point *a, const Point *b) : _a{*a}, _b{*b} {}
 
     bool operator==(const TwoDimensionalVector &vec) const noexcept {
         return &vec == this || vec.info() == info();
     }
 
-    constexpr Point a() const noexcept {
+    Point a() const noexcept {
         return _a;
     }
 
-    constexpr Point b() const noexcept {
+    Point b() const noexcept {
         return _b;
     }
 
-    constexpr double length() const noexcept {
+    double length() const noexcept {
         const auto x_offset = _x_offset();
         const auto y_offset = _y_offset();
         return sqrt(x_offset * x_offset + y_offset * y_offset);
     }
 
-    constexpr double dot(const TwoDimensionalVector &vec) const noexcept {
+    double dot(const TwoDimensionalVector &vec) const noexcept {
         return _x_offset() * vec._x_offset() + _y_offset() * vec._y_offset();
     }
 
-    constexpr double cross(const TwoDimensionalVector &vec) const noexcept {
+    double cross(const TwoDimensionalVector &vec) const noexcept {
         return _x_offset() * vec._y_offset() - _y_offset() * vec._x_offset();
     }
 
     std::string info() const noexcept {
         return "Vector (" + _a.info() + ", " + _b.info() + ")";
+    }
+
+    void move(const double &deltaX, const double &deltaY) noexcept {
+        _a.move(deltaX, deltaY);
+        _b.move(deltaX, deltaY);
     }
 
     static const std::optional<Point> common_point(const TwoDimensionalVector &vec1, const TwoDimensionalVector &vec2) noexcept {

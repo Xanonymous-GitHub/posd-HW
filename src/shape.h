@@ -40,4 +40,6 @@ public:
     };
 
     virtual void force_cleanup_shapes() {}
+
+    virtual void move(const double &deltaX, const double &deltaY) = 0;
 };

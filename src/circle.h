@@ -9,17 +9,17 @@
 
 class Circle : public Shape {
 private:
-    const TwoDimensionalVector radiusVec_;
+    TwoDimensionalVector radiusVec_;
     const std::string_view name_ = "Circle";
 
 public:
-    constexpr Circle(const TwoDimensionalVector &radiusVec) noexcept : radiusVec_{radiusVec} {}
+    Circle(const TwoDimensionalVector &radiusVec) noexcept : radiusVec_{radiusVec} {}
 
-    constexpr double radius() const noexcept {
+    double radius() const noexcept {
         return radiusVec_.length();
     }
 
-    constexpr Point center() const noexcept {
+    Point center() const noexcept {
         return radiusVec_.a();
     }
 
@@ -55,5 +55,9 @@ public:
 
     void accept(ShapeVisitor *const visitor) override {
         visitor->visitCircle(this);
+    }
+
+    void move(const double &deltaX, const double &deltaY) override {
+        radiusVec_.move(deltaX, deltaY);
     }
 };

@@ -10,20 +10,20 @@
 
 class Point {
 private:
-    const double _x;
-    const double _y;
+    double _x;
+    double _y;
 
 public:
-    constexpr Point(const double &x, const double &y) noexcept : _x{x}, _y{y} {}
-    constexpr Point(const Point &pt) noexcept : _x{pt.x()}, _y{pt.y()} {}
-    constexpr Point(Point &&pt) noexcept : _x{pt.x()}, _y{pt.y()} {}
-    constexpr Point() noexcept : _x{0.0}, _y{0.0} {}
+    Point(const double &x, const double &y) noexcept : _x{x}, _y{y} {}
+    Point(const Point &pt) noexcept : _x{pt.x()}, _y{pt.y()} {}
+    Point(Point &&pt) noexcept : _x{pt.x()}, _y{pt.y()} {}
+    Point() noexcept : _x{0.0}, _y{0.0} {}
 
-    constexpr double x() const noexcept {
+    double x() const noexcept {
         return _x;
     }
 
-    constexpr double y() const noexcept {
+    double y() const noexcept {
         return _y;
     }
 
@@ -40,5 +40,10 @@ public:
         const auto &&precision = std::setprecision(MATH_PRECISION_DIGITS);
         ss << std::fixed << precision << "(" << _x << ", " << _y << ")";
         return ss.str();
+    }
+
+    void move(const double &deltaX, const double &deltaY) noexcept {
+        _x += deltaX;
+        _y += deltaY;
     }
 };

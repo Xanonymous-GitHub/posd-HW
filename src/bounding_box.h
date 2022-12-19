@@ -66,11 +66,11 @@ public:
         return Point{minX, minY};
     }
 
-    constexpr Point max() const noexcept {
+    Point max() const noexcept {
         return rightUpPoint_;
     }
 
-    constexpr Point min() const noexcept {
+    Point min() const noexcept {
         return leftDownPoint_;
     }
 

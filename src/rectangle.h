@@ -9,8 +9,8 @@
 
 class Rectangle : public Shape {
 private:
-    const TwoDimensionalVector lengthVec_;
-    const TwoDimensionalVector widthVec_;
+    TwoDimensionalVector lengthVec_;
+    TwoDimensionalVector widthVec_;
     const std::string_view name_ = "Rectangle";
 
     // get the fourth point of the rectangle.
@@ -21,10 +21,7 @@ private:
         };
     }
 
-public:
-    Rectangle(
-        const TwoDimensionalVector &lengthVec,
-        const TwoDimensionalVector &widthVec) : lengthVec_{lengthVec}, widthVec_{widthVec} {
+    void verifyOrthogonal(const TwoDimensionalVector &lengthVec, const TwoDimensionalVector &widthVec) const {
         if (lengthVec.dot(widthVec) != 0) {
             throw std::invalid_argument("The rectangle is not orthogonal.");
         }
@@ -35,11 +32,18 @@ public:
         }
     }
 
-    constexpr double length() const noexcept {
+public:
+    Rectangle(
+        const TwoDimensionalVector &lengthVec,
+        const TwoDimensionalVector &widthVec) : lengthVec_{lengthVec}, widthVec_{widthVec} {
+        verifyOrthogonal(lengthVec_, widthVec_);
+    }
+
+    double length() const noexcept {
         return lengthVec_.length();
     }
 
-    constexpr double width() const noexcept {
+    double width() const noexcept {
         return widthVec_.length();
     }
 
@@ -74,5 +78,11 @@ public:
 
     void accept(ShapeVisitor *const visitor) override {
         visitor->visitRectangle(this);
+    }
+
+    void move(const double &deltaX, const double &deltaY) override {
+        lengthVec_.move(deltaX, deltaY);
+        widthVec_.move(deltaX, deltaY);
+        verifyOrthogonal(lengthVec_, widthVec_);
     }
 };
