@@ -11,7 +11,7 @@
 
 class RefreshCommand : public Command {
 private:
-    Canvas *_canvas;
+    Canvas *_canvas = nullptr;
     const std::unique_ptr<ShapePrinter> _printer;
     std::vector<Shape *> _shapes;
 

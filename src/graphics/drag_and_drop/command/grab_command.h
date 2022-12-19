@@ -7,8 +7,8 @@
 
 class GrabCommand : public Command {
 private:
-    DragAndDrop *_dragAndDrop;
-    CommandHistory *_commandHistory;
+    DragAndDrop *_dragAndDrop = nullptr;
+    CommandHistory *_commandHistory = nullptr;
     double _x, _y;
 
 public:

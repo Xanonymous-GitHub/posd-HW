@@ -7,8 +7,8 @@
 class UndoCommand : public Command {
 
 private:
-    DragAndDrop *_dragAndDrop;
-    CommandHistory *_commandHistory;
+    DragAndDrop *_dragAndDrop = nullptr;
+    CommandHistory *_commandHistory = nullptr;
 
 public:
     UndoCommand(
