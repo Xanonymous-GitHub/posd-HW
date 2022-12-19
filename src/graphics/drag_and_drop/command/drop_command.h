@@ -11,6 +11,16 @@ private:
     CommandHistory *_commandHistory = nullptr;
     double _x, _y;
 
+    bool isValidCouplingExist_() const {
+        return _dragAndDrop != nullptr && _commandHistory != nullptr;
+    }
+
+    void updateCurrentXY() {
+        const auto xy = currentXY_();
+        _x = xy.first;
+        _y = xy.second;
+    }
+
 public:
     DropCommand(
         DragAndDrop *const dragAndDrop,
@@ -21,11 +31,30 @@ public:
 
     DropCommand(DropCommand &&c) = default;
 
-    void execute() override {}
+    void execute() override {
+        if (!isValidCouplingExist_()) {
+            throw FailedToExecuteCommandException{"Failed to exec command!"};
+        }
 
-    void undo() override {}
+        updateCurrentXY();
 
-    double getX() const {}
+        _dragAndDrop->drop(_x, _y);
+        _commandHistory->addCommand(this);
+    }
 
-    double getY() const {}
+    void undo() override {
+        if (!isValidCouplingExist_()) {
+            throw FailedToUndoCommandException{"Failed to undo command!"};
+        }
+
+        _commandHistory->undo();
+    }
+
+    double getX() const noexcept {
+        return _x;
+    }
+
+    double getY() const noexcept {
+        return _y;
+    }
 };

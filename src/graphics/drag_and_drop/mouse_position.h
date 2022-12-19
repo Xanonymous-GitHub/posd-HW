@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdexcept>
+
 class MousePosition {
 private:
     double _x, _y;
@@ -27,4 +29,8 @@ public:
     double getY() const noexcept {
         return _y;
     }
+
+    class InstanceNotFoundException : public std::runtime_error {
+        using std::runtime_error::runtime_error;
+    };
 };

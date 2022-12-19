@@ -17,11 +17,24 @@ public:
 
     void beginMacroCommand() {}
 
-    void addCommand(Command *const command) {}
+    void addCommand(Command *const command) {
+        if (command == nullptr) {
+            throw AddingNullCommandException{"adding a null command into macro command!"};
+        }
+
+        // TODO: wrap inside macro command.
+        _history.push(command);
+    }
 
     void endMacroCommand() {}
 
     void undo() {}
 
-    std::stack<Command *> getHistory() const {}
+    std::stack<Command *> getHistory() const {
+        return _history;
+    }
+
+    class AddingNullCommandException : public std::runtime_error {
+        using std::runtime_error::runtime_error;
+    };
 };

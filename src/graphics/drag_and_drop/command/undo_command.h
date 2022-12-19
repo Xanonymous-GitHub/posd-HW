@@ -5,10 +5,13 @@
 #include "command_history.h"
 
 class UndoCommand : public Command {
-
 private:
     DragAndDrop *_dragAndDrop = nullptr;
     CommandHistory *_commandHistory = nullptr;
+
+    bool isValidCouplingExist_() const {
+        return _dragAndDrop != nullptr && _commandHistory != nullptr;
+    }
 
 public:
     UndoCommand(
@@ -18,5 +21,11 @@ public:
 
     void execute() override {}
 
-    void undo() override {}
+    void undo() override {
+        if (!isValidCouplingExist_()) {
+            throw FailedToUndoCommandException{"Failed to undo command!"};
+        }
+
+        _commandHistory->undo();
+    }
 };
