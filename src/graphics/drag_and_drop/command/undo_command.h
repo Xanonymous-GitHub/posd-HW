@@ -6,26 +6,24 @@
 
 class UndoCommand : public Command {
 private:
-    DragAndDrop *_dragAndDrop = nullptr;
     CommandHistory *_commandHistory = nullptr;
 
     bool isValidCouplingExist_() const {
-        return _dragAndDrop != nullptr && _commandHistory != nullptr;
+        return _commandHistory != nullptr;
     }
 
 public:
     UndoCommand(
         DragAndDrop *const dragAndDrop,
-        CommandHistory *const commandHistory) : _dragAndDrop{dragAndDrop},
-                                                _commandHistory{commandHistory} {}
+        CommandHistory *const commandHistory) : _commandHistory{commandHistory} {}
 
-    void execute() override {}
-
-    void undo() override {
+    void execute() override {
         if (!isValidCouplingExist_()) {
             throw FailedToUndoCommandException{"Failed to undo command!"};
         }
 
         _commandHistory->undo();
     }
+
+    void undo() override{};
 };
