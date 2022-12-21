@@ -45,7 +45,7 @@ public:
             throw FailedToUndoCommandException{"Failed to undo command!"};
         }
 
-        _commandHistory->undo();
+        _dragAndDrop->move(_x, _y);
     }
 
     double getX() const noexcept {

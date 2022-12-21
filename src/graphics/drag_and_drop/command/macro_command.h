@@ -10,7 +10,7 @@ private:
     std::vector<Command *> _commands;
 
 public:
-    MacroCommand() {}
+    MacroCommand() = default;
 
     ~MacroCommand() {
         for (auto &&it : _commands) {

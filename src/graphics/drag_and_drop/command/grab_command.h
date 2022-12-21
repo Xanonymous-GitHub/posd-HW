@@ -37,6 +37,7 @@ public:
         updateCurrentXY();
 
         _dragAndDrop->grab(_x, _y);
+        _commandHistory->beginMacroCommand();
         _commandHistory->addCommand(new GrabCommand{*this});
     }
 
@@ -45,7 +46,8 @@ public:
             throw FailedToUndoCommandException{"Failed to undo command!"};
         }
 
-        _commandHistory->undo();
+        _dragAndDrop->move(_x, _y);
+        _dragAndDrop->drop(_x, _y);
     }
 
     double getX() const noexcept {

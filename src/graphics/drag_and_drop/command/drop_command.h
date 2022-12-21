@@ -40,6 +40,7 @@ public:
 
         _dragAndDrop->drop(_x, _y);
         _commandHistory->addCommand(new DropCommand{*this});
+        _commandHistory->endMacroCommand();
     }
 
     void undo() override {
@@ -47,7 +48,7 @@ public:
             throw FailedToUndoCommandException{"Failed to undo command!"};
         }
 
-        _commandHistory->undo();
+        _dragAndDrop->grab(_x, _y);
     }
 
     double getX() const noexcept {
