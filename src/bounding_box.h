@@ -11,7 +11,7 @@ private:
     const Point leftDownPoint_;
 
     double findMaxX_(const std::set<Point> &points) const noexcept {
-        double maxX = std::numeric_limits<double>::min();
+        double maxX = -std::numeric_limits<double>::max();
         for (auto &&point : points) {
             if (point.x() > maxX) {
                 maxX = point.x();
@@ -31,7 +31,7 @@ private:
     }
 
     double findMaxY_(const std::set<Point> &points) const noexcept {
-        double maxY = std::numeric_limits<double>::min();
+        double maxY = -std::numeric_limits<double>::max();
         for (auto &&point : points) {
             if (point.y() > maxY) {
                 maxY = point.y();
