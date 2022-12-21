@@ -42,6 +42,6 @@ public:
     }
 
     void on(const std::string &eventName, Command *const callback) {
-        _callbacks.at(eventName) = std::unique_ptr<Command>(callback);
+        _callbacks[eventName] = std::unique_ptr<Command>(callback);
     }
 };
