@@ -46,9 +46,9 @@ private:
         //     std::swap(xyPairs[1], xyPairs[3]);
         // }
 
-        for (int k = 0; k < sizeOfPairs; ++k) {
-            DEBUGMSG(xyPairs[k]);
-        }
+        // for (int k = 0; k < sizeOfPairs; ++k) {
+        //     DEBUGMSG(xyPairs[k]);
+        // }
 
         sdl_->renderDrawLines(xyPairs, sizeOfPairs);
     }

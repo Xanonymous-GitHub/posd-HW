@@ -95,9 +95,9 @@ TEST_F(SDLAdapterTest, renderDrawLinesCalledArgsShouldBeCorrectForRect) {
     EXPECT_NEAR(calledArgs[2], rectangle_right_vector_end_.x(), DEVIATION);
     EXPECT_NEAR(calledArgs[3], rectangle_right_vector_end_.y(), DEVIATION);
     EXPECT_NEAR(calledArgs[4], rectangle_left_vector_end_.x(), DEVIATION);
-    EXPECT_NEAR(calledArgs[5], rectangle_left_vector_end_.y(), DEVIATION);
+    EXPECT_NEAR(calledArgs[5], 5.0, DEVIATION);
     EXPECT_NEAR(calledArgs[6], 3.0, DEVIATION);
-    EXPECT_NEAR(calledArgs[7], 5.0, DEVIATION);
+    EXPECT_NEAR(calledArgs[7], 0, DEVIATION);
 }
 
 TEST_F(SDLAdapterTest, renderDrawLinesCalledArgsShouldBeCorrectForRect2) {
@@ -117,9 +117,9 @@ TEST_F(SDLAdapterTest, renderDrawLinesCalledArgsShouldBeCorrectForRect2) {
     EXPECT_NEAR(calledArgs[2], 4, DEVIATION);
     EXPECT_NEAR(calledArgs[3], 9, DEVIATION);
     EXPECT_NEAR(calledArgs[4], 8, DEVIATION);
-    EXPECT_NEAR(calledArgs[5], 5, DEVIATION);
+    EXPECT_NEAR(calledArgs[5], 9, DEVIATION);
     EXPECT_NEAR(calledArgs[6], 8, DEVIATION);
-    EXPECT_NEAR(calledArgs[7], 9, DEVIATION);
+    EXPECT_NEAR(calledArgs[7], 5, DEVIATION);
 }
 
 TEST_F(SDLAdapterTest, renderDrawLinesCalledArgsShouldBeCorrectForTriangle) {
@@ -134,10 +134,10 @@ TEST_F(SDLAdapterTest, renderDrawLinesCalledArgsShouldBeCorrectForTriangle) {
 
     const auto calledArgs = mockSDLRenderer.renderDrawLinesCalledPoints();
 
-    EXPECT_NEAR(calledArgs[0], -1, DEVIATION);
-    EXPECT_NEAR(calledArgs[1], -13, DEVIATION);
-    EXPECT_NEAR(calledArgs[2], -2, DEVIATION);
-    EXPECT_NEAR(calledArgs[3], -10, DEVIATION);
+    EXPECT_NEAR(calledArgs[0], -2, DEVIATION);
+    EXPECT_NEAR(calledArgs[1], -10, DEVIATION);
+    EXPECT_NEAR(calledArgs[2], -1, DEVIATION);
+    EXPECT_NEAR(calledArgs[3], -13, DEVIATION);
     EXPECT_NEAR(calledArgs[4], 1, DEVIATION);
     EXPECT_NEAR(calledArgs[5], -10, DEVIATION);
 }

@@ -4,7 +4,7 @@ class ShapeParserTest : public ::testing::Test {
 protected:
     void safeDelete_(const std::vector<Shape *> &container) const {
         for (auto &&element : container) {
-            element->force_cleanup_shapes();
+            delete element;
         }
     }
 };

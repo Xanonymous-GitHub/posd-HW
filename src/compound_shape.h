@@ -32,7 +32,7 @@ public:
     ~CompoundShape() {
         // Ownership of shapes is transferred to the compound shape.
         // Therefore, the compound shape deletes the shapes.
-        force_cleanup_shapes();
+        // force_cleanup_shapes();
     }
 
     void force_cleanup_shapes() override {
