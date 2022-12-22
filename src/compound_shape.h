@@ -39,6 +39,7 @@ public:
         for (auto &&s : shapes_) {
             if (s != nullptr) {
                 s->force_cleanup_shapes();
+                delete s;
             }
         }
 

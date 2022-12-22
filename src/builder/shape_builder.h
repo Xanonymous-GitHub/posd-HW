@@ -76,7 +76,7 @@ public:
     void destructAllResultsAndBuildingCompounds() {
         // for (auto &&shape : result_) {
         //     if (shape != nullptr) {
-        //         delete shape;
+        //         shape->force_cleanup_shapes();
         //     }
         // }
 
