@@ -25,7 +25,7 @@ GOOGLETEST_ARGS = -lgtest -lpthread # -fsanitize=address -g
 SDL2_ARGS = -lSDL2 -lSDL2_image
 
 bin/ut_all: test/ut_main.cpp $(OBJ) $(TEST) $(SRC)
-	g++ -o $@ $< $(OBJ) $(COMPILE_ARGS) $(GOOGLETEST_ARGS)
+	export TESTER=self && g++ -o $@ $< $(OBJ) $(COMPILE_ARGS) $(GOOGLETEST_ARGS)
 
 bin/ut_all_ta: ta_test/ut_main.cpp $(OBJ) $(TA_TEST) $(SRC)
 	g++ -o $@ $< $(OBJ) $(COMPILE_ARGS) $(GOOGLETEST_ARGS)
