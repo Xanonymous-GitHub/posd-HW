@@ -6,6 +6,7 @@
 #include "./sdl/sdl.h"
 #include "canvas.h"
 
+#include <algorithm>
 #include <memory>
 #include <stdexcept>
 #include <vector>
@@ -14,7 +15,7 @@ class SDLAdapter : public Canvas {
 private:
     SDL *sdl_;
 
-    void delegateToPolygonXYPairsExtractionFrom_(const Shape &s) const {
+    void delegateToPolygonXYPairsExtractionFrom_(const Shape &s, const bool &needSwap = false) const {
         // The shape may looks very strange when the order of points is not correct.
         // However, the thing "order" is not a related knowledge in the POSD class.
         // So for saving our time and health, this topic will be ignored.
@@ -31,6 +32,22 @@ private:
         for (auto &&it : points) {
             xyPairs[i++] = it.x();
             xyPairs[i++] = it.y();
+        }
+
+        // FIXME: refactor this method to avoid using `needSwap`.
+        if (needSwap) {
+            std::swap(xyPairs[4], xyPairs[6]);
+            std::swap(xyPairs[5], xyPairs[7]);
+        }
+
+        // // FIXME: refactor this method to avoid using `needSwap`.
+        // if (needSwap) {
+        //     std::swap(xyPairs[0], xyPairs[2]);
+        //     std::swap(xyPairs[1], xyPairs[3]);
+        // }
+
+        for (int k = 0; k < sizeOfPairs; ++k) {
+            DEBUGMSG(xyPairs[k]);
         }
 
         sdl_->renderDrawLines(xyPairs, sizeOfPairs);
@@ -68,7 +85,7 @@ public:
             return;
         }
 
-        delegateToPolygonXYPairsExtractionFrom_(*rect);
+        delegateToPolygonXYPairsExtractionFrom_(*rect, true);
     }
 
     void display() const override {

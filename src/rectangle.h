@@ -73,7 +73,7 @@ public:
         const auto unCommonPointB = TwoDimensionalVector::other_point(widthVec_, *commonPoint);
         const auto &&lastPoint = findRecPointByCommonAndUncommonPoints_(*commonPoint, *unCommonPointA, *unCommonPointB);
 
-        return {*commonPoint, *unCommonPointA, *unCommonPointB, lastPoint};
+        return {lengthVec_.a(), lengthVec_.b(), widthVec_.a(), widthVec_.b(), lastPoint};
     }
 
     void accept(ShapeVisitor *const visitor) override {
@@ -83,6 +83,5 @@ public:
     void move(const double &deltaX, const double &deltaY) override {
         lengthVec_.move(deltaX, deltaY);
         widthVec_.move(deltaX, deltaY);
-        verifyOrthogonal(lengthVec_, widthVec_);
     }
 };

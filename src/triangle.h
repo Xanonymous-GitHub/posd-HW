@@ -59,7 +59,7 @@ public:
         const auto unCommonPointA = TwoDimensionalVector::other_point(v1_, *commonPoint);
         const auto unCommonPointB = TwoDimensionalVector::other_point(v2_, *commonPoint);
 
-        return {*commonPoint, *unCommonPointA, *unCommonPointB};
+        return {v1_.a(), v1_.b(), v2_.a(), v2_.b()};
     }
 
     void accept(ShapeVisitor *const visitor) override {

@@ -28,11 +28,11 @@ public:
     }
 
     bool operator==(const Point &pt) const noexcept {
-        return &pt == this || pt.info() == info();
+        return pt.info() == info();
     }
 
     bool operator<(const Point &pt) const noexcept {
-        return &pt != this && info() < pt.info();
+        return _x < pt.x() || (_x == pt.x() && _y < pt.y());
     }
 
     std::string info() const noexcept {

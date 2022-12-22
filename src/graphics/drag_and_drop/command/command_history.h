@@ -11,7 +11,6 @@ private:
     bool inMacro = false;
     std::stack<Command *> _history;
     std::stack<Command *> _undoCommands;
-    std::vector<Command *> tmpAtomicCommands_;
 
     template <typename T>
     void safeCleanStackOf_(std::stack<T *> &s) {
@@ -25,14 +24,6 @@ public:
     CommandHistory() = default;
 
     ~CommandHistory() {
-        for (auto &&it : tmpAtomicCommands_) {
-            if (it != nullptr) {
-                delete it;
-                it = nullptr;
-            }
-        }
-        tmpAtomicCommands_.clear();
-
         safeCleanStackOf_(_history);
         safeCleanStackOf_(_undoCommands);
     }
@@ -42,8 +33,10 @@ public:
             return;
         }
 
-        tmpAtomicCommands_.clear();
         inMacro = true;
+
+        const auto newMacroCmd = new MacroCommand{};
+        _history.push(newMacroCmd);
     }
 
     void addCommand(Command *const command) {
@@ -52,7 +45,7 @@ public:
         }
 
         if (inMacro) {
-            tmpAtomicCommands_.push_back(command);
+            _history.top()->addCommand(command);
         } else {
             _history.push(command);
         }
@@ -64,16 +57,6 @@ public:
         }
 
         inMacro = false;
-        if (tmpAtomicCommands_.empty()) {
-            return;
-        }
-
-        const auto newMacroCmd = new MacroCommand{};
-        for (auto &&it : tmpAtomicCommands_) {
-            newMacroCmd->addCommand(it);
-        }
-
-        _history.push(newMacroCmd);
     }
 
     void undo() {

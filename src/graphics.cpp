@@ -76,6 +76,6 @@ int main(int argc, const char *args[]) {
     }
 
     for (auto &&it : shapes) {
-        it->force_cleanup_shapes();
+        delete it;
     }
 }
