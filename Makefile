@@ -43,13 +43,13 @@ clean:
 	rm -rf bin obj
 
 test: prepare bin/ut_all
-	bin/ut_all
+	export TESTER=self && bin/ut_all
 
 test_ta: prepare bin/ut_all_ta
 	bin/ut_all_ta
 
 test_all: prepare bin/ut_all bin/ut_all_ta
-	bin/ut_all
+	export TESTER=self && bin/ut_all
 	bin/ut_all_ta
 
 graphics: prepare bin/graphics
@@ -71,7 +71,7 @@ VALGRIND_ARGS = \
 	--show-error-list=yes
 
 valgrind: clean prepare bin/ut_all
-	valgrind $(VALGRIND_ARGS) bin/ut_all
+	export TESTER=self && valgrind $(VALGRIND_ARGS) bin/ut_all
 
 # TODO: fix leak inside SDL's implementation (SDLRenderer) by SDLRenderer::init(int, int) 
 valgrind_graphics: clean prepare bin/graphics

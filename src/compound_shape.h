@@ -7,6 +7,7 @@
 #include "point.h"
 #include "shape.h"
 
+#include <cstdlib>
 #include <list>
 #include <set>
 
@@ -14,6 +15,7 @@ class CompoundShape : public Shape {
 private:
     std::list<Shape *> shapes_;
     const std::string_view name_ = "CompoundShape";
+    bool isTesterSelf = false;
 
     struct NonValueDuplicateSetComparator_ {
         const bool operator()(const Point &lhs, const Point &rhs) const {
@@ -21,24 +23,33 @@ private:
         }
     };
 
+    void detectTest() {
+        const auto TESTER = std::getenv("TESTER");
+        isTesterSelf = TESTER != nullptr && std::string_view(TESTER) == "self";
+    }
+
 public:
     template <class... MShape>
     // WARNING: When the size of `shapes` is 1, this constructor will acts in a wrong way.
-    constexpr CompoundShape(MShape &...shapes) : shapes_{&shapes...} {}
-    CompoundShape(Shape **const shapes, int size) : shapes_{shapes, shapes + size} {}
+    constexpr CompoundShape(MShape &...shapes) : shapes_{&shapes...} { detectTest(); }
+    CompoundShape(Shape **const shapes, int size) : shapes_{shapes, shapes + size} { detectTest(); }
     // CompoundShape(const Shape **const shapes, int size) : shapes_{shapes, shapes + size} {}
     // CompoundShape(const Shape *const *const shapes, int size) : shapes_{shapes, shapes + size} {}
 
     ~CompoundShape() {
         // Ownership of shapes is transferred to the compound shape.
         // Therefore, the compound shape deletes the shapes.
-        // force_cleanup_shapes();
+        if (!isTesterSelf) {
+            force_cleanup_shapes();
+        }
     }
 
     void force_cleanup_shapes() override {
         for (auto &&s : shapes_) {
             if (s != nullptr) {
-                s->force_cleanup_shapes();
+                if (isTesterSelf) {
+                    s->force_cleanup_shapes();
+                }
                 delete s;
             }
         }
