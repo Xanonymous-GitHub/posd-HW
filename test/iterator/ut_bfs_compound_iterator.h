@@ -2,7 +2,7 @@
 #include "../../src/iterator/bfs_compound_iterator.h"
 
 class BfsCompoundIteratorTestBase : public ::testing::Test {
-private:
+protected:
     /**
      * @brief Points that make up a vector for a `Circle`.
      */
@@ -34,7 +34,6 @@ private:
     const TwoDimensionalVector rectangle_left_vector_{rectangle_vector_start_, rectangle_left_vector_end_};
     const TwoDimensionalVector rectangle_right_vector_{rectangle_vector_start_, rectangle_right_vector_end_};
 
-protected:
     const double DEVIATION = 0.001;
     Circle circle_{circle_vector_};
     Rectangle rectangle_{rectangle_left_vector_, rectangle_right_vector_};
@@ -146,12 +145,15 @@ TEST_F(Lv0BfsCompoundIteratorTest, Lv0BfsCompoundIteratorShouldIterateOverZeroSh
     delete it;
 }
 
-TEST_F(Lv1BfsCompoundIteratorTest, Lv1Width1BfsCompoundIteratorShouldIterateOverOneShape) {
+TEST_F(BfsCompoundIteratorTestBase, Lv1Width1BfsCompoundIteratorShouldIterateOverOneShape) {
     // Arrange
+    auto circle_ = new Circle{circle_vector_};
+    Shape *content_of_lv1_width_1_compound_shape_[1] = {circle_};
+    CompoundShape lv1_width_1_compound_shape_{content_of_lv1_width_1_compound_shape_, 1};
     const auto it = lv1_width_1_compound_shape_.createIterator(IteratorFactory::getInstance("BFS"));
 
     // Act
-    const auto expectedTraversalHistory = std::vector<const Shape *>{&circle_};
+    const auto expectedTraversalHistory = std::vector<const Shape *>{circle_};
     int i = 0;
 
     // Expect
@@ -165,12 +167,16 @@ TEST_F(Lv1BfsCompoundIteratorTest, Lv1Width1BfsCompoundIteratorShouldIterateOver
     delete it;
 }
 
-TEST_F(Lv1BfsCompoundIteratorTest, Lv1Width2BfsCompoundIteratorShouldIterateOverTwoShapes) {
+TEST_F(BfsCompoundIteratorTestBase, Lv1Width2BfsCompoundIteratorShouldIterateOverTwoShapes) {
     // Arrange
+    auto circle_ = new Circle{circle_vector_};
+    auto rectangle_ = new Rectangle{rectangle_left_vector_, rectangle_right_vector_};
+    Shape *content_of_lv1_width_2_compound_shape_[2] = {circle_, rectangle_};
+    CompoundShape lv1_width_2_compound_shape_{content_of_lv1_width_2_compound_shape_, 2};
     const auto it = lv1_width_2_compound_shape_.createIterator(IteratorFactory::getInstance("BFS"));
 
     // Act
-    const auto expectedTraversalHistory = std::vector<const Shape *>{&circle_, &rectangle_};
+    const auto expectedTraversalHistory = std::vector<const Shape *>{circle_, rectangle_};
     int i = 0;
 
     // Expect
@@ -184,12 +190,17 @@ TEST_F(Lv1BfsCompoundIteratorTest, Lv1Width2BfsCompoundIteratorShouldIterateOver
     delete it;
 }
 
-TEST_F(Lv1BfsCompoundIteratorTest, Lv1Width3BfsCompoundIteratorShouldIterateOverThreeShapes) {
+TEST_F(BfsCompoundIteratorTestBase, Lv1Width3BfsCompoundIteratorShouldIterateOverThreeShapes) {
     // Arrange
+    auto circle_ = new Circle{circle_vector_};
+    auto rectangle_ = new Rectangle{rectangle_left_vector_, rectangle_right_vector_};
+    auto triangle_ = new Triangle{triangle_left_vector_, triangle_right_vector_};
+    Shape *content_of_lv1_width_3_compound_shape_[3] = {circle_, rectangle_, triangle_};
+    CompoundShape lv1_width_3_compound_shape_{content_of_lv1_width_3_compound_shape_, 3};
     const auto it = lv1_width_3_compound_shape_.createIterator(IteratorFactory::getInstance("BFS"));
 
     // Act
-    const auto expectedTraversalHistory = std::vector<const Shape *>{&circle_, &rectangle_, &triangle_};
+    const auto expectedTraversalHistory = std::vector<const Shape *>{circle_, rectangle_, triangle_};
     int i = 0;
 
     // Expect
@@ -203,12 +214,17 @@ TEST_F(Lv1BfsCompoundIteratorTest, Lv1Width3BfsCompoundIteratorShouldIterateOver
     delete it;
 }
 
-TEST_F(Lv2BfsCompoundIteratorTest, Lv2Width1BfsCompoundIteratorShouldIterateCorrectly) {
+TEST_F(BfsCompoundIteratorTestBase, Lv2Width1BfsCompoundIteratorShouldIterateCorrectly) {
     // Arrange
+    auto circle_ = new Circle{circle_vector_};
+    Shape *content_of_lv1_width_1_compound_shape_[1] = {circle_};
+    auto lv1_width_1_compound_shape_ = new CompoundShape{content_of_lv1_width_1_compound_shape_, 1};
+    Shape *content_of_lv2_width_1_compound_shape_[1] = {lv1_width_1_compound_shape_};
+    CompoundShape lv2_width_1_compound_shape_{content_of_lv2_width_1_compound_shape_, 1};
     const auto it = lv2_width_1_compound_shape_.createIterator(IteratorFactory::getInstance("BFS"));
 
     // Act
-    const auto expectedTraversalHistory = std::vector<const Shape *>{&lv1_width_1_compound_shape_, &circle_};
+    const auto expectedTraversalHistory = std::vector<const Shape *>{lv1_width_1_compound_shape_, circle_};
     int i = 0;
 
     // Expect
@@ -222,17 +238,29 @@ TEST_F(Lv2BfsCompoundIteratorTest, Lv2Width1BfsCompoundIteratorShouldIterateCorr
     delete it;
 }
 
-TEST_F(Lv2BfsCompoundIteratorTest, Lv2Width2BfsCompoundIteratorShouldIterateCorrectly) {
+TEST_F(BfsCompoundIteratorTestBase, Lv2Width2BfsCompoundIteratorShouldIterateCorrectly) {
     // Arrange
+    auto circle_ = new Circle{circle_vector_};
+    auto circle2_ = new Circle{circle_vector_};
+    auto rectangle_ = new Rectangle{rectangle_left_vector_, rectangle_right_vector_};
+
+    Shape *content_of_lv1_width_1_compound_shape_[1] = {circle_};
+    auto lv1_width_1_compound_shape_ = new CompoundShape{content_of_lv1_width_1_compound_shape_, 1};
+
+    Shape *content_of_lv1_width_2_compound_shape_[2] = {circle2_, rectangle_};
+    auto lv1_width_2_compound_shape_ = new CompoundShape{content_of_lv1_width_2_compound_shape_, 2};
+
+    Shape *content_of_lv2_width_2_compound_shape_[2] = {lv1_width_2_compound_shape_, lv1_width_1_compound_shape_};
+    CompoundShape lv2_width_2_compound_shape_{content_of_lv2_width_2_compound_shape_, 2};
     const auto it = lv2_width_2_compound_shape_.createIterator(IteratorFactory::getInstance("BFS"));
 
     // Act
     const auto expectedTraversalHistory = std::vector<const Shape *>{
-        &lv1_width_2_compound_shape_,
-        &lv1_width_1_compound_shape_,
-        &circle_,
-        &rectangle_,
-        &circle_,
+        lv1_width_2_compound_shape_,
+        lv1_width_1_compound_shape_,
+        circle2_,
+        rectangle_,
+        circle_,
     };
     int i = 0;
 
@@ -247,22 +275,41 @@ TEST_F(Lv2BfsCompoundIteratorTest, Lv2Width2BfsCompoundIteratorShouldIterateCorr
     delete it;
 }
 
-TEST_F(Lv2BfsCompoundIteratorTest, Lv2Width4BfsCompoundIteratorShouldIterateCorrectly) {
+TEST_F(BfsCompoundIteratorTestBase, Lv2Width4BfsCompoundIteratorShouldIterateCorrectly) {
     // Arrange
+    auto circle_ = new Circle{circle_vector_};
+    auto circle2_ = new Circle{circle_vector_};
+    auto circle3_ = new Circle{circle_vector_};
+    auto circle4_ = new Circle{circle_vector_};
+    auto rectangle_ = new Rectangle{rectangle_left_vector_, rectangle_right_vector_};
+    auto rectangle2_ = new Rectangle{rectangle_left_vector_, rectangle_right_vector_};
+    auto triangle_ = new Triangle{triangle_left_vector_, triangle_right_vector_};
+
+    Shape *content_of_lv1_width_1_compound_shape_[1] = {circle_};
+    auto lv1_width_1_compound_shape_ = new CompoundShape{content_of_lv1_width_1_compound_shape_, 1};
+
+    Shape *content_of_lv1_width_2_compound_shape_[2] = {circle2_, rectangle_};
+    auto lv1_width_2_compound_shape_ = new CompoundShape{content_of_lv1_width_2_compound_shape_, 2};
+
+    Shape *content_of_lv1_width_3_compound_shape_[3] = {circle3_, rectangle2_, triangle_};
+    auto lv1_width_3_compound_shape_ = new CompoundShape{content_of_lv1_width_3_compound_shape_, 3};
+
+    Shape *content_of_lv2_width_4_compound_shape_[4] = {circle4_, lv1_width_1_compound_shape_, lv1_width_2_compound_shape_, lv1_width_3_compound_shape_};
+    CompoundShape lv2_width_4_compound_shape_{content_of_lv2_width_4_compound_shape_, 4};
     const auto it = lv2_width_4_compound_shape_.createIterator(IteratorFactory::getInstance("BFS"));
 
     // Act
     const auto expectedTraversalHistory = std::vector<const Shape *>{
-        &circle_,
-        &lv1_width_1_compound_shape_,
-        &lv1_width_2_compound_shape_,
-        &lv1_width_3_compound_shape_,
-        &circle_,
-        &circle_,
-        &rectangle_,
-        &circle_,
-        &rectangle_,
-        &triangle_,
+        circle4_,
+        lv1_width_1_compound_shape_,
+        lv1_width_2_compound_shape_,
+        lv1_width_3_compound_shape_,
+        circle_,
+        circle2_,
+        rectangle_,
+        circle3_,
+        rectangle2_,
+        triangle_,
     };
     int i = 0;
 

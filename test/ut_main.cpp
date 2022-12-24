@@ -20,7 +20,6 @@
 #include "./utils/ut_file_reader.h"
 #include "./visitor/ut_closest_shape_finder.h"
 #include "./visitor/ut_collision_detector.h"
-#include "./visitor/ut_illegal_node_checker.h"
 
 #include "./graphics/drag_and_drop/command/ut_commany_history.h"
 #include "./graphics/drag_and_drop/command/ut_drop_command.h"

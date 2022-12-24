@@ -1,7 +1,7 @@
 #include "../../src/visitor/collision_detector.h"
 
 class CollisionDetectorTest : public ::testing::Test {
-private:
+protected:
     /**
      * @brief Points that make up a vector for a `Circle`.
      */
@@ -64,7 +64,6 @@ private:
     const TwoDimensionalVector rectangle3_left_vector_{&rectangle3_vector_start_, &rectangle3_left_vector_end_};
     const TwoDimensionalVector rectangle3_right_vector_{&rectangle3_vector_start_, &rectangle3_right_vector_end_};
 
-protected:
     const double DEVIATION = 0.0001;
     Circle circle1_{circle1_vector_};
     Circle circle2_{circle2_vector_};
@@ -153,8 +152,14 @@ TEST_F(CollisionDetectorTest, shouldCorrectlyVisitTriangleAndFindItNOTCollidesWi
 
 TEST_F(CollisionDetectorTest, shouldCorrectlyVisitCompoundShapeAndFindItsChildrenCollidesWithAShape) {
     // Arrange
+    auto circle1_ = new Circle{circle1_vector_};
+    Circle circle2_{circle2_vector_};
+    Rectangle rectangle1_{rectangle1_left_vector_, rectangle1_right_vector_};
+    auto rectangle2_ = new Rectangle{rectangle2_left_vector_, rectangle2_right_vector_};
+    Rectangle rectangle3_{rectangle3_left_vector_, rectangle3_right_vector_};
+    auto triangle_ = new Triangle{triangle_left_vector_, triangle_right_vector_};
     CollisionDetector collisionDetector{&rectangle3_};
-    Shape *content_of_compound_shape_[3] = {&circle1_, &rectangle2_, &triangle_};
+    Shape *content_of_compound_shape_[3] = {circle1_, rectangle2_, triangle_};
     CompoundShape compoundShape{content_of_compound_shape_, 3};
 
     // Act
@@ -162,18 +167,23 @@ TEST_F(CollisionDetectorTest, shouldCorrectlyVisitCompoundShapeAndFindItsChildre
 
     // Expect
     const auto result = collisionDetector.collidedShapes();
-    EXPECT_TRUE(std::find(result.cbegin(), result.cend(), &circle1_) != result.cend());
-    EXPECT_TRUE(std::find(result.cbegin(), result.cend(), &rectangle2_) != result.cend());
-    EXPECT_TRUE(std::find(result.cbegin(), result.cend(), &triangle_) != result.cend());
+    EXPECT_TRUE(std::find(result.cbegin(), result.cend(), circle1_) != result.cend());
+    EXPECT_TRUE(std::find(result.cbegin(), result.cend(), rectangle2_) != result.cend());
+    EXPECT_TRUE(std::find(result.cbegin(), result.cend(), triangle_) != result.cend());
 }
 
 TEST_F(CollisionDetectorTest, shouldCorrectlyVisitCompoundShapeAndFindSomeOfItsChildrenWhichHasAnotherCompoundShapeCollidesWithAShape) {
     // Arrange
+    auto circle1_ = new Circle{circle1_vector_};
+    auto circle2_ = new Circle{circle2_vector_};
+    auto rectangle1_ = new Rectangle{rectangle1_left_vector_, rectangle1_right_vector_};
+    auto rectangle2_ = new Rectangle{rectangle2_left_vector_, rectangle2_right_vector_};
+    Rectangle rectangle3_{rectangle3_left_vector_, rectangle3_right_vector_};
     CollisionDetector collisionDetector{&rectangle3_};
-    Shape *content_of_compound_shape1_[2] = {&circle2_, &rectangle1_};
-    CompoundShape compoundShape1{content_of_compound_shape1_, 2};
+    Shape *content_of_compound_shape1_[2] = {circle2_, rectangle1_};
+    auto compoundShape1 = new CompoundShape{content_of_compound_shape1_, 2};
 
-    Shape *content_of_compound_shape2_[3] = {&circle1_, &rectangle2_, &compoundShape1};
+    Shape *content_of_compound_shape2_[3] = {circle1_, rectangle2_, compoundShape1};
     CompoundShape compoundShape2{content_of_compound_shape2_, 3};
 
     // Act
@@ -181,6 +191,6 @@ TEST_F(CollisionDetectorTest, shouldCorrectlyVisitCompoundShapeAndFindSomeOfItsC
 
     // Expect
     const auto result = collisionDetector.collidedShapes();
-    EXPECT_TRUE(std::find(result.cbegin(), result.cend(), &circle1_) != result.cend());
-    EXPECT_TRUE(std::find(result.cbegin(), result.cend(), &rectangle2_) != result.cend());
+    EXPECT_TRUE(std::find(result.cbegin(), result.cend(), circle1_) != result.cend());
+    EXPECT_TRUE(std::find(result.cbegin(), result.cend(), rectangle2_) != result.cend());
 }

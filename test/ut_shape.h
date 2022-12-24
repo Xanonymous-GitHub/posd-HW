@@ -6,7 +6,7 @@
 #include "../src/two_dimensional_vector.h"
 
 class ShapeTest : public ::testing::Test {
-private:
+protected:
     const Point _a{0, 0};
     const Point _b{4, 0};
     const Point _c{0, 3};
@@ -16,14 +16,9 @@ private:
     Triangle triangle$_{vec1_, vec2_};
     Rectangle rectangle$_{vec1_, vec2_};
 
-    Shape *shapes$_[3] = {&circle$_, &triangle$_, &rectangle$_};
-    CompoundShape compound$_{shapes$_, 3};
-
-protected:
     const Shape &circle_{circle$_};
     const Shape &triangle_{triangle$_};
     const Shape &rectangle_{rectangle$_};
-    const Shape &compound_{compound$_};
     const double DEVIATION = 0.0001;
 };
 
@@ -32,6 +27,13 @@ TEST_F(ShapeTest, AreaWithPolymorphismShouldBeCorrect) {
     EXPECT_NEAR(circle_.area(), 50.26548245743669, DEVIATION);
     EXPECT_NEAR(triangle_.area(), 6, DEVIATION);
     EXPECT_NEAR(rectangle_.area(), 12, DEVIATION);
+
+    Circle *circle2_ = new Circle{vec1_};
+    Rectangle *rectangle2_ = new Rectangle{vec1_, vec2_};
+    Triangle *triangle2_ = new Triangle{vec1_, vec2_};
+    Shape *shapes$_[3] = {circle2_, triangle2_, rectangle2_};
+    CompoundShape compound$_{shapes$_, 3};
+    const Shape &compound_{compound$_};
     EXPECT_NEAR(compound_.area(), 68.26548245743669, DEVIATION);
 }
 
@@ -40,6 +42,13 @@ TEST_F(ShapeTest, PerimeterWithPolymorphismShouldBeCorrect) {
     EXPECT_NEAR(circle_.perimeter(), 25.132741228718345, DEVIATION);
     EXPECT_NEAR(triangle_.perimeter(), 12, DEVIATION);
     EXPECT_NEAR(rectangle_.perimeter(), 14, DEVIATION);
+
+    Circle *circle2_ = new Circle{vec1_};
+    Rectangle *rectangle2_ = new Rectangle{vec1_, vec2_};
+    Triangle *triangle2_ = new Triangle{vec1_, vec2_};
+    Shape *shapes$_[3] = {circle2_, triangle2_, rectangle2_};
+    CompoundShape compound$_{shapes$_, 3};
+    const Shape &compound_{compound$_};
     EXPECT_NEAR(compound_.perimeter(), 51.132741228718345, DEVIATION);
 }
 
@@ -48,6 +57,13 @@ TEST_F(ShapeTest, InfoWithPolymorphismShouldBeCorrect) {
     EXPECT_EQ(circle_.info(), "Circle (Vector ((0.00, 0.00), (4.00, 0.00)))");
     EXPECT_EQ(triangle_.info(), "Triangle (Vector ((0.00, 0.00), (4.00, 0.00)), Vector ((0.00, 0.00), (0.00, 3.00)))");
     EXPECT_EQ(rectangle_.info(), "Rectangle (Vector ((0.00, 0.00), (4.00, 0.00)), Vector ((0.00, 0.00), (0.00, 3.00)))");
+
+    Circle *circle2_ = new Circle{vec1_};
+    Rectangle *rectangle2_ = new Rectangle{vec1_, vec2_};
+    Triangle *triangle2_ = new Triangle{vec1_, vec2_};
+    Shape *shapes$_[3] = {circle2_, triangle2_, rectangle2_};
+    CompoundShape compound$_{shapes$_, 3};
+    const Shape &compound_{compound$_};
     EXPECT_EQ(compound_.info(), "CompoundShape (Circle (Vector ((0.00, 0.00), (4.00, 0.00))), Triangle (Vector ((0.00, 0.00), (4.00, 0.00)), Vector ((0.00, 0.00), (0.00, 3.00))), Rectangle (Vector ((0.00, 0.00), (4.00, 0.00)), Vector ((0.00, 0.00), (0.00, 3.00))))");
 }
 
@@ -56,6 +72,13 @@ TEST_F(ShapeTest, CreateBFSIteratorWithPolymorphismShouldBeCorrect) {
     const auto circleBFSIterator = circle_.createIterator(IteratorFactory::getInstance("BFS"));
     const auto triangleBFSIterator = triangle_.createIterator(IteratorFactory::getInstance("BFS"));
     const auto rectangleBFSIterator = rectangle_.createIterator(IteratorFactory::getInstance("BFS"));
+
+    Circle *circle2_ = new Circle{vec1_};
+    Rectangle *rectangle2_ = new Rectangle{vec1_, vec2_};
+    Triangle *triangle2_ = new Triangle{vec1_, vec2_};
+    Shape *shapes$_[3] = {circle2_, triangle2_, rectangle2_};
+    CompoundShape compound$_{shapes$_, 3};
+    const Shape &compound_{compound$_};
     const auto compoundBFSIterator = compound_.createIterator(IteratorFactory::getInstance("BFS"));
 
     // Expect
@@ -82,6 +105,13 @@ TEST_F(ShapeTest, CreateDFSIteratorWithPolymorphismShouldBeCorrect) {
     const auto circleDFSIterator = circle_.createIterator(IteratorFactory::getInstance("DFS"));
     const auto triangleDFSIterator = triangle_.createIterator(IteratorFactory::getInstance("DFS"));
     const auto rectangleDFSIterator = rectangle_.createIterator(IteratorFactory::getInstance("DFS"));
+
+    Circle *circle2_ = new Circle{vec1_};
+    Rectangle *rectangle2_ = new Rectangle{vec1_, vec2_};
+    Triangle *triangle2_ = new Triangle{vec1_, vec2_};
+    Shape *shapes$_[3] = {circle2_, triangle2_, rectangle2_};
+    CompoundShape compound$_{shapes$_, 3};
+    const Shape &compound_{compound$_};
     const auto compoundDFSIterator = compound_.createIterator(IteratorFactory::getInstance("DFS"));
 
     // Expect

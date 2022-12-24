@@ -1,7 +1,7 @@
 #include "../../src/iterator/factory/list_iterator_factory.h"
 
 class ListIteratorFactoryTest : public ::testing::Test {
-private:
+protected:
     /**
      * @brief Points that make up a vector for a `Circle`.
      */
@@ -33,7 +33,6 @@ private:
     const TwoDimensionalVector rectangle_left_vector_{rectangle_vector_start_, rectangle_left_vector_end_};
     const TwoDimensionalVector rectangle_right_vector_{rectangle_vector_start_, rectangle_right_vector_end_};
 
-protected:
     const double DEVIATION = 0.001;
     Circle circle_{circle_vector_};
     Rectangle rectangle_{rectangle_left_vector_, rectangle_right_vector_};
@@ -123,43 +122,98 @@ protected:
     CompoundShape lv2_width_4_compound_shape_{content_of_lv2_width_4_compound_shape_, 6};
 };
 
-TEST_F(Lv2ListCompoundIteratorTest, shouldGetCorrectItemWhenCallingCurrentItem) {
+TEST_F(ListIteratorFactoryTest, shouldGetCorrectItemWhenCallingCurrentItem) {
     // Arrange
+    auto circle_ = new Circle{circle_vector_};
+    auto circle2_ = new Circle{circle_vector_};
+    auto circle3_ = new Circle{circle_vector_};
+    auto circle4_ = new Circle{circle_vector_};
+    auto rectangle_ = new Rectangle{rectangle_left_vector_, rectangle_right_vector_};
+    auto rectangle2_ = new Rectangle{rectangle_left_vector_, rectangle_right_vector_};
+    auto triangle_ = new Triangle{triangle_left_vector_, triangle_right_vector_};
+
+    Shape *content_of_lv1_width_1_compound_shape_[1] = {circle_};
+    auto lv1_width_1_compound_shape_ = new CompoundShape{content_of_lv1_width_1_compound_shape_, 1};
+
+    Shape *content_of_lv1_width_2_compound_shape_[2] = {circle2_, rectangle_};
+    auto lv1_width_2_compound_shape_ = new CompoundShape{content_of_lv1_width_2_compound_shape_, 2};
+
+    Shape *content_of_lv1_width_3_compound_shape_[3] = {circle3_, rectangle2_, triangle_};
+    auto lv1_width_3_compound_shape_ = new CompoundShape{content_of_lv1_width_3_compound_shape_, 3};
+
+    Shape *content_of_lv2_width_4_compound_shape_[4] = {circle4_, lv1_width_1_compound_shape_, lv1_width_2_compound_shape_, lv1_width_3_compound_shape_};
+    CompoundShape lv2_width_4_compound_shape_{content_of_lv2_width_4_compound_shape_, 4};
     const auto it = lv2_width_4_compound_shape_.createIterator(IteratorFactory::getInstance("List"));
 
     // Act
     const auto current_item = it->currentItem();
 
     // Expect
-    EXPECT_EQ(current_item, &circle_);
+    EXPECT_EQ(current_item, circle4_);
 
     // Clean up.
     delete it;
 }
 
-TEST_F(Lv2ListCompoundIteratorTest, shouldGetCorrectItemAfterCallingNext) {
+TEST_F(ListIteratorFactoryTest, shouldGetCorrectItemAfterCallingNext) {
     // Arrange
+    auto circle_ = new Circle{circle_vector_};
+    auto circle2_ = new Circle{circle_vector_};
+    auto circle3_ = new Circle{circle_vector_};
+    auto circle4_ = new Circle{circle_vector_};
+    auto rectangle_ = new Rectangle{rectangle_left_vector_, rectangle_right_vector_};
+    auto rectangle2_ = new Rectangle{rectangle_left_vector_, rectangle_right_vector_};
+    auto triangle_ = new Triangle{triangle_left_vector_, triangle_right_vector_};
+
+    Shape *content_of_lv1_width_1_compound_shape_[1] = {circle_};
+    auto lv1_width_1_compound_shape_ = new CompoundShape{content_of_lv1_width_1_compound_shape_, 1};
+
+    Shape *content_of_lv1_width_2_compound_shape_[2] = {circle2_, rectangle_};
+    auto lv1_width_2_compound_shape_ = new CompoundShape{content_of_lv1_width_2_compound_shape_, 2};
+
+    Shape *content_of_lv1_width_3_compound_shape_[3] = {circle3_, rectangle2_, triangle_};
+    auto lv1_width_3_compound_shape_ = new CompoundShape{content_of_lv1_width_3_compound_shape_, 3};
+
+    Shape *content_of_lv2_width_4_compound_shape_[4] = {circle4_, lv1_width_1_compound_shape_, lv1_width_2_compound_shape_, lv1_width_3_compound_shape_};
+    CompoundShape lv2_width_4_compound_shape_{content_of_lv2_width_4_compound_shape_, 4};
     const auto it = lv2_width_4_compound_shape_.createIterator(IteratorFactory::getInstance("List"));
 
     // Act
     it->next();
 
     // Expect
-    EXPECT_EQ(it->currentItem(), &rectangle_);
+    EXPECT_EQ(it->currentItem(), lv1_width_1_compound_shape_);
 
     // Clean up.
     delete it;
 }
 
-TEST_F(Lv2ListCompoundIteratorTest, shouldGetCorrectReturnOrThrowWhenDone) {
+TEST_F(ListIteratorFactoryTest, shouldGetCorrectReturnOrThrowWhenDone) {
     // Arrange
+    auto circle_ = new Circle{circle_vector_};
+    auto circle2_ = new Circle{circle_vector_};
+    auto circle3_ = new Circle{circle_vector_};
+    auto circle4_ = new Circle{circle_vector_};
+    auto rectangle_ = new Rectangle{rectangle_left_vector_, rectangle_right_vector_};
+    auto rectangle2_ = new Rectangle{rectangle_left_vector_, rectangle_right_vector_};
+    auto triangle_ = new Triangle{triangle_left_vector_, triangle_right_vector_};
+
+    Shape *content_of_lv1_width_1_compound_shape_[1] = {circle_};
+    auto lv1_width_1_compound_shape_ = new CompoundShape{content_of_lv1_width_1_compound_shape_, 1};
+
+    Shape *content_of_lv1_width_2_compound_shape_[2] = {circle2_, rectangle_};
+    auto lv1_width_2_compound_shape_ = new CompoundShape{content_of_lv1_width_2_compound_shape_, 2};
+
+    Shape *content_of_lv1_width_3_compound_shape_[3] = {circle3_, rectangle2_, triangle_};
+    auto lv1_width_3_compound_shape_ = new CompoundShape{content_of_lv1_width_3_compound_shape_, 3};
+
+    Shape *content_of_lv2_width_4_compound_shape_[4] = {circle4_, lv1_width_1_compound_shape_, lv1_width_2_compound_shape_, lv1_width_3_compound_shape_};
+    CompoundShape lv2_width_4_compound_shape_{content_of_lv2_width_4_compound_shape_, 4};
     const auto it = lv2_width_4_compound_shape_.createIterator(IteratorFactory::getInstance("List"));
 
     // Act
     it->next();
     EXPECT_FALSE(it->isDone()); // No time, QQ
-    it->next();
-    it->next();
     it->next();
     it->next();
     it->next();
@@ -174,13 +228,30 @@ TEST_F(Lv2ListCompoundIteratorTest, shouldGetCorrectReturnOrThrowWhenDone) {
     delete it;
 }
 
-TEST_F(Lv2ListCompoundIteratorTest, shouldNotTraverseIntoLv1CompoundShape) {
+TEST_F(ListIteratorFactoryTest, shouldNotTraverseIntoLv1CompoundShape) {
     // Arrange
+    auto circle_ = new Circle{circle_vector_};
+    auto circle2_ = new Circle{circle_vector_};
+    auto circle3_ = new Circle{circle_vector_};
+    auto circle4_ = new Circle{circle_vector_};
+    auto rectangle_ = new Rectangle{rectangle_left_vector_, rectangle_right_vector_};
+    auto rectangle2_ = new Rectangle{rectangle_left_vector_, rectangle_right_vector_};
+    auto triangle_ = new Triangle{triangle_left_vector_, triangle_right_vector_};
+
+    Shape *content_of_lv1_width_1_compound_shape_[1] = {circle_};
+    auto lv1_width_1_compound_shape_ = new CompoundShape{content_of_lv1_width_1_compound_shape_, 1};
+
+    Shape *content_of_lv1_width_2_compound_shape_[2] = {circle2_, rectangle_};
+    auto lv1_width_2_compound_shape_ = new CompoundShape{content_of_lv1_width_2_compound_shape_, 2};
+
+    Shape *content_of_lv1_width_3_compound_shape_[3] = {circle3_, rectangle2_, triangle_};
+    auto lv1_width_3_compound_shape_ = new CompoundShape{content_of_lv1_width_3_compound_shape_, 3};
+
+    Shape *content_of_lv2_width_4_compound_shape_[4] = {circle4_, lv1_width_1_compound_shape_, lv1_width_2_compound_shape_, lv1_width_3_compound_shape_};
+    CompoundShape lv2_width_4_compound_shape_{content_of_lv2_width_4_compound_shape_, 4};
     const auto it = lv2_width_4_compound_shape_.createIterator(IteratorFactory::getInstance("List"));
 
     // Act
-    it->next();
-    it->next();
     it->next();
     it->next();
     it->next();
