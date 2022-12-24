@@ -47,9 +47,6 @@ public:
     void force_cleanup_shapes() override {
         for (auto &&s : shapes_) {
             if (s != nullptr) {
-                if (isTesterSelf) {
-                    s->force_cleanup_shapes();
-                }
                 delete s;
             }
         }
@@ -141,9 +138,9 @@ public:
         }
     }
 
-    void replace(Shape *old_shape, Shape *new_shape) {
-        std::replace(shapes_.begin(), shapes_.end(), old_shape, new_shape);
-    }
+    // void replace(Shape *old_shape, Shape *new_shape) {
+    //     std::replace(shapes_.begin(), shapes_.end(), old_shape, new_shape);
+    // }
 
     void move(const double &deltaX, const double &deltaY) override {
         for (auto &&it : shapes_) {
