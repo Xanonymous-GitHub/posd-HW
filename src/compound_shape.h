@@ -39,9 +39,9 @@ public:
     ~CompoundShape() {
         // Ownership of shapes is transferred to the compound shape.
         // Therefore, the compound shape deletes the shapes.
-        if (!isTesterSelf) {
-            force_cleanup_shapes();
-        }
+        // if (!isTesterSelf) {
+        force_cleanup_shapes();
+        // }
     }
 
     void force_cleanup_shapes() override {
@@ -124,12 +124,20 @@ public:
     }
 
     void deleteShape(Shape *const shape) override {
-        shapes_.remove(shape);
-
-        for (auto &&s : shapes_) {
-            if (s->name() == "CompoundShape") {
-                s->deleteShape(shape);
+        for (auto &&it = shapes_.cbegin(); it != shapes_.cend(); ++it) {
+            if (*it == shape) {
+                delete *it;
+                shapes_.erase(it);
+                break;
             }
+
+            auto subIt = (*it)->createIterator(IteratorFactory::getInstance("DFS"));
+
+            if (!subIt->isDone()) {
+                (*it)->deleteShape(shape);
+            }
+
+            delete subIt;
         }
     }
 
