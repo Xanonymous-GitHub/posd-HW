@@ -1,4 +1,5 @@
 #include "../../../../src/graphics/drag_and_drop/command/command_history.h"
+#include <typeinfo>
 
 class CommandHistoryTest : public ::testing::Test {
 protected:
