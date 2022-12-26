@@ -8,25 +8,17 @@
 
 class Subject {
    private:
-    std::vector<Observer *> _observers;
+    std::vector<Observer *> _observer_$views;
 
    public:
-    virtual ~Subject() {
-        for (auto &&it : _observers) {
-            if (it != nullptr) {
-                delete it;
-            }
-        }
-
-        _observers.clear();
-    }
+    virtual ~Subject() = default;
 
     void attach(Observer *observer) {
         if (observer == nullptr) {
             throw ObserverNullException{"can not attach null observer"};
         }
 
-        _observers.push_back(observer);
+        _observer_$views.push_back(observer);
     }
 
     void detach(Observer *observer) {
@@ -34,11 +26,11 @@ class Subject {
             throw ObserverNullException{"can not detach null observer"};
         }
 
-        _observers.erase(std::remove(_observers.begin(), _observers.end(), observer), _observers.cend());
+        _observer_$views.erase(std::remove(_observer_$views.begin(), _observer_$views.end(), observer), _observer_$views.cend());
     }
 
     void notify() const {
-        for (auto &&it : _observers) {
+        for (auto &&it : _observer_$views) {
             if (it == nullptr) {
                 throw ObserverNullException{"can not notify a null observer"};
             }
@@ -48,7 +40,7 @@ class Subject {
     }
 
     std::vector<Observer *> getObservers() {
-        return _observers;
+        return _observer_$views;
     }
 
     class ObserverNullException : public std::runtime_error {
