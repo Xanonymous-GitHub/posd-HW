@@ -86,4 +86,6 @@ TEST_F(RealCanvasTest, updateShouldBeCalledSuccessfully2) {
     EXPECT_NEAR(lineCalledArgs[5], 5, DEVIATION);
     EXPECT_NEAR(lineCalledArgs[6], 3, DEVIATION);
     EXPECT_NEAR(lineCalledArgs[7], 0, DEVIATION);
+
+    delete[] lineCalledArgs;
 }
