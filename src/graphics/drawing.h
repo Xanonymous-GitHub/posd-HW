@@ -9,6 +9,8 @@ class Drawing : public Subject {
     std::vector<Shape *> shapes_;
 
    public:
+    Drawing(const std::vector<Shape *> &shapes) : shapes_{shapes} {}
+
     ~Drawing() {
         for (auto &&it : shapes_) {
             if (it != nullptr) {
@@ -18,4 +20,11 @@ class Drawing : public Subject {
 
         shapes_.clear();
     };
+
+    /**
+     * Only release $views
+     */
+    std::vector<Shape *> shapes() {
+        return shapes_;
+    }
 };
