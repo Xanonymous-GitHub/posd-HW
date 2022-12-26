@@ -16,6 +16,8 @@ TEST_F(SubjectTest, attachShouldWorkCorrectly) {
     const auto lastAddedObserver = static_cast<MockObserver*>(justAddedObservers.at(0));
     EXPECT_TRUE(lastAddedObserver != nullptr);
     EXPECT_TRUE(observer == lastAddedObserver);
+
+    delete observer;
 }
 
 TEST_F(SubjectTest, detachShouldWorkCorrectly) {
@@ -25,6 +27,8 @@ TEST_F(SubjectTest, detachShouldWorkCorrectly) {
 
     const auto justAddedObservers = sub.getObservers();
     EXPECT_TRUE(justAddedObservers.empty());
+
+    delete observer;
 }
 
 TEST_F(SubjectTest, notifyShouldWorkCorrectly) {
@@ -33,4 +37,6 @@ TEST_F(SubjectTest, notifyShouldWorkCorrectly) {
     sub.notify();
 
     EXPECT_TRUE(observer->isUpdated());
+
+    delete observer;
 }
