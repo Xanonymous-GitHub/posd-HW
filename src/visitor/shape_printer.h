@@ -1,28 +1,27 @@
 #pragma once
 
-#include "../graphics/canvas.h"
-#include "shape_visitor.h"
 #include <memory>
 
+#include "../graphics/canvas.h"
+#include "shape_visitor.h"
+
 class ShapePrinter : public ShapeVisitor {
-private:
-    const std::shared_ptr<Canvas> _canvas;
+   private:
+    Canvas *_canvas_$view;
 
-public:
-    ShapePrinter(Canvas *const canvas) : _canvas{canvas} {}
-
-    ShapePrinter(const std::shared_ptr<Canvas> &canvas) : _canvas{canvas} {}
+   public:
+    ShapePrinter(Canvas *const canvas) : _canvas_$view{canvas} {}
 
     void visitCircle(Circle *const circle) override {
-        _canvas->drawCircle(circle);
+        _canvas_$view->drawCircle(circle);
     }
 
     void visitTriangle(Triangle *const triangle) override {
-        _canvas->drawTriangle(triangle);
+        _canvas_$view->drawTriangle(triangle);
     }
 
     void visitRectangle(Rectangle *const rectangle) override {
-        _canvas->drawRectangle(rectangle);
+        _canvas_$view->drawRectangle(rectangle);
     }
 
     void visitCompoundShape(CompoundShape *const compoundShape) override {}
