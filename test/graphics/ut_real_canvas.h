@@ -40,8 +40,7 @@ class RealCanvasTest : public ::testing::Test {
     const int initHeight = 768;
     Circle *circle_ = new Circle{circle_vector_};
     Rectangle *rectangle_ = new Rectangle{rectangle_left_vector_, rectangle_right_vector_};
-    Triangle *triangle_ = new Triangle{triangle_left_vector_, triangle_right_vector_};
-    std::vector<Shape *> shapes_{circle_, triangle_, rectangle_};
+    std::vector<Shape *> shapes_{circle_, rectangle_};
 
     MockSDLRenderer mockSDLRenderer{};
     SDLAdapter canvas{initWidth, initHeight, &mockSDLRenderer};
@@ -53,7 +52,7 @@ TEST_F(RealCanvasTest, updateShouldBeCalledSuccessfully1) {
     realCanvas.update();
 
     /**
-     * Since the `shapes_` here is consisted of circle->triangle->rectangle,
+     * Since the `shapes_` here is consisted of circle->rectangle,
      * The history inside `mockSDLRenderer` will only stored the last circle's and last rectangle's.
      */
 
@@ -72,7 +71,7 @@ TEST_F(RealCanvasTest, updateShouldBeCalledSuccessfully2) {
     realCanvas.update();
 
     /**
-     * Since the `shapes_` here is consisted of circle->triangle->rectangle,
+     * Since the `shapes_` here is consisted of circle->rectangle,
      * The history inside `mockSDLRenderer` will only stored the last circle's and last rectangle's.
      */
 
@@ -86,6 +85,4 @@ TEST_F(RealCanvasTest, updateShouldBeCalledSuccessfully2) {
     EXPECT_NEAR(lineCalledArgs[5], 5, DEVIATION);
     EXPECT_NEAR(lineCalledArgs[6], 3, DEVIATION);
     EXPECT_NEAR(lineCalledArgs[7], 0, DEVIATION);
-
-    delete[] lineCalledArgs;
 }
