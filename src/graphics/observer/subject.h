@@ -26,6 +26,10 @@ class Subject {
             throw ObserverNullException{"can not detach null observer"};
         }
 
+        if (std::find(_observer_$views.cbegin(), _observer_$views.cend(), observer) == _observer_$views.cend()) {
+            throw ObserverNotFoundException{"detaching target not found"};
+        }
+
         _observer_$views.erase(std::remove(_observer_$views.begin(), _observer_$views.end(), observer), _observer_$views.cend());
     }
 
@@ -44,6 +48,10 @@ class Subject {
     }
 
     class ObserverNullException : public std::runtime_error {
+        using std::runtime_error::runtime_error;
+    };
+
+    class ObserverNotFoundException : public std::runtime_error {
         using std::runtime_error::runtime_error;
     };
 };
