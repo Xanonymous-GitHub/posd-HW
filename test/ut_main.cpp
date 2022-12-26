@@ -31,6 +31,10 @@
 #include "./graphics/drag_and_drop/command/ut_move_command.h"
 #include "./graphics/drag_and_drop/command/ut_undo_command.h"
 
+#include "./graphics/ut_drawing.h"
+#include "./graphics/observer/ut_subject.h"
+#include "./graphics/ut_real_canvas.h"
+
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
