@@ -31,6 +31,13 @@ TEST_F(SubjectTest, detachShouldWorkCorrectly) {
     delete observer;
 }
 
+TEST_F(SubjectTest, detachShouldThrowWhenNotFound) {
+    const auto observer = new MockObserver{};
+    EXPECT_THROW(sub.detach(observer), Subject::ObserverNotFoundException);
+
+    delete observer;
+}
+
 TEST_F(SubjectTest, notifyShouldWorkCorrectly) {
     const auto observer = new MockObserver{};
     sub.attach(observer);
