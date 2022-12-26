@@ -11,7 +11,15 @@ class Subject {
     std::vector<Observer *> _observers;
 
    public:
-    virtual ~Subject() = default;
+    virtual ~Subject() {
+        for (auto &&it : _observers) {
+            if (it != nullptr) {
+                delete it;
+            }
+        }
+
+        _observers.clear();
+    }
 
     void attach(Observer *observer) {
         if (observer == nullptr) {
